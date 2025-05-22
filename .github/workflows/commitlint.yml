@@ -1,0 +1,35 @@
+# SPDX-FileCopyrightText: 2024 Digg - The Agency for Digital Government
+#
+# SPDX-License-Identifier: CC0-1.0
+
+---
+name: Commit Lint
+on: [workflow_call] # yamllint disable-line rule:truthy
+
+permissions:
+  contents: read
+
+jobs:
+  conform:
+    name: Commit (conform) analysis
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+    steps:
+      - name: Harden GitHub runner
+        uses: step-security/harden-runner@c6295a65d1254861815972266d5933fd6e532bdf # v2.11.1
+        with:
+          egress-policy: audit
+
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: ${{ github.event.pull_request.head.sha }} # https://github.com/actions/checkout/issues/426
+
+      - name: Setup main branch
+        run: git fetch origin main:main
+
+      - name: Commit (conform) analysis
+        uses: docker://ghcr.io/siderolabs/conform@sha256:e824f01caf3eb5feb29f9eeac857a3e9131c5e39362bdc4ec299929eddba6852
+        with:
+          args: "enforce --base-branch=main"

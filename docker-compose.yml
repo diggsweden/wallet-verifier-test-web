@@ -1,0 +1,17 @@
+services:
+  verifier-backend:
+    image: ghcr.io/eu-digital-identity-wallet/eudi-srv-web-verifier-endpoint-23220-4-kt:latest
+    container_name: verifier-backend
+    ports:
+      - "8080:8080"
+    environment:
+      VERIFIER_PUBLICURL: "http://localhost:8080"
+      VERIFIER_RESPONSE_MODE: "DirectPost"
+
+  verifier-ui:
+    build: .
+    container_name: verifier-ui
+    ports:
+      - "80:80"
+    environment:
+      - HOST_API="http://localhost"
