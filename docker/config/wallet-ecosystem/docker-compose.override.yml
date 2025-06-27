@@ -1,0 +1,34 @@
+version: "3.9"
+
+services:
+  wallet-enterprise-issuer:
+    build:
+      args:
+        - HTTP_PROXY=${HTTP_PROXY}
+        - HTTPS_PROXY=${HTTPS_PROXY}
+        - NPM_STRICT_SSL=${NPM_STRICT_SSL:-true}
+        - NODE_TLS_REJECT_UNAUTHORIZED=${NODE_TLS_REJECT_UNAUTHORIZED:-1}
+
+  wallet-enterprise-acme-verifier:
+    build:
+      args:
+        - HTTP_PROXY=${HTTP_PROXY}
+        - HTTPS_PROXY=${HTTPS_PROXY}
+        - NPM_STRICT_SSL=${NPM_STRICT_SSL:-true}
+        - NODE_TLS_REJECT_UNAUTHORIZED=${NODE_TLS_REJECT_UNAUTHORIZED:-1}
+
+  wallet-backend-server:
+    build:
+      args:
+        - HTTP_PROXY=${HTTP_PROXY}
+        - HTTPS_PROXY=${HTTPS_PROXY}
+        - NPM_STRICT_SSL=${NPM_STRICT_SSL:-true}
+        - NODE_TLS_REJECT_UNAUTHORIZED=${NODE_TLS_REJECT_UNAUTHORIZED:-1}
+
+  wallet-frontend:
+    build:
+      args:
+        - HTTP_PROXY=${HTTP_PROXY}
+        - HTTPS_PROXY=${HTTPS_PROXY}
+        - NPM_STRICT_SSL=${NPM_STRICT_SSL:-true}
+        - NODE_TLS_REJECT_UNAUTHORIZED=${NODE_TLS_REJECT_UNAUTHORIZED:-1}

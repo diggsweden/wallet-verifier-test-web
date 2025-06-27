@@ -2,21 +2,28 @@
 export default defineNuxtConfig({
   compatibilityDate: "2025-05-15",
   devtools: { enabled: true },
-  devServer: { port: 3000 },
+  devServer: { port: 3002 },
+  modules: ["@nuxtjs/tailwindcss"],
   typescript: {
-    typeCheck: true,
-  },
-  nitro: {
-    devProxy: {
-      "^/(utilities|ui|wallet)": {
-        target: "http://localhost:8080",
-        changeOrigin: true,
-      },
-    },
+    typeCheck: false,
   },
   runtimeConfig: {
     public: {
-      hostApi: process.env.HOST_API || "http://localhost:8080",
+      hostApi: process.env.HOST_API || "http://eudi-verifier",
+    },
+  },
+  nitro: {
+    port: 3002,
+    host: "0.0.0.0",
+    devProxy: {
+      "/ui/": {
+        target: "http://eudi-verifier-backend:8080/ui/",
+        changeOrigin: true,
+      },
+      "/wallet/": {
+        target: "http://eudi-verifier-backend:8080/wallet/",
+        changeOrigin: true,
+      },
     },
   },
 });

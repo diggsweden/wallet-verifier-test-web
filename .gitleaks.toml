@@ -1,2 +1,2 @@
-[[allowlist.files]]
-path = "docker/haproxy.pem"
+[[allowlists]]
+paths = ["docker/haproxy.pem"]

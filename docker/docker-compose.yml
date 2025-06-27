@@ -1,28 +1,84 @@
+name: eudi-verifier-integration
+
 services:
-  verifier-backend:
-    image: ghcr.io/eu-digital-identity-wallet/eudi-srv-web-verifier-endpoint-23220-4-kt:latest
-    container_name: verifier-backend
+  # === EUDI Verifier ===
+  eudi-verifier-backend:
+    build:
+      context: ./eudi-srv-web-verifier-endpoint-23220-4-kt
+      dockerfile: Dockerfile.custom
+      args:
+        - HTTP_PROXY=${HTTP_PROXY}
+        - HTTPS_PROXY=${HTTPS_PROXY}
+        - NO_PROXY=${NO_PROXY}
+        - NODE_TLS_REJECT_UNAUTHORIZED=${NODE_TLS_REJECT_UNAUTHORIZED:-1}
+    container_name: eudi-verifier-backend
+    hostname: eudi-verifier-backend
     ports:
       - "8080:8080"
     environment:
-      VERIFIER_PUBLICURL: "https://localhost:8080"
-      VERIFIER_RESPONSE_MODE: "DirectPost"
+      VERIFIER_PUBLICURL: "http://eudi-verifier-backend:8080"
+      VERIFIER_RESPONSE_MODE: "DirectPostJwt"
+      SPRING_PROFILES_ACTIVE: "dev"
+      # Use x509_san_dns to include x5c headers
+      VERIFIER_ORIGINALCLIENTID: "localhost"
+      VERIFIER_CLIENTIDSCHEME: "x509_san_dns"
+      VERIFIER_JAR_SIGNING_ALGORITHM: "ES512"
+      VERIFIER_JAR_SIGNING_KEY: "LoadFromKeystore"
+      VERIFIER_JAR_SIGNING_KEY_KEYSTORE: "classpath:keystore.jks"
+      VERIFIER_JAR_SIGNING_KEY_KEYSTORE_TYPE: "jks"
+      VERIFIER_JAR_SIGNING_KEY_KEYSTORE_PASSWORD: "keystore"
+      VERIFIER_JAR_SIGNING_KEY_ALIAS: "verifier"
+      VERIFIER_JAR_SIGNING_KEY_PASSWORD: "verifier"
+      # No trust sources configured - will use X5CShouldBe.Ignored mode
+      VERIFIER_VALIDATION_SDJWTVC_STATUSCHECK_ENABLED: "false"
+      # Additional settings for debugging
+      LOGGING_LEVEL_EU_EUROPA_EC_EUDI_VERIFIER_ENDPOINT: "DEBUG"
+    restart: on-failure
+    networks:
+      - wallet-ecosystem_default
+      - default
 
-  verifier-ui:
+  #  eudi-verifier-ui:
+  #    image: ghcr.io/eu-digital-identity-wallet/eudi-web-verifier:latest
+  #    container_name: eudi-verifier-ui
+  #    hostname: eudi-verifier-ui
+  #    ports:
+  #      - "4300:4300"
+  #    environment:
+  #      DOMAIN_NAME: ""
+  #      HOST_API: "http://eudi-verifier"
+  #    depends_on:
+  #      - eudi-verifier-backend
+  #    restart: on-failure
+  #    networks:
+  #      - wallet-ecosystem_default
+  #      - default
+
+  # Our custom Nuxt verifier
+  custom-verifier:
     build:
-      context: ..
-      dockerfile: ./docker/Dockerfile
-    container_name: verifier-ui
+      context: ../
+      dockerfile: Dockerfile
+    container_name: custom-verifier
+    hostname: custom-verifier
     ports:
-      - "4300:4300"
+      - "3002:3002"
     environment:
-      - HOST_API="https://localhost"
+      HOST_API: "http://eudi-verifier-backend:8080"
+      PORT: "3002"
+      NITRO_PORT: "3002"
+      NUXT_PUBLIC_BASE_URL: "http://localhost:3002"
+      PUBLIC_BASE_URL: "http://localhost:3002"
+    depends_on:
+      - eudi-verifier-backend
+    restart: on-failure
+    networks:
+      - wallet-ecosystem_default
+      - default
 
-  verifier-haproxy:
-    image: haproxy:2.8.15
-    container_name: verifier-haproxy
-    ports:
-      - "443:443"
-    volumes:
-      - ./haproxy.conf:/usr/local/etc/haproxy/haproxy.cfg
-      - ./haproxy.pem:/etc/ssl/certs/mysite.pem
+networks:
+  # Connect to wallet-ecosystem network
+  wallet-ecosystem_default:
+    external: true
+  default:
+    driver: bridge
