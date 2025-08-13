@@ -96,6 +96,8 @@ fi
 if [ -d "$DOCKER_DIR/eudi-srv-web-verifier-endpoint-23220-4-kt" ]; then
   cd "$DOCKER_DIR/eudi-srv-web-verifier-endpoint-23220-4-kt"
   git reset --hard HEAD && git clean -fd
+  # Pin to version 0.5.2 to avoid Kotlin compiler issues
+  git checkout 2ca5113
   log "Applying EUDI overlays..."
   apply_overlays "$DOCKER_DIR/config/eudi-verifier" "$DOCKER_DIR/eudi-srv-web-verifier-endpoint-23220-4-kt"
 fi
