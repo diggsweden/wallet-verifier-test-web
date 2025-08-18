@@ -24,7 +24,7 @@
           <h2 class="text-2xl font-semibold text-gray-800 mb-3">Verifiera din identitet</h2>
           <p class="text-gray-600 mb-8 max-w-md mx-auto">Verifiera din identitet med din digitala plånbok för att fortsätta.</p>
           <button @click="startVerification" class="group relative inline-flex items-center justify-center px-10 py-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-medium rounded-xl hover:shadow-2xl transform hover:-translate-y-0.5 transition-all duration-200">
-            <span class="relative">Starta verifiering</span>
+            <span class="relative">Starta inloggningen</span>
             <svg class="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
             </svg>
@@ -79,7 +79,7 @@
                 </svg>
               </div>
             </div>
-            <h3 class="text-2xl font-bold text-gray-800 mt-6 mb-2">Verifiering lyckades!</h3>
+            <h3 class="text-2xl font-bold text-gray-800 mt-6 mb-2">Inloggningen lyckades!</h3>
             <p class="text-gray-600">Din identitet har verifierats framgångsrikt</p>
           </div>
           <div v-if="credentials" class="bg-gradient-to-r from-gray-50 to-gray-100 rounded-xl p-8 mb-8">
@@ -107,7 +107,7 @@
               Verifiera igen
             </button>
             <NuxtLink to="/" class="inline-flex items-center px-6 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-xl hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-200">
-              Till startsidan
+              Logga ut
               <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
               </svg>
@@ -124,7 +124,7 @@
           <h3 class="text-xl font-semibold text-gray-800 mb-3">Något gick fel</h3>
           <div class="bg-red-50 border border-red-200 rounded-xl p-6 mb-8 max-w-md mx-auto">
             <p class="text-red-800">
-              {{ error || 'Verifieringen kunde inte slutföras. Försök igen.' }}
+              {{ error || 'Inloggningen kunde inte slutföras. Försök igen.' }}
             </p>
           </div>
           <button @click="reset" class="inline-flex items-center px-8 py-3 bg-gradient-to-r from-red-500 to-red-600 text-white rounded-xl hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-200">
