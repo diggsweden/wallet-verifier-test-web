@@ -200,8 +200,8 @@ const startVerification = async () => {
       body: { type: 'vp_token', nonce: "test-frontend-demo", request_uri_method: "get", presentation_definition: presentationDefinition }
     })
     
-    transactionId.value = response.transaction_id || response.transactionId
-    const requestUri = response.request_uri || response.authorizationUrl
+    transactionId.value = response.transaction_id
+    const requestUri = response.request_uri
     const clientId = response.client_id || 'Verifier'
     
     authUrl.value = `http://localhost:3000/cb?client_id=${encodeURIComponent(clientId)}&request_uri=${encodeURIComponent(requestUri)}`
