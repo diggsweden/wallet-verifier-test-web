@@ -1,74 +1,67 @@
 # wallet-verifier-test-web
 
-[![Version](https://img.shields.io/github/v/tag/diggsweden/open-source-project-template?style=for-the-badge&color=green&label=Version)](https://github.com/diggswedenn/open-source-project-template/tags])
-[![REUSE](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fapi.reuse.software%2Fstatus%2Fgithub.com%2Fdiggsweden%2Fopen-source-project-template&query=status&style=for-the-badge&label=REUSE)](https://api.reuse.software/info/github.com/diggsweden/open-source-project-template)
-[![OpenSSF Scorecard](https://api.scorecard.dev/projects/github.com/jahwag/wallet-verifier-test-web/badge?style=for-the-badge)](https://scorecard.dev/viewer/?uri=github.com/diggsweden/wallet-verifier-test-web)
+[![REUSE](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fapi.reuse.software%2Fstatus%2Fgithub.com%2Fdiggsweden%2Fwallet-verifier-test-web&query=status&style=for-the-badge&label=REUSE)](https://api.reuse.software/info/github.com/diggsweden/wallet-verifier-test-web)
+[![OpenSSF Scorecard](https://api.scorecard.dev/projects/github.com/diggsweden/wallet-verifier-test-web/badge?style=for-the-badge)](https://scorecard.dev/viewer/?uri=github.com/diggsweden/wallet-verifier-test-web)
 ![Standard for Public Code Commitment](https://img.shields.io/badge/Standard%20for%20Public%20Code%20Commitment-green?style=for-the-badge)
+
+Demo application demonstrating how a relying party may implement authentication using EUDI wallet verification.
 
 ## Quick Start
 
 ### Docker
+
 ```bash
 npm install
 npm run generate
 docker compose -f ./docker/docker-compose.yml up -d
 ```
+
 Open [http://localhost:3002](http://localhost:3002)
 
 ### Development
+
 ```bash
 npm run dev
 ```
 
 ### Testing
+
 ```bash
 npm run test        # watch mode
 npm run test:once   # single run
 ```
 
 ### Full Wallet Ecosystem
-See [docker/README.md](./docker/README.md) for running complete wallet ecosystem with issuer.
+
+See [docker/README.md](./docker/README.md) for running a complete wwWallet ecosystem with this application.
 
 ## Architecture
 
-### Overview
-
-Wallet verification system built with Nuxt.js 3 that bridges users and the EUDI verifier backend for credential verification.
-
-### System Architecture
-
 ```mermaid
 graph TB
-    subgraph "Browser"
-        UI[Web Interface<br/>Port 3002]
+    subgraph "User's Browser"
+        Frontend[Nuxt Frontend<br/>Port 3002]
     end
     
-    subgraph "Nuxt Application"
-        Frontend[Frontend Pages<br/>Vue Components]
+    subgraph "Server (Nuxt)"
         ServerAPI[Server API<br/>Nitro Endpoints]
         Memory[(In-Memory<br/>Storage)]
     end
     
     subgraph "External Services"
         Backend[EUDI Backend<br/>Port 8080]
-        Wallet[User's Digital<br/>Wallet<br/>Port 3000]
+        Wallet[Digital Wallet<br/>Port 3000]
     end
     
-    UI --> Frontend
-    Frontend --> ServerAPI
-    ServerAPI --> Backend
-    ServerAPI --> Memory
+    Frontend <--> ServerAPI
+    ServerAPI <--> Backend
+    ServerAPI <--> Memory
     Wallet --> ServerAPI
-    Backend --> Wallet
+    Wallet <--> Backend
+    Frontend -.->|Redirect| Wallet
 ```
 
-### Components
-
-- **Frontend**: Vue pages (`pages/`) on port 3002
-- **Server API**: Nitro endpoints (`/server/api/`) for backend communication
-- **EUDI Backend**: External verifier service on port 8080
-
-### Complete Verification Flow
+### Verification Flow
 
 ```mermaid
 sequenceDiagram
@@ -87,9 +80,12 @@ sequenceDiagram
     
     Frontend->>User: Show "Open wallet" button
     User->>Frontend: Click "Open wallet"
-    Frontend->>Wallet: Redirect to http://localhost:3000/cb<br/>(wallet on port 3000)
+    Frontend->>Wallet: Redirect to http://localhost:3000/cb<br/>with client_id & request_uri
     
     Note over Frontend: Start 90-second timer<br/>Start polling after 5s
+    
+    Wallet->>Backend: GET /wallet/request.jwt/{requestId}
+    Backend-->>Wallet: Signed JWT with presentation definition
     
     Wallet->>User: Request approval
     User->>Wallet: Approve/Reject
@@ -102,7 +98,7 @@ sequenceDiagram
         Note over Wallet: No callback sent
     end
     
-    loop Every 2 seconds (max 45 times)
+    loop Every 2 seconds (max 90 seconds)
         Frontend->>ServerAPI: GET /api/verifier-status/{id}
         ServerAPI->>Backend: GET /ui/presentations/{id}
         
@@ -129,6 +125,3 @@ sequenceDiagram
         Frontend->>User: Show error message
     end
 ```
-
-
-
