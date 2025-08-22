@@ -7,7 +7,7 @@ export default defineEventHandler(async (event) => {
     "http://eudi-verifier-backend:8080";
 
   try {
-    const response = await $fetch(`${hostApi}/ui/clientMetadata`, {
+    const response = await $fetch(`${hostApi}/public/openapi.json`, {
       ignoreHTTPSErrors: true,
     });
 

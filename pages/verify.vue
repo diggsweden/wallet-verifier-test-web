@@ -51,7 +51,13 @@
               </svg>
             </div>
             <h2 class="text-xl font-semibold text-gray-800 mb-2">Väntar på din plånbok</h2>
-            <p class="text-gray-600 mb-6">Öppna din digitala plånbok för att slutföra verifieringen</p>
+            <p class="text-gray-600 mb-6">Skanna QR-koden med din mobila plånbok eller klicka för webplånbok</p>
+            
+            <!-- QR Code for mobile wallets -->
+            <div v-if="qrCodeUrl" class="mb-6">
+              <img :src="qrCodeUrl" alt="QR Code" class="mx-auto border-4 border-white shadow-lg rounded-lg" style="width: 250px; height: 250px;">
+            </div>
+            
             <a :href="authUrl" @click="startPolling" target="_blank" class="group inline-flex items-center justify-center px-8 py-3 bg-gradient-to-r from-green-500 to-green-600 text-white font-medium rounded-xl hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200">
               <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
@@ -153,30 +159,28 @@
 const state = ref('idle')
 const transactionId = ref(null)
 const authUrl = ref(null)
+const qrCodeUrl = ref(null)
 const credentials = ref(null)
 const error = ref(null)
 const timeLeft = ref(90)
 const polling = ref(null)
 
-const presentationDefinition = {
-  id: "pid_verification",
-  input_descriptors: [{
+const dcqlQuery = {
+  credentials: [{
     id: "pid_credential",
-    name: "Personal Identity Document",
-    purpose: "Verify your identity for access to Mina Sidor",
-    format: {
-      "vc+sd-jwt": { "sd-jwt_alg_values": ["ES256"], "kb-jwt_alg_values": ["ES256"] },
-      "dc+sd-jwt": { "sd-jwt_alg_values": ["ES256"], "kb-jwt_alg_values": ["ES256"] }
+    format: "dc+sd-jwt",
+    meta: {
+      vct_values: ["urn:eudi:pid:1"]
     },
-    constraints: {
-      limit_disclosure: "required",
-      fields: [
-        { path: ["$.vct"], filter: { type: "string", const: "urn:eudi:pid:1" } },
-        { path: ["$.given_name"] },
-        { path: ["$.family_name"] },
-        { path: ["$.personal_administrative_number"] }
-      ]
-    }
+    claims: [
+      { path: ["given_name"] },
+      { path: ["family_name"] },
+      { path: ["personal_administrative_number"] }
+    ]
+  }],
+  credential_sets: [{
+    options: [["pid_credential"]],
+    purpose: "Verify your identity for access to Mina Sidor"
   }]
 }
 
@@ -197,14 +201,22 @@ const startVerification = async () => {
   try {
     const response = await $fetch('/api/verifier-request', {
       method: 'POST',
-      body: { type: 'vp_token', nonce: "test-frontend-demo", request_uri_method: "get", presentation_definition: presentationDefinition }
+      body: { type: 'vp_token', nonce: "test-frontend-demo", request_uri_method: "get", dcql_query: dcqlQuery }
     })
     
     transactionId.value = response.transaction_id
     const requestUri = response.request_uri
     const clientId = response.client_id || 'Verifier'
     
+    // For mobile wallets, create openid4vp:// URL
+    const mobileUrl = `openid4vp://?client_id=${encodeURIComponent(clientId)}&request_uri=${encodeURIComponent(requestUri)}`
+    
+    // For web wallets
     authUrl.value = `http://localhost:3000/cb?client_id=${encodeURIComponent(clientId)}&request_uri=${encodeURIComponent(requestUri)}`
+    
+    // Generate QR code URL for the transaction
+    qrCodeUrl.value = `http://localhost:8080/ui/presentations/${transactionId.value}/qr-code`
+    
     state.value = 'waiting'
     startCountdown()
   } catch (e) {

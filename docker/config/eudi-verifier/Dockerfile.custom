@@ -1,4 +1,4 @@
-FROM gradle:8.13-jdk21 AS builder
+FROM gradle:8.13-jdk17 AS builder
 
 ARG HTTP_PROXY
 ARG HTTPS_PROXY
@@ -54,7 +54,7 @@ RUN echo "NEXUS_GRADLE=$NEXUS_GRADLE" && \
 RUN gradle --init-script init.gradle clean bootJar --no-daemon --info \
     || (echo "Build failed. Gradle output above." && false)
 
-FROM eclipse-temurin:21-jre-alpine
+FROM eclipse-temurin:17-jre-alpine
 
 WORKDIR /app
 

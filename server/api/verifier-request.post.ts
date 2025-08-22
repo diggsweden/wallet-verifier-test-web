@@ -16,7 +16,7 @@ export default defineEventHandler(async (event) => {
   try {
     const requestBody = {
       ...clientBody,
-      response_mode: "direct_post",
+      response_mode: clientBody.response_mode || "direct_post",
       response_uri: `${publicBaseUrl}/api/verifier-callback`,
       state: randomUUID(),
       nonce: clientBody.nonce || randomUUID(),
