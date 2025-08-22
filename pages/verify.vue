@@ -15,23 +15,7 @@
       </div>
       
       <div class="bg-white rounded-xl shadow-xl p-10 mb-6 border border-gray-100">
-        <div v-if="state === 'idle'" class="text-center">
-          <div class="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-blue-100 to-indigo-100 rounded-full mb-6">
-            <svg class="w-10 h-10 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
-            </svg>
-          </div>
-          <h2 class="text-2xl font-semibold text-gray-800 mb-3">Verifiera din identitet</h2>
-          <p class="text-gray-600 mb-8 max-w-md mx-auto">Verifiera din identitet med din digitala plånbok för att fortsätta.</p>
-          <button @click="startVerification" class="group relative inline-flex items-center justify-center px-10 py-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-medium rounded-xl hover:shadow-2xl transform hover:-translate-y-0.5 transition-all duration-200">
-            <span class="relative">Starta inloggningen</span>
-            <svg class="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-            </svg>
-          </button>
-        </div>
-
-        <div v-else-if="state === 'initializing'" class="text-center py-12">
+        <div v-if="state === 'initializing'" class="text-center py-12">
           <div class="relative inline-flex">
             <div class="w-16 h-16 bg-blue-600 rounded-full animate-ping absolute inline-flex opacity-20"></div>
             <div class="relative inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-full">
@@ -50,14 +34,27 @@
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z"></path>
               </svg>
             </div>
-            <h2 class="text-xl font-semibold text-gray-800 mb-2">Väntar på din plånbok</h2>
-            <p class="text-gray-600 mb-6">Öppna din digitala plånbok för att slutföra verifieringen</p>
-            <a :href="authUrl" @click="startPolling" target="_blank" class="group inline-flex items-center justify-center px-8 py-3 bg-gradient-to-r from-green-500 to-green-600 text-white font-medium rounded-xl hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200">
+            <h2 class="text-xl font-semibold text-gray-800 mb-2">Verifiera med din digitala plånbok</h2>
+            
+            <a :href="authUrl" @click="startPolling" class="group inline-flex items-center justify-center px-8 py-3 bg-gradient-to-r from-green-500 to-green-600 text-white font-medium rounded-xl hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200 mb-6">
               <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
               </svg>
-              <span>Öppna wallet</span>
+              <span>Öppna plånbok på denna enhet</span>
             </a>
+            
+            <div class="relative">
+              <div class="absolute inset-0 flex items-center">
+                <div class="w-full border-t border-gray-300"></div>
+              </div>
+              <div class="relative flex justify-center text-sm">
+                <span class="px-4 bg-gradient-to-br from-blue-50 to-indigo-50 text-gray-600">eller skanna QR-koden</span>
+              </div>
+            </div>
+            
+            <div v-if="qrCodeUrl" class="mt-6">
+              <img :src="qrCodeUrl" alt="QR Code" class="mx-auto border-4 border-white shadow-lg rounded-lg" style="width: 250px; height: 250px;">
+            </div>
           </div>
           <div class="bg-blue-100 rounded-xl p-4 inline-flex items-center space-x-3">
             <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -150,40 +147,19 @@
 </template>
 
 <script setup>
-const state = ref('idle')
+const state = ref('initializing')
 const transactionId = ref(null)
 const authUrl = ref(null)
+const qrCodeUrl = ref(null)
 const credentials = ref(null)
 const error = ref(null)
 const timeLeft = ref(90)
 const polling = ref(null)
 
-const presentationDefinition = {
-  id: "pid_verification",
-  input_descriptors: [{
-    id: "pid_credential",
-    name: "Personal Identity Document",
-    purpose: "Verify your identity for access to Mina Sidor",
-    format: {
-      "vc+sd-jwt": { "sd-jwt_alg_values": ["ES256"], "kb-jwt_alg_values": ["ES256"] },
-      "dc+sd-jwt": { "sd-jwt_alg_values": ["ES256"], "kb-jwt_alg_values": ["ES256"] }
-    },
-    constraints: {
-      limit_disclosure: "required",
-      fields: [
-        { path: ["$.vct"], filter: { type: "string", const: "urn:eudi:pid:1" } },
-        { path: ["$.given_name"] },
-        { path: ["$.family_name"] },
-        { path: ["$.personal_administrative_number"] }
-      ]
-    }
-  }]
-}
-
 const startVerification = async () => {
   state.value = 'initializing'
   error.value = null
-  
+
   if (window.location.search.includes('demo=true')) {
     state.value = 'waiting'
     authUrl.value = '#demo'
@@ -193,25 +169,32 @@ const startVerification = async () => {
     }, 3000)
     return
   }
-  
+
   try {
+    console.log("Making request to server API")
+    
     const response = await $fetch('/api/verifier-request', {
-      method: 'POST',
-      body: { type: 'vp_token', nonce: "test-frontend-demo", request_uri_method: "get", presentation_definition: presentationDefinition }
+      method: 'POST'
     })
     
-    transactionId.value = response.transaction_id
-    const requestUri = response.request_uri
-    const clientId = response.client_id || 'Verifier'
+    console.log("Got response:", response)
     
-    authUrl.value = `http://localhost:3000/cb?client_id=${encodeURIComponent(clientId)}&request_uri=${encodeURIComponent(requestUri)}`
+    qrCodeUrl.value = response.qrCodeDataUrl
+    transactionId.value = response.transaction_id
+    authUrl.value = response.authUrl
+    
     state.value = 'waiting'
     startCountdown()
   } catch (e) {
+    console.error("Verification error:", e)
     state.value = 'error'
     error.value = e.data?.message || e.message || 'Kunde inte starta verifieringen'
   }
 }
+
+onMounted(() => {
+  startVerification()
+})
 
 const startPolling = () => {
   if (polling.value) return
@@ -256,19 +239,29 @@ const startCountdown = () => {
 }
 
 const reset = () => {
-  state.value = 'idle'
-  transactionId.value = null
-  authUrl.value = null
-  credentials.value = null
-  error.value = null
-  timeLeft.value = 90
   if (polling.value) {
     clearInterval(polling.value)
     polling.value = null
   }
+  if (qrCodeUrl.value && qrCodeUrl.value.startsWith('blob:')) {
+    URL.revokeObjectURL(qrCodeUrl.value)
+  }
+  
+  state.value = 'initializing'
+  transactionId.value = null
+  authUrl.value = null
+  qrCodeUrl.value = null
+  credentials.value = null
+  error.value = null
+  timeLeft.value = 90
+  
+  startVerification()
 }
 
 onUnmounted(() => {
   if (polling.value) clearInterval(polling.value)
+  if (qrCodeUrl.value && qrCodeUrl.value.startsWith('blob:')) {
+    URL.revokeObjectURL(qrCodeUrl.value)
+  }
 })
 </script>

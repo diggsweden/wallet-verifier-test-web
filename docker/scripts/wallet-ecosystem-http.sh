@@ -100,7 +100,7 @@ if [ -d "$DOCKER_DIR/eudi-srv-web-verifier-endpoint-23220-4-kt" ]; then
   cd "$DOCKER_DIR/eudi-srv-web-verifier-endpoint-23220-4-kt"
   git reset --hard HEAD && git clean -fd
   # Pin to stable version
-  git checkout v0.5.2
+  git checkout v0.6.0
   log "Applying EUDI overlays..."
   apply_overlays "$DOCKER_DIR/config/eudi-verifier" "$DOCKER_DIR/eudi-srv-web-verifier-endpoint-23220-4-kt"
 fi

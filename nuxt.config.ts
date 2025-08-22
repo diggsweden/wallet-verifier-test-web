@@ -10,6 +10,7 @@ export default defineNuxtConfig({
   runtimeConfig: {
     public: {
       hostApi: process.env.HOST_API || "http://eudi-verifier",
+      webWalletUrl: process.env.WEB_WALLET_URL,
     },
   },
   nitro: {
