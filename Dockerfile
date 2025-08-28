@@ -32,6 +32,7 @@ COPY server server
 COPY app.vue nuxt.config.ts tsconfig.json ./
 
 ENV HOST_API=http://eudi-verifier
+ENV WEB_WALLET_URL=http://localhost:3000/cb
 RUN npm run build
 
 RUN npm prune --omit=dev
