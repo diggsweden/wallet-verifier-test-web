@@ -7,7 +7,7 @@
     "security:openssf-scorecard",
     ":gitSignOff",
     ":maintainLockFilesWeekly",
-    ":automergePatch",
+    ":automergeMinor",
     ":semanticCommits",
     ":semanticCommitTypeAll(chore)",
     "npm:unpublishSafe",
@@ -26,7 +26,6 @@
     {
       "matchManagers": ["github-actions"],
       "addLabels": ["actions"],
-      "pinDigests": true,
       "groupName": "github actions"
     },
     {
