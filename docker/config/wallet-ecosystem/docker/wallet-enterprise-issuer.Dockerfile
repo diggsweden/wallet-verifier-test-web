@@ -1,4 +1,4 @@
-FROM node:22-bullseye-slim AS builder
+FROM node:22-bullseye-slim@sha256:535c6223132f2c4b874d604aab6233c41e968ec9a0e9b11bf021b920abc972b2 AS builder
 
 ARG HTTP_PROXY
 ARG HTTPS_PROXY
@@ -30,7 +30,7 @@ RUN if [ "$NPM_STRICT_SSL" = "false" ]; then yarn config set "strict-ssl" false 
 RUN yarn cache clean && yarn install && yarn build && rm -rf node_modules/ && yarn install --production
 
 # Production stage
-FROM node:22-bullseye-slim AS production
+FROM node:22-bullseye-slim@sha256:535c6223132f2c4b874d604aab6233c41e968ec9a0e9b11bf021b920abc972b2 AS production
 WORKDIR /app
 
 COPY --from=builder /app/node_modules ./node_modules

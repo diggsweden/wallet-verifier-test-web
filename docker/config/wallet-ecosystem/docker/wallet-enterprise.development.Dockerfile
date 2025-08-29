@@ -1,4 +1,4 @@
-FROM node:22-bullseye-slim AS dependencies
+FROM node:22-bullseye-slim@sha256:535c6223132f2c4b874d604aab6233c41e968ec9a0e9b11bf021b920abc972b2 AS dependencies
 
 ARG HTTP_PROXY
 ARG HTTPS_PROXY
@@ -24,7 +24,7 @@ RUN if [ "$NPM_STRICT_SSL" = "false" ]; then yarn config set "strict-ssl" false 
 RUN yarn install
 
 
-FROM node:22-bullseye-slim AS development
+FROM node:22-bullseye-slim@sha256:535c6223132f2c4b874d604aab6233c41e968ec9a0e9b11bf021b920abc972b2 AS development
 
 ENV NODE_PATH=/node_modules
 COPY --from=dependencies /dependencies/node_modules /node_modules
