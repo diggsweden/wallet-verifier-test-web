@@ -22,18 +22,18 @@ jobs:
       security-events: write
     steps:
       - name: Harden GitHub runner
-        uses: step-security/harden-runner@91182cccc01eb5e619899d80e4e971d6181294a7 #v2.10.1
+        uses: step-security/harden-runner@ec9f2d5744a09debf3a187a3f4f675c53b671911 # v2.13.0
         with:
           egress-policy: audit
 
       - name: Checkout repository
-        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 #v4.2.2
+        uses: actions/checkout@08eba0b27e820071cde6df949e0beb9ba4906955 # v4.3.0
         with:
           fetch-depth: 10
 
       - name: MegaLinter lint
         id: ml
-        uses: oxsecurity/megalinter@b38cdf1f0cbe056fad4112cb7cd99c2b574c9617 #v8.1.0
+        uses: oxsecurity/megalinter@e08c2b05e3dbc40af4c23f41172ef1e068a7d651 # v8.8.0
         env:
           MEGALINTER_CONFIG: ./development/megalinter.yml
           DEFAULT_WORKSPACE: .
