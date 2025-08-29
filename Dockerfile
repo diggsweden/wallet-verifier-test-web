@@ -1,4 +1,4 @@
-FROM node:18-bullseye-slim
+FROM node:18-bullseye-slim@sha256:d69fb189fa7765636655db043a6a9e6be5ddf94bd1a8dc33fd0bcf4664606a9e
 
 ARG HTTP_PROXY
 ARG HTTPS_PROXY

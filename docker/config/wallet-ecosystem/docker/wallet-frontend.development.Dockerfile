@@ -1,4 +1,4 @@
-FROM node:22-bullseye-slim AS dependencies
+FROM node:22-bullseye-slim@sha256:535c6223132f2c4b874d604aab6233c41e968ec9a0e9b11bf021b920abc972b2 AS dependencies
 
 ARG HTTP_PROXY
 ARG HTTPS_PROXY
@@ -23,7 +23,7 @@ COPY ./wallet-frontend/package.json ./wallet-frontend/yarn.lock .
 RUN if [ "$NPM_STRICT_SSL" = "false" ]; then yarn config set "strict-ssl" false -g; fi
 RUN  yarn install && yarn cache clean -f
 
-FROM node:22-bullseye-slim AS development
+FROM node:22-bullseye-slim@sha256:535c6223132f2c4b874d604aab6233c41e968ec9a0e9b11bf021b920abc972b2 AS development
 
 COPY --from=dependencies /dependencies/node_modules /app/node_modules
 
