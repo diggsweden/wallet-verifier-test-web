@@ -1,4 +1,4 @@
-FROM gradle:8.13-jdk21 AS builder
+FROM gradle:8.14-jdk21@sha256:2c1f7bda92402f29e8e1f890e85b07190080eb4af217962ad7eaea685d8eb2fb AS builder
 
 ARG HTTP_PROXY
 ARG HTTPS_PROXY
