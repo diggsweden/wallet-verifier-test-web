@@ -158,28 +158,6 @@ const error = ref(null)
 const timeLeft = ref(90)
 const polling = ref(null)
 
-const presentationDefinition = {
-  id: "pid_verification",
-  input_descriptors: [{
-    id: "pid_credential",
-    name: "Personal Identity Document",
-    purpose: "Verify your identity for access to Mina Sidor",
-    format: {
-      "vc+sd-jwt": { "sd-jwt_alg_values": ["ES256"], "kb-jwt_alg_values": ["ES256"] },
-      "dc+sd-jwt": { "sd-jwt_alg_values": ["ES256"], "kb-jwt_alg_values": ["ES256"] }
-    },
-    constraints: {
-      limit_disclosure: "required",
-      fields: [
-        { path: ["$.vct"], filter: { type: "string", const: "urn:eudi:pid:1" } },
-        { path: ["$.given_name"] },
-        { path: ["$.family_name"] },
-        { path: ["$.personal_administrative_number"] }
-      ]
-    }
-  }]
-}
-
 const startVerification = async () => {
   state.value = 'initializing'
   error.value = null
@@ -197,7 +175,7 @@ const startVerification = async () => {
   try {
     const response = await $fetch('/api/verifier-request', {
       method: 'POST',
-      body: { type: 'vp_token', nonce: "test-frontend-demo", request_uri_method: "get", presentation_definition: presentationDefinition }
+      body: { type: 'vp_token', nonce: "test-frontend-demo", request_uri_method: "get" }
     })
     
     transactionId.value = response.transaction_id

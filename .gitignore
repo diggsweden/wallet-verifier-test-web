@@ -35,3 +35,6 @@ docker/eudi-srv-web-verifier-endpoint-23220-4-kt
 # Proxy certificate
 docker/proxy-cert.crt
 docker/config/eudi-verifier/proxy-cert.crt
+
+# Misc
+docker/config/eudi-verifier/.gradle

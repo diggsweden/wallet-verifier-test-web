@@ -7,14 +7,13 @@ spotless = "7.0.2"
 java = "21"
 kotlinxSerialization = "1.8.0"
 oauth2OidcSdk = "11.23.1"
-presentationExchange = "0.3.0"
 ktlintVersion = "0.50.0"
 bouncyCastle = "1.80"
 arrow = "2.0.1"
 dependencycheck = "12.1.1"
 swaggerUi = "5.20.1"
 waltid = "0.11.0"
-sdJwt = "0.14.1"
+sdJwt = "0.14.3"
 ktor = "3.1.1"
 jsonpathkt = "2.0.1"
 tink = "1.17.0"
@@ -30,7 +29,7 @@ aedile="2.1.2"
 [libraries]
 kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutines" }
 nimbusds-oauth2-oidc-sdk = { module = "com.nimbusds:oauth2-oidc-sdk", version.ref = "oauth2OidcSdk" }
-presentation-exchange = { module = "eu.europa.ec.eudi:eudi-lib-jvm-presentation-exchange-kt", version.ref = "presentationExchange" }
+arrow-core-serialization = { module = "io.arrow-kt:arrow-core-serialization", version.ref = "arrow" }
 bouncy-castle = { module = "org.bouncycastle:bcpkix-jdk18on", version.ref = "bouncyCastle" }
 arrow-core = { module = "io.arrow-kt:arrow-core", version.ref = "arrow" }
 arrow-fx-coroutines = { module = "io.arrow-kt:arrow-fx-coroutines", version.ref = "arrow" }

@@ -26,7 +26,7 @@ services:
       SPRING_PROFILES_ACTIVE: "dev"
       # Use x509_san_dns to include x5c headers
       VERIFIER_ORIGINALCLIENTID: "localhost"
-      VERIFIER_CLIENTIDSCHEME: "x509_san_dns"
+      VERIFIER_CLIENTIDPREFIX: "x509_san_dns"
       VERIFIER_JAR_SIGNING_ALGORITHM: "ES512"
       VERIFIER_JAR_SIGNING_KEY: "LoadFromKeystore"
       VERIFIER_JAR_SIGNING_KEY_KEYSTORE: "classpath:keystore.jks"
