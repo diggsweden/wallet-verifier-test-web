@@ -22,11 +22,11 @@ services:
     ports:
       - "8080:8080"
     volumes:
-      - ./config/certs/keystore-p256.jks:/app/keystore-p256.jks:ro
+      - ./docker/config/certs/keystore-p256.jks:/app/keystore-p256.jks:ro
     environment:
-      VERIFIER_PUBLICURL: "http://verifier:8080"
+      VERIFIER_PUBLICURL: "${VERIFIER_PUBLICURL:-http://verifier:8080}"
       VERIFIER_RESPONSE_MODE: "DirectPostJwt"
-      VERIFIER_ORIGINALCLIENTID: "verifier" # localhost
+      VERIFIER_ORIGINALCLIENTID: "${VERIFIER_ORIGINALCLIENTID:-verifier}" # localhost
       VERIFIER_CLIENTIDPREFIX: "x509_san_dns"
       #SPRING_PROFILES_ACTIVE: "self-signed"
       VERIFIER_JAR_SIGNING_ALGORITHM: "ES256"
@@ -35,7 +35,7 @@ services:
       VERIFIER_JAR_SIGNING_KEY_KEYSTORE_TYPE: "jks"
       VERIFIER_JAR_SIGNING_KEY_KEYSTORE_PASSWORD: "keystore"
       VERIFIER_JAR_SIGNING_KEY_ALIAS: "verifier"
-      VERIFIER_JAR_SIGNING_KEY_PASSWORD: "verifier"
+      VERIFIER_JAR_SIGNING_KEY_PASSWORD: "keystore"
       VERIFIER_VALIDATION_SDJWTVC_STATUSCHECK_ENABLED: "false"
       LOGGING_LEVEL_EU_EUROPA_EC_EUDI_VERIFIER_ENDPOINT: "DEBUG"
     restart: on-failure
@@ -59,6 +59,23 @@ services:
   #      - wallet-ecosystem_default
   #      - default
 
+  # Nginx reverse proxy
+  nginx:
+    image: nginx:alpine
+    container_name: nginx-proxy
+    hostname: nginx-proxy
+    ports:
+      - "8000:80"
+    volumes:
+      - ./config/nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - eudi-verifier-backend
+      - custom-verifier
+    restart: on-failure
+    networks:
+      - wallet-ecosystem_default
+      - default
+
   # Our custom Nuxt verifier
   custom-verifier:
     build:
@@ -75,11 +92,11 @@ services:
     ports:
       - "3002:3002"
     environment:
-      HOST_API: "http://verifier:8080"
+      HOST_API: "${NGROK_URL:-http://localhost:8000}/backend"
       PORT: "3002"
       NITRO_PORT: "3002"
-      NUXT_PUBLIC_BASE_URL: "http://localhost:3002"
-      PUBLIC_BASE_URL: "http://localhost:3002"
+      NUXT_PUBLIC_BASE_URL: "${NGROK_URL:-http://localhost:8000}"
+      PUBLIC_BASE_URL: "${NGROK_URL:-http://localhost:8000}"
       WALLET_URL: "eudi-openid4vp://"
     depends_on:
       - eudi-verifier-backend
