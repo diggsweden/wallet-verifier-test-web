@@ -22,7 +22,7 @@ RUN echo "NO_PROXY=$NO_PROXY"
 RUN echo "NODE_OPTIONS=$NODE_OPTIONS"
 RUN echo "NODE_EXTRA_CA_CERTS=$NODE_EXTRA_CA_CERTS"
 
-RUN npm ci
+RUN npm ci --strict-peer-deps
 
 COPY layouts layouts
 COPY pages pages
