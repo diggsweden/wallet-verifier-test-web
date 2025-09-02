@@ -6,11 +6,35 @@ set -e
 # Clones external repositories, applies local configuration overlays,
 # and starts all services for local development.
 #
-# Usage: ./wallet-ecosystem-http.sh
+# Usage: ./wallet-ecosystem-http.sh [--app-wallet|--web-wallet]
+#   --app-wallet (default): Use docker-compose-app.yml (uses pre-built image)
+#   --web-wallet: Use docker-compose.yml (builds from source)
 
 # Setup
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 DOCKER_DIR="$(dirname "$SCRIPT_DIR")"
+
+# Parse command line arguments
+COMPOSE_FILE="docker-compose-app.yml" # Default to app-wallet
+while [[ $# -gt 0 ]]; do
+  case $1 in
+  --app-wallet)
+    COMPOSE_FILE="docker-compose-app.yml"
+    shift
+    ;;
+  --web-wallet)
+    COMPOSE_FILE="docker-compose.yml"
+    shift
+    ;;
+  *)
+    echo "Unknown option $1"
+    echo "Usage: $0 [--app-wallet|--web-wallet]"
+    echo "  --app-wallet (default): Use docker-compose-app.yml (uses pre-built image)"
+    echo "  --web-wallet: Use docker-compose.yml (builds from source)"
+    exit 1
+    ;;
+  esac
+done
 
 # Color helpers
 log() { echo -e "\033[0;34m$1\033[0m"; }
@@ -56,59 +80,77 @@ if [ ${#missing[@]} -gt 0 ]; then
 fi
 success "Hosts configured"
 
-# Clone or update wallet ecosystem
-if [ ! -d "$DOCKER_DIR/wallet-ecosystem" ]; then
-  log "Cloning wallet-ecosystem..."
-  cd "$DOCKER_DIR"
-  git clone https://github.com/wwWallet/wallet-ecosystem.git
-fi
+# Only setup wallet ecosystem for --web-wallet
+if [ "$COMPOSE_FILE" = "docker-compose.yml" ]; then
+  # Clone or update wallet ecosystem
+  if [ ! -d "$DOCKER_DIR/wallet-ecosystem" ]; then
+    log "Cloning wallet-ecosystem..."
+    cd "$DOCKER_DIR"
+    git clone https://github.com/wwWallet/wallet-ecosystem.git
+  fi
 
-cd "$DOCKER_DIR/wallet-ecosystem"
-log "Starting wallet ecosystem..."
-git reset --hard HEAD && git clean -fd
-git fetch --prune
-# Pin to stable version
-git checkout v0.3.0
-git submodule foreach --recursive 'git reset --hard HEAD && git clean -fd'
-git submodule update --init --remote --recursive
-
-log "Applying wallet overlays..."
-apply_overlays "$DOCKER_DIR/config/wallet-ecosystem" "$DOCKER_DIR/wallet-ecosystem"
-
-# Copy .env file to wallet-ecosystem if it exists
-if [ -f "$DOCKER_DIR/.env" ]; then
-  log "Copying environment configuration to wallet-ecosystem..."
-  cp "$DOCKER_DIR/.env" "$DOCKER_DIR/wallet-ecosystem/.env"
-fi
-
-if [ ! -f "wallet-frontend/.env" ]; then
-  log "Copying wallet-frontend template environment configuration..."
-  cp "wallet-frontend/.env.template" "wallet-frontend/.env"
-fi
-
-node ecosystem.js up -d || warn "Some wallet services failed to start, continuing anyway"
-node ecosystem.js init || warn "Initialization had errors, continuing anyway"
-
-# Clone or update EUDI verifier if needed
-if [ ! -d "$DOCKER_DIR/eudi-srv-web-verifier-endpoint-23220-4-kt" ]; then
-  log "Cloning EUDI verifier..."
-  cd "$DOCKER_DIR"
-  git clone https://github.com/eu-digital-identity-wallet/eudi-srv-web-verifier-endpoint-23220-4-kt.git
-fi
-
-if [ -d "$DOCKER_DIR/eudi-srv-web-verifier-endpoint-23220-4-kt" ]; then
-  cd "$DOCKER_DIR/eudi-srv-web-verifier-endpoint-23220-4-kt"
+  cd "$DOCKER_DIR/wallet-ecosystem"
+  log "Starting wallet ecosystem..."
   git reset --hard HEAD && git clean -fd
+  git fetch --prune
   # Pin to stable version
-  git checkout v0.6.0
-  log "Applying EUDI overlays..."
-  apply_overlays "$DOCKER_DIR/config/eudi-verifier" "$DOCKER_DIR/eudi-srv-web-verifier-endpoint-23220-4-kt"
+  git checkout v0.3.0
+  git submodule foreach --recursive 'git reset --hard HEAD && git clean -fd'
+  git submodule update --init --remote --recursive
+
+  log "Applying wallet overlays..."
+  apply_overlays "$DOCKER_DIR/config/wallet-ecosystem" "$DOCKER_DIR/wallet-ecosystem"
+
+  # Copy .env file to wallet-ecosystem if it exists
+  if [ -f "$DOCKER_DIR/.env" ]; then
+    log "Copying environment configuration to wallet-ecosystem..."
+    cp "$DOCKER_DIR/.env" "$DOCKER_DIR/wallet-ecosystem/.env"
+  fi
+
+  if [ ! -f "wallet-frontend/.env" ]; then
+    log "Copying wallet-frontend template environment configuration..."
+    cp "wallet-frontend/.env.template" "wallet-frontend/.env"
+  fi
+
+  node ecosystem.js up -d || warn "Some wallet services failed to start, continuing anyway"
+  node ecosystem.js init || warn "Initialization had errors, continuing anyway"
+else
+  log "Skipping wallet-ecosystem setup for --app-wallet (using pre-built images)"
+fi
+
+# Only setup EUDI verifier source for --web-wallet (builds from source)
+if [ "$COMPOSE_FILE" = "docker-compose.yml" ]; then
+  # Clone or update EUDI verifier if needed
+  if [ ! -d "$DOCKER_DIR/eudi-srv-web-verifier-endpoint-23220-4-kt" ]; then
+    log "Cloning EUDI verifier..."
+    cd "$DOCKER_DIR"
+    git clone https://github.com/eu-digital-identity-wallet/eudi-srv-web-verifier-endpoint-23220-4-kt.git
+  fi
+
+  if [ -d "$DOCKER_DIR/eudi-srv-web-verifier-endpoint-23220-4-kt" ]; then
+    cd "$DOCKER_DIR/eudi-srv-web-verifier-endpoint-23220-4-kt"
+    git reset --hard HEAD && git clean -fd
+    # Pin to stable version
+    git checkout v0.6.0
+    log "Applying EUDI overlays..."
+    apply_overlays "$DOCKER_DIR/config/eudi-verifier" "$DOCKER_DIR/eudi-srv-web-verifier-endpoint-23220-4-kt"
+  fi
+else
+  log "Skipping EUDI verifier source setup for --app-wallet (using pre-built image)"
 fi
 
 # Start EUDI verifier
 cd "$DOCKER_DIR"
-log "Starting EUDI verifier..."
-docker compose -f docker-compose.yml up -d --build --force-recreate
+log "Starting EUDI verifier using $COMPOSE_FILE..."
+
+# Show which WALLET_URL will be used
+if [ "$COMPOSE_FILE" = "docker-compose.yml" ]; then
+  log "WALLET_URL will be set to: http://localhost:3000/cb"
+else
+  log "WALLET_URL will be set to: eudi-openid4vp://"
+fi
+
+docker compose -f "$COMPOSE_FILE" up -d --build --force-recreate
 
 success "All services started"
 sleep 20

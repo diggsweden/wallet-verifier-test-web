@@ -4,7 +4,7 @@ export default defineEventHandler(async (event) => {
   //const state = body.state || "latest";
   //await storage.setItem(`verification:${state}`, body);
 
-  console.log("Got a direct_post.jwt callback!")
+  console.log("Got a direct_post.jwt callback!");
 
   return { success: true };
 });

@@ -157,6 +157,8 @@ const credentials = ref(null)
 const error = ref(null)
 const timeLeft = ref(90)
 const polling = ref(null)
+const config = useRuntimeConfig();
+const walletBaseUrl = config.public.walletUrl;
 
 const startVerification = async () => {
   state.value = 'initializing'
@@ -181,8 +183,7 @@ const startVerification = async () => {
     transactionId.value = response.transaction_id
     const requestUri = response.request_uri
     const clientId = response.client_id || 'Verifier'
-    // eudi-openid4vp://?client_id=x509_san_dns%3Alocalhost&request_uri=http%3A%2F%2Feudi-verifier-backend%3A8080%2Fwallet%2Frequest.jwt%2F8qHQzpnwPxFdworje-dejb_panulr9kwVfzrGWtMWuCyb4j8uFFRX9cUwjNnVhI9e1_01Yl0QRYSviglWHsogw
-    authUrl.value = `eudi-openid4vp://?client_id=${encodeURIComponent(clientId)}&request_uri=${encodeURIComponent(requestUri)}`
+    authUrl.value = walletBaseUrl + `?client_id=${encodeURIComponent(clientId)}&request_uri=${encodeURIComponent(requestUri)}`
     console.log(authUrl.value)
     state.value = 'waiting'
     startCountdown()
