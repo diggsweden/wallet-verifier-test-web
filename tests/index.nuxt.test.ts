@@ -2,6 +2,12 @@ import { describe, it, expect, vi } from "vitest";
 import { config, flushPromises, mount } from "@vue/test-utils";
 import Index from "../pages/index.vue";
 
+config.global.stubs = {
+    NuxtLink: {
+        template: '<a><slot /></a>'
+    }
+}
+
 describe("Index", () => {
   it("renders the title", () => {
     const wrapper = mount(Index);
@@ -28,7 +34,7 @@ describe("Index", () => {
   ])(
     "displays '%s' when fetched '%s' from the verifier status API",
     async (expectedDisplay, receivedStatus) => {
-      vi.spyOn(global, "$fetch").mockResolvedValue({ status: receivedStatus });
+      vi.stubGlobal('$fetch', vi.fn().mockResolvedValue({ status: receivedStatus }));
       const wrapper = mount(Index);
 
       await flushPromises();
@@ -38,7 +44,7 @@ describe("Index", () => {
   );
 
   it("displays 'offline' when failed to fetch from the verifier status API", async () => {
-    vi.spyOn(global, "$fetch").mockRejectedValue({});
+    vi.stubGlobal('$fetch', vi.fn().mockRejectedValue({}));
     const wrapper = mount(Index);
 
     await flushPromises();
