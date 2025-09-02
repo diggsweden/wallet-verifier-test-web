@@ -21,15 +21,17 @@ services:
     hostname: eudi-verifier-backend
     ports:
       - "8080:8080"
+    volumes:
+      - ./config/certs/keystore-p256.jks:/app/keystore-p256.jks:ro
     environment:
       VERIFIER_PUBLICURL: "http://verifier:8080"
       VERIFIER_RESPONSE_MODE: "DirectPostJwt"
       VERIFIER_ORIGINALCLIENTID: "verifier" # localhost
       VERIFIER_CLIENTIDPREFIX: "x509_san_dns"
       #SPRING_PROFILES_ACTIVE: "self-signed"
-      VERIFIER_JAR_SIGNING_ALGORITHM: "ES512"
+      VERIFIER_JAR_SIGNING_ALGORITHM: "ES256"
       VERIFIER_JAR_SIGNING_KEY: "LoadFromKeystore"
-      VERIFIER_JAR_SIGNING_KEY_KEYSTORE: "classpath:keystore.jks"
+      VERIFIER_JAR_SIGNING_KEY_KEYSTORE: "file:/app/keystore-p256.jks"
       VERIFIER_JAR_SIGNING_KEY_KEYSTORE_TYPE: "jks"
       VERIFIER_JAR_SIGNING_KEY_KEYSTORE_PASSWORD: "keystore"
       VERIFIER_JAR_SIGNING_KEY_ALIAS: "verifier"
