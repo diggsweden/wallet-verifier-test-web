@@ -10,10 +10,7 @@ export default defineNuxtConfig({
   runtimeConfig: {
     public: {
       hostApi: process.env.HOST_API || "http://eudi-verifier",
-      walletUrl:
-        process.env.NUXT_PUBLIC_WALLET_URL ||
-        process.env.WALLET_URL ||
-        "eudi-openid4vp://",
+      walletUrl: process.env.WALLET_URL || "eudi-openid4vp://",
     },
   },
   nitro: {

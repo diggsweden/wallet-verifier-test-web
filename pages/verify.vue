@@ -157,8 +157,8 @@ const credentials = ref(null)
 const error = ref(null)
 const timeLeft = ref(90)
 const polling = ref(null)
-const config = useRuntimeConfig();
-const walletBaseUrl = config.public.walletUrl;
+const config = useRuntimeConfig()
+const walletBaseUrl = config.public.walletUrl
 
 const startVerification = async () => {
   state.value = 'initializing'
@@ -183,7 +183,7 @@ const startVerification = async () => {
     transactionId.value = response.transaction_id
     const requestUri = response.request_uri
     const clientId = response.client_id || 'Verifier'
-    authUrl.value = walletBaseUrl + `?client_id=${encodeURIComponent(clientId)}&request_uri=${encodeURIComponent(requestUri)}`
+    authUrl.value = `${walletBaseUrl}?client_id=${encodeURIComponent(clientId)}&request_uri=${encodeURIComponent(requestUri)}`
     console.log(authUrl.value)
     state.value = 'waiting'
     startCountdown()
