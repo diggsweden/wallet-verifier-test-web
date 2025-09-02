@@ -175,14 +175,15 @@ const startVerification = async () => {
   try {
     const response = await $fetch('/api/verifier-request', {
       method: 'POST',
-      body: { type: 'vp_token', nonce: "test-frontend-demo", request_uri_method: "get" }
+      body: { type: 'vp_token', request_uri_method: "get" }
     })
     
     transactionId.value = response.transaction_id
     const requestUri = response.request_uri
     const clientId = response.client_id || 'Verifier'
-    
-    authUrl.value = `http://localhost:3000/cb?client_id=${encodeURIComponent(clientId)}&request_uri=${encodeURIComponent(requestUri)}`
+    // eudi-openid4vp://?client_id=x509_san_dns%3Alocalhost&request_uri=http%3A%2F%2Feudi-verifier-backend%3A8080%2Fwallet%2Frequest.jwt%2F8qHQzpnwPxFdworje-dejb_panulr9kwVfzrGWtMWuCyb4j8uFFRX9cUwjNnVhI9e1_01Yl0QRYSviglWHsogw
+    authUrl.value = `eudi-openid4vp://?client_id=${encodeURIComponent(clientId)}&request_uri=${encodeURIComponent(requestUri)}`
+    console.log(authUrl.value)
     state.value = 'waiting'
     startCountdown()
   } catch (e) {

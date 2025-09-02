@@ -30,10 +30,10 @@ export default defineEventHandler(async (event) => {
           },
         ],
       },
-      response_mode: "direct_post",
-      response_uri: `${publicBaseUrl}/api/verifier-callback`,
+      response_mode: "direct_post.jwt",
+      response_uri: `${publicBaseUrl}/api/verifier-callback-jwt`,
       state: randomUUID(),
-      nonce: clientBody.nonce || randomUUID(),
+      nonce: randomUUID(),
     };
 
     console.log(
