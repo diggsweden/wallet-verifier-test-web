@@ -73,7 +73,7 @@ services:
     ports:
       - "3002:3002"
     environment:
-      HOST_API: "http://192.168.1.110:8080"
+      HOST_API: "http://verifier:8080"
       PORT: "3002"
       NITRO_PORT: "3002"
       NUXT_PUBLIC_BASE_URL: "http://localhost:3002"
