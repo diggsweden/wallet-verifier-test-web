@@ -2,7 +2,7 @@ name: eudi-verifier-integration
 
 services:
   eudi-verifier-backend:
-    image: ghcr.io/eu-digital-identity-wallet/eudi-srv-web-verifier-endpoint-23220-4-kt:latest
+    image: ghcr.io/eu-digital-identity-wallet/eudi-srv-web-verifier-endpoint-23220-4-kt:latest@sha256:0a721f67ae67785419556d890cdb2114e9ea479e33f1b5892f7090c09d8b12e1
     container_name: eudi-verifier-backend
     hostname: eudi-verifier-backend
     ports:
@@ -28,7 +28,7 @@ services:
       - default
 
   nginx:
-    image: nginx:alpine
+    image: nginx:alpine@sha256:42a516af16b852e33b7682d5ef8acbd5d13fe08fecadc7ed98605ba5e3b26ab8
     container_name: nginx-proxy
     hostname: nginx-proxy
     ports:
