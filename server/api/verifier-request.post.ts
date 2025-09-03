@@ -22,12 +22,10 @@ export default defineEventHandler(async (event) => {
             id: "query_0",
             format: "dc+sd-jwt",
             meta: {
-              vct_values: [
-                "urn:eudi:pid:1"
-              ]
-            }
-          }
-        ]
+              vct_values: ["urn:eudi:pid:1"],
+            },
+          },
+        ],
       },
       nonce: randomUUID(),
       request_uri_method: "get",

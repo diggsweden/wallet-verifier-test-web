@@ -21,7 +21,7 @@ export default defineEventHandler(async (event) => {
 
     if (response && response.vp_token) {
       console.log("Received VP Token:", response.vp_token);
-      
+
       const verifiedData = parseVpToken(response.vp_token);
 
       return {

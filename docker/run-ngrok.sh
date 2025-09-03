@@ -4,7 +4,10 @@ set -e
 DOCKER_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 KEYSTORE_PATH="$DOCKER_DIR/keystore-p256.jks"
 
-error() { echo -e "\033[0;31m$1\033[0m"; exit 1; }
+error() {
+  echo -e "\033[0;31m$1\033[0m"
+  exit 1
+}
 log() { echo -e "\033[0;34m$1\033[0m"; }
 
 # Get or start ngrok tunnel
@@ -18,12 +21,12 @@ if [[ -n "$NGROK_URL" ]]; then
 else
   log "Starting ngrok tunnel..."
   pkill -f "ngrok.*8000" || true
-  ngrok http 8000 > /dev/null 2>&1 &
+  ngrok http 8000 >/dev/null 2>&1 &
   sleep 5
-  
+
   NGROK_URL=$(get_ngrok_url)
   [[ -z "$NGROK_URL" ]] && error "Failed to start ngrok tunnel"
-  
+
   trap 'pkill -f "ngrok.*8000" || true' EXIT
 fi
 
@@ -37,7 +40,7 @@ keytool -delete -alias verifier -keystore "$KEYSTORE_PATH" -storepass keystore 2
 keytool -genkeypair -alias verifier -keyalg EC -groupname secp256r1 -sigalg SHA256withECDSA -validity 3650 -keystore "$KEYSTORE_PATH" -storepass keystore -keypass keystore -dname "CN=verifier" -ext "SAN=DNS:localhost,DNS:verifier,DNS:eudi-verifier-backend,DNS:$HOSTNAME" 2>/dev/null
 
 # Create .env file
-cat > "$DOCKER_DIR/.env" << EOF
+cat >"$DOCKER_DIR/.env" <<EOF
 VERIFIER_PUBLICURL=$NGROK_URL/backend
 HOST_API=$NGROK_URL/backend
 VERIFIER_ORIGINALCLIENTID=$HOSTNAME

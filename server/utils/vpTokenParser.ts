@@ -31,10 +31,18 @@ export function parseVpToken(rawVpToken: any): VerifiedCredentials {
   }
 
   // Handle the new JWT response format where vp_token is an object
-  if (typeof vpToken === 'object' && vpToken !== null && typeof vpToken !== 'string') {
+  if (
+    typeof vpToken === "object" &&
+    vpToken !== null &&
+    typeof vpToken !== "string"
+  ) {
     // Extract the actual token from the first query key (e.g., query_0)
     const firstKey = Object.keys(vpToken)[0];
-    if (firstKey && Array.isArray(vpToken[firstKey]) && vpToken[firstKey].length > 0) {
+    if (
+      firstKey &&
+      Array.isArray(vpToken[firstKey]) &&
+      vpToken[firstKey].length > 0
+    ) {
       vpToken = vpToken[firstKey][0];
     }
   }
@@ -45,8 +53,8 @@ export function parseVpToken(rawVpToken: any): VerifiedCredentials {
   let verifiedData: VerifiedCredentials = {};
 
   try {
-    if (typeof vpToken !== 'string') {
-      throw new Error('VP Token is not a string after processing');
+    if (typeof vpToken !== "string") {
+      throw new Error("VP Token is not a string after processing");
     }
 
     const parts = vpToken.split("~");
@@ -55,7 +63,8 @@ export function parseVpToken(rawVpToken: any): VerifiedCredentials {
       const issuerJwt = parts[0];
       const issuerClaims = decodeJwt(issuerJwt);
 
-      verifiedData.issuer = issuerClaims.iss || "http://wallet-enterprise-issuer:8003";
+      verifiedData.issuer =
+        issuerClaims.iss || "http://wallet-enterprise-issuer:8003";
       verifiedData.vct = issuerClaims.vct || "urn:eudi:pid:1";
 
       const disclosures = parts.slice(1, -1);
@@ -83,7 +92,10 @@ export function parseVpToken(rawVpToken: any): VerifiedCredentials {
       }
     }
 
-    console.log("Parsed VP Token fields:", JSON.stringify(verifiedData, null, 2));
+    console.log(
+      "Parsed VP Token fields:",
+      JSON.stringify(verifiedData, null, 2),
+    );
   } catch (parseError) {
     console.error("Error parsing SD-JWT:", parseError);
     verifiedData = {
