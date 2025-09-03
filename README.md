@@ -8,16 +8,6 @@ Demo application demonstrating how a relying party may implement authentication 
 
 ## Quick Start
 
-### Docker
-
-```bash
-npm install
-npm run generate
-docker compose -f ./docker/docker-compose.yml up -d
-```
-
-Open [http://localhost:3002](http://localhost:3002)
-
 ### Development
 
 ```bash
@@ -31,9 +21,13 @@ npm run test        # watch mode
 npm run test:once   # single run
 ```
 
-### Full Wallet Ecosystem
+### Docker Setup
 
-See [docker/README.md](./docker/README.md) for running a complete wwWallet ecosystem with this application.
+```bash
+./docker/run-ngrok.sh
+```
+
+Access the verifier at the ngrok URL displayed by the script.
 
 ## Architecture
 

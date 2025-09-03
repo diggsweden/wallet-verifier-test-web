@@ -1,34 +1,19 @@
 name: eudi-verifier-integration
 
 services:
-  # === EUDI Verifier ===
   eudi-verifier-backend:
     image: ghcr.io/eu-digital-identity-wallet/eudi-srv-web-verifier-endpoint-23220-4-kt:latest
-#    build:
-#      context: ./eudi-srv-web-verifier-endpoint-23220-4-kt
-#      dockerfile: Dockerfile.custom
-#      args:
-#        - HTTP_PROXY=${HTTP_PROXY}
-#        - HTTPS_PROXY=${HTTPS_PROXY}
-#        - NO_PROXY=${NO_PROXY}
-#        - NODE_TLS_REJECT_UNAUTHORIZED=${NODE_TLS_REJECT_UNAUTHORIZED:-1}
-#        - NEXUS_MAVEN_CENTRAL=${NEXUS_MAVEN_CENTRAL}
-#        - NEXUS_MAVEN_PUBLIC=${NEXUS_MAVEN_PUBLIC}
-#        - NEXUS_WALTID=${NEXUS_WALTID}
-#        - NEXUS_GRADLE=${NEXUS_GRADLE}
-#        - NEXUS_GRADLE_PLUGINS=${NEXUS_GRADLE_PLUGINS}
     container_name: eudi-verifier-backend
     hostname: eudi-verifier-backend
     ports:
       - "8080:8080"
     volumes:
-      - ./docker/config/certs/keystore-p256.jks:/app/keystore-p256.jks:ro
+      - ./keystore-p256.jks:/app/keystore-p256.jks:ro
     environment:
       VERIFIER_PUBLICURL: "${VERIFIER_PUBLICURL:-http://verifier:8080}"
       VERIFIER_RESPONSE_MODE: "DirectPostJwt"
       VERIFIER_ORIGINALCLIENTID: "${VERIFIER_ORIGINALCLIENTID:-verifier}" # localhost
       VERIFIER_CLIENTIDPREFIX: "x509_san_dns"
-      #SPRING_PROFILES_ACTIVE: "self-signed"
       VERIFIER_JAR_SIGNING_ALGORITHM: "ES256"
       VERIFIER_JAR_SIGNING_KEY: "LoadFromKeystore"
       VERIFIER_JAR_SIGNING_KEY_KEYSTORE: "file:/app/keystore-p256.jks"
@@ -40,26 +25,8 @@ services:
       LOGGING_LEVEL_EU_EUROPA_EC_EUDI_VERIFIER_ENDPOINT: "DEBUG"
     restart: on-failure
     networks:
-      - wallet-ecosystem_default
       - default
 
-  #  eudi-verifier-ui:
-  #    image: ghcr.io/eu-digital-identity-wallet/eudi-web-verifier:latest
-  #    container_name: eudi-verifier-ui
-  #    hostname: eudi-verifier-ui
-  #    ports:
-  #      - "4300:4300"
-  #    environment:
-  #      DOMAIN_NAME: ""
-  #      HOST_API: "http://eudi-verifier"
-  #    depends_on:
-  #      - eudi-verifier-backend
-  #    restart: on-failure
-  #    networks:
-  #      - wallet-ecosystem_default
-  #      - default
-
-  # Nginx reverse proxy
   nginx:
     image: nginx:alpine
     container_name: nginx-proxy
@@ -67,16 +34,14 @@ services:
     ports:
       - "8000:80"
     volumes:
-      - ./config/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
     depends_on:
       - eudi-verifier-backend
       - custom-verifier
     restart: on-failure
     networks:
-      - wallet-ecosystem_default
       - default
 
-  # Our custom Nuxt verifier
   custom-verifier:
     build:
       args:
@@ -102,12 +67,8 @@ services:
       - eudi-verifier-backend
     restart: on-failure
     networks:
-      - wallet-ecosystem_default
       - default
 
 networks:
-  # Connect to wallet-ecosystem network
-  wallet-ecosystem_default:
-    external: true
   default:
     driver: bridge

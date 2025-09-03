@@ -39,3 +39,6 @@ docker/config/eudi-verifier/proxy-cert.crt
 
 # Misc
 docker/config/eudi-verifier/.gradle
+
+# Generated ngrok cert
+docker/keystore-p256.jks
