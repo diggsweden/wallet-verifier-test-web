@@ -44,8 +44,8 @@ VERIFIER_ORIGINALCLIENTID=$HOSTNAME
 NGROK_URL=$NGROK_URL
 EOF
 
-log "Starting docker services..."
-docker compose -f "$DOCKER_DIR/docker-compose.yml" up -d
+log "Starting docker services with rebuild..."
+docker compose -f "$DOCKER_DIR/docker-compose.yml" up -d --build --force-recreate
 
 echo "✅ Services running at: $NGROK_URL"
 echo "Press Ctrl+C to stop..."

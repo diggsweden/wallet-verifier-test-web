@@ -1,4 +1,4 @@
-import { decodeJwt, decodeProtectedHeader } from "jose";
+import { parseVpToken } from "~/server/utils/vpTokenParser";
 
 export default defineEventHandler(async (event) => {
   const config = useRuntimeConfig();
@@ -20,64 +20,9 @@ export default defineEventHandler(async (event) => {
     );
 
     if (response && response.vp_token) {
-      const vpToken = Array.isArray(response.vp_token)
-        ? response.vp_token[0]
-        : response.vp_token;
-
-      console.log("Received VP Token:", vpToken);
-      console.log("VP Token type:", typeof vpToken);
-      console.log("VP Token length:", vpToken.length);
-
-      let verifiedData = {};
-
-      try {
-        const parts = vpToken.split("~");
-
-        if (parts.length >= 2) {
-          const issuerJwt = parts[0];
-          const issuerClaims = decodeJwt(issuerJwt);
-
-          verifiedData.issuer =
-            issuerClaims.iss || "http://wallet-enterprise-issuer:8003";
-          verifiedData.vct = issuerClaims.vct || "urn:eudi:pid:1";
-
-          const disclosures = parts.slice(1, -1);
-
-          for (const disclosure of disclosures) {
-            if (disclosure) {
-              try {
-                const decoded = Buffer.from(disclosure, "base64url").toString();
-                const disclosureData = JSON.parse(decoded);
-
-                if (
-                  Array.isArray(disclosureData) &&
-                  disclosureData.length >= 3
-                ) {
-                  const [salt, claimName, claimValue] = disclosureData;
-                  verifiedData[claimName] = claimValue;
-                }
-              } catch (e) {
-                console.error("Failed to parse disclosure:", e);
-              }
-            }
-          }
-
-          if (!verifiedData.given_name) {
-            verifiedData.given_name = "Error";
-            verifiedData.family_name = "Errorsson";
-            verifiedData.personal_administrative_number = "257654325";
-          }
-        }
-      } catch (parseError) {
-        console.error("Error parsing SD-JWT:", parseError);
-        verifiedData = {
-          given_name: "Error",
-          family_name: "Errorsson",
-          personal_administrative_number: "257654325",
-          issuer: "http://wallet-enterprise-issuer:8003",
-          vct: "urn:eudi:pid:1",
-        };
-      }
+      console.log("Received VP Token:", response.vp_token);
+      
+      const verifiedData = parseVpToken(response.vp_token);
 
       return {
         status: "completed",

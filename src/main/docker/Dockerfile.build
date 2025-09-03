@@ -8,7 +8,7 @@ ARG NODE_EXTRA_CA_CERTS
 
 WORKDIR /app
 
-COPY package*.json docker/proxy-cert.crt* ./
+COPY package*.json ./
 
 ENV HTTP_PROXY=${HTTP_PROXY}
 ENV HTTPS_PROXY=${HTTPS_PROXY}

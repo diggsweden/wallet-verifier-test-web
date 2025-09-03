@@ -30,7 +30,8 @@ export default defineEventHandler(async (event) => {
         ]
       },
       nonce: randomUUID(),
-      request_uri_method: "get"
+      request_uri_method: "get",
+      response_uri: `${publicBaseUrl}/api/verifier-callback-jwt`,
     };
 
     console.log(
