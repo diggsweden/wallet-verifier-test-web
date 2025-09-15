@@ -28,5 +28,5 @@ jobs:
     permissions:
       contents: read
     if: always()
-    needs: [commitlint, dependencyreviewlint, misclint]
+    needs: [commitlint, licenselint, dependencyreviewlint, misclint]
     uses: ./.github/workflows/test.yml
