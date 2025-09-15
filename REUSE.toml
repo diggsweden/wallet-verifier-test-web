@@ -1,0 +1,25 @@
+# SPDX-FileCopyrightText: 2025 The Wallet Verifier Test Web Authors
+#
+# SPDX-License-Identifier: CC0-1.0
+
+version = 1
+
+# configurations
+[[annotations]]
+path = [
+  "**/*.json",
+  "**/*.md",
+  "**/*.yml",
+  "**/*.txt",
+  "**/*.conf",
+  "**/Dockerfile*",
+  "**/favicon.ico",
+  ".gitignore",
+  ".gitleaks.toml",
+  ".nvmrc",
+  ".tool-versions",
+  ".gitleaks-test/tests/suite-report-approved.jsonl"
+]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "2025 The Wallet Verifier Test Web Authors"
+SPDX-License-Identifier = "CC0-1.0"

@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 
+# SPDX-FileCopyrightText: 2025 The Wallet Test Verifier Web Authors
+#
+# SPDX-License-Identifier: CC0-1.0
+
 # Run a code quality check
 
 declare -A EXITCODES

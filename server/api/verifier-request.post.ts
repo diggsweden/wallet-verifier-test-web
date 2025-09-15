@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2025 The Wallet Test Verifier Web Authors
+//
+// SPDX-License-Identifier: EUPL-1.2
+
 import { randomUUID } from "crypto";
 
 export default defineEventHandler(async (event) => {

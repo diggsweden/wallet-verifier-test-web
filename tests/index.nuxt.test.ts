@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2025 The Wallet Test Verifier Web Authors
+//
+// SPDX-License-Identifier: EUPL-1.2
+
 import { describe, it, expect, vi } from "vitest";
 import { config, flushPromises, mount } from "@vue/test-utils";
 import Index from "../pages/index.vue";

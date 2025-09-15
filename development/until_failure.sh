@@ -1,4 +1,9 @@
 #!/bin/bash
+
+# SPDX-FileCopyrightText: 2025 The Wallet Test Verifier Web Authors
+#
+# SPDX-License-Identifier: CC0-1.0
+
 #
 # This scripts provides a way to run the same command repeateadly until it
 # fails. It can be used to check the stability of test suites or individual

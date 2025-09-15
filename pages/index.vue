@@ -1,3 +1,9 @@
+<!--
+SPDX-FileCopyrightText: 2025 The Wallet Test Verifier Web Authors
+
+SPDX-License-Identifier: EUPL-1.2
+-->
+
 <template>
   <div class="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
     <div class="p-8 max-w-2xl mx-auto">

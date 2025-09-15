@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2025 The Wallet Test Verifier Web Authors
+//
+// SPDX-License-Identifier: EUPL-1.2
+
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   compatibilityDate: "2025-05-15",

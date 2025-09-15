@@ -1,4 +1,9 @@
 #!/bin/bash
+
+# SPDX-FileCopyrightText: 2025 The Wallet Test Verifier Web Authors
+#
+# SPDX-License-Identifier: CC0-1.0
+
 set -e
 
 DOCKER_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"

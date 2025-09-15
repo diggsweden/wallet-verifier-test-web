@@ -1,4 +1,9 @@
 #!/bin/bash
+
+# SPDX-FileCopyrightText: 2025 The Wallet Test Verifier Web Authors
+#
+# SPDX-License-Identifier: CC0-1.0
+
 #
 # This script provides a way to automatically check the correctness of
 # our Gitleaks rules.
