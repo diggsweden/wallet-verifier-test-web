@@ -13,7 +13,7 @@ env:
 jobs:
   build:
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 30
     permissions:
       contents: read
       packages: write
@@ -21,17 +21,6 @@ jobs:
     steps:
       - name: Checkout source
         uses: actions/checkout@08eba0b27e820071cde6df949e0beb9ba4906955 # v4
-
-      - name: Set up Node.js
-        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
-        with:
-          node-version: 20
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Generate static site (Nuxt)
-        run: npm run generate
 
       - name: Configure QEMU
         uses: docker/setup-qemu-action@29109295f81e9208d7d86ff1c6c12d2833863392 # v3
@@ -70,8 +59,8 @@ jobs:
           context: .
           file: ./src/main/docker/Dockerfile.build
           cache-from: type=gha
-          cache-to: type=gha,mode=min
-          platforms: linux/amd64
+          cache-to: type=gha,mode=max
+          platforms: linux/amd64,linux/arm64
           push: true
           tags: ${{ steps.metadata.outputs.tags }}
           labels: ${{ steps.metadata.outputs.labels }}
