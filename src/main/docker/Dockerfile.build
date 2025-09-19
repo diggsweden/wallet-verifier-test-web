@@ -1,5 +1,7 @@
-FROM node:20-bullseye-slim@sha256:f25986842968667c16e5ae7408817cb9b23ee9b3d5cf46ed2be3b171110fa294
+# Build stage
+FROM node:20-bullseye-slim@sha256:f25986842968667c16e5ae7408817cb9b23ee9b3d5cf46ed2be3b171110fa294 AS builder
 
+# Proxy args for build stage (needed for npm install)
 ARG HTTP_PROXY
 ARG HTTPS_PROXY
 ARG NO_PROXY
@@ -8,23 +10,23 @@ ARG NODE_EXTRA_CA_CERTS
 
 WORKDIR /app
 
-COPY package*.json ./
-
+# Set proxy environment variables for build stage
 ENV HTTP_PROXY=${HTTP_PROXY}
 ENV HTTPS_PROXY=${HTTPS_PROXY}
 ENV NO_PROXY=${NO_PROXY}
 ENV NODE_OPTIONS=${NODE_OPTIONS}
 ENV NODE_EXTRA_CA_CERTS=${NODE_EXTRA_CA_CERTS}
 
-RUN echo "HTTP_PROXY=$HTTP_PROXY"
-RUN echo "HTTPS_PROXY=$HTTPS_PROXY"
-RUN echo "NO_PROXY=$NO_PROXY"
-RUN echo "NODE_OPTIONS=$NODE_OPTIONS"
-RUN echo "NODE_EXTRA_CA_CERTS=$NODE_EXTRA_CA_CERTS"
+# Debug proxy settings (optional)
+RUN echo "BUILD STAGE - HTTP_PROXY=$HTTP_PROXY"
+RUN echo "BUILD STAGE - HTTPS_PROXY=$HTTPS_PROXY"
+RUN echo "BUILD STAGE - NO_PROXY=$NO_PROXY"
 
-RUN node --version
-RUN npm ci --strict-peer-deps
+# Install all dependencies (including dev deps for building)
+COPY package*.json ./
+RUN npm ci --no-audit --no-fund
 
+# Copy source and build
 COPY layouts layouts
 COPY pages pages
 COPY public public
@@ -35,6 +37,16 @@ ENV HOST_API=http://eudi-verifier
 RUN npm run build
 RUN npm prune --omit=dev
 
-EXPOSE 3002
+FROM node:20-bullseye-slim@sha256:f25986842968667c16e5ae7408817cb9b23ee9b3d5cf46ed2be3b171110fa294 AS production
 
-CMD ["node", ".output/server/index.mjs"]
+WORKDIR /app
+
+# Copy EVERYTHING needed from builder stage
+COPY --from=builder /app/.output ./
+COPY --from=builder /app/node_modules ./node_modules
+
+# Runtime environment variables only
+ENV HOST_API=http://eudi-verifier
+
+EXPOSE 3002
+CMD ["node", "server/index.mjs"]
