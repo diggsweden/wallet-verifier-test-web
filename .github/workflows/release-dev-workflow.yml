@@ -24,8 +24,7 @@ jobs:
     permissions:
       contents: read         # Read code for building
       packages: write         # Push dev images to ghcr.io
-    uses: diggsweden/reusable-ci/.github/workflows/release-dev-orchestrator.yml@v1
+    uses: diggsweden/reusable-ci/.github/workflows/release-dev-orchestrator.yml@v2
     with:
-      projectType: npm
-      containerfile: "src/main/docker/Dockerfile.build" 
+      project-type: npm
     secrets: inherit

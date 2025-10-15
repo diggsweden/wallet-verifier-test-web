@@ -35,31 +35,10 @@ jobs:
       security-events: write  # Upload container vulnerability scan results
       attestations: write     # Attach SBOM attestation to container images
       issues: write           # Close issues and add release comments
-    uses: diggsweden/reusable-ci/.github/workflows/release-orchestrator.yml@v1
+    uses: diggsweden/reusable-ci/.github/workflows/release-orchestrator.yml@v2
     with:
-      # Project configuration
-      projectType: npm  # Build system (reads version from package.json)
-      branch: main      # Base branch for changelog generation
-      
-      # Artifact publisher configuration
-      artifactPublisher: npm-app-github  # Publish to GitHub NPM registry
-      # Uses default Node version (22.x)
-      
-      # Container builder configuration
-      containerBuilder: containerimage-ghcr  # Build Docker image and push to ghcr.io
-      container.platforms: "linux/amd64,linux/arm64"  # Multi-arch support for Intel and ARM
-      container.containerfile: "src/main/docker/Dockerfile.build"  # Custom Dockerfile location
-      # Defaults: SLSA provenance, SBOM generation enabled
-      
-      # NPM specific - files to commit when version changes
-      file_pattern: "CHANGELOG.md package.json package-lock.json"
-      
-      # Changelog configuration
-      changelogCreator: git-cliff  # Generate from conventional commits
-      # Uses default changelog format
-      
-      # Release publisher configuration
-      releasePublisher: github-cli         # GitHub CLI better for NPM than JReleaser
-      
-      # Release type auto-detected from tag (v1.0.0 = stable, v1.0.0-beta = prerelease)
-    secrets: inherit  # Use org-level NPM_TOKEN and GPG keys if available
+      artifacts-config: .github/artifacts.yml
+      file-pattern: "CHANGELOG.md package.json package-lock.json"
+      changelog-creator: git-cliff
+      release-publisher: github-cli
+    secrets: inherit

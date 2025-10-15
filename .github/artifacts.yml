@@ -1,0 +1,26 @@
+# SPDX-FileCopyrightText: 2025 Digg - Agency for Digital Government
+#
+# SPDX-License-Identifier: CC0-1.0
+
+# Artifacts Configuration for wallet-verifier-test-web
+# Defines what to build and where to publish
+
+artifacts:
+  - name: wallet-verifier-test-web
+    project-type: npm
+    working-directory: .
+    build-type: application
+    config:
+      node-version: 22
+
+containers:
+  - name: wallet-verifier-test-web
+    from: [wallet-verifier-test-web]
+    container-file: src/main/docker/Dockerfile.build
+    context: .
+    platforms: linux/amd64,linux/arm64
+    registry: ghcr.io
+
+publishers:
+  - type: github-packages
+    artifacts: [wallet-verifier-test-web]
