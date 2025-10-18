@@ -1,38 +1,12 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "osvVulnerabilityAlerts": true,
-  "dependencyDashboardOSVVulnerabilitySummary": "all",
   "extends": [
-    "config:best-practices",
-    "security:openssf-scorecard",
-    ":gitSignOff",
+    "local>diggsweden/.github:renovate-base",
     ":maintainLockFilesWeekly",
-    ":automergeMinor",
-    ":semanticCommits",
-    ":semanticCommitTypeAll(chore)",
-    "npm:unpublishSafe",
-    ":rebaseStalePrs",
-    "mergeConfidence:all-badges",
-    ":configMigration"
+    "npm:unpublishSafe"
   ],
-  "commitMessageLowerCase": "auto",
-  "minimumReleaseAge": "4 days",
-  "labels": ["dependencies"],
-  "vulnerabilityAlerts": {
-    "labels": ["security", "dependencies"]
-  },
   "enabledManagers": ["npm", "github-actions", "dockerfile", "docker-compose"],
   "packageRules": [
-    {
-      "matchManagers": ["github-actions"],
-      "addLabels": ["actions"],
-      "groupName": "github actions"
-    },
-    {
-      "matchManagers": ["github-actions"],
-      "matchPackageNames": ["slsa-framework/slsa-github-generator"],
-      "pinDigests": false
-    },
     {
       "description": "Node.js dependencies - Major updates",
       "matchManagers": ["npm"],
