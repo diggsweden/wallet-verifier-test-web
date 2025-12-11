@@ -2,7 +2,6 @@
 #
 # SPDX-License-Identifier: CC0-1.0
 
----
 name: Pull Request Workflow
 
 on:
@@ -14,24 +13,29 @@ on:
       - 'feature/**'
 
 permissions:
-  contents: read  # Best Security practice. Jobs only get read as base, and then permissions are added as needed
+  contents: read # Best Security practice. Jobs only get read as base, and then permissions are added as needed
 
 jobs:
   pr-checks:
-    uses: diggsweden/reusable-ci/.github/workflows/pullrequest-orchestrator.yml@1a7dcd9c5257495ebf141e4e4b4bac438a8aae56 # v2.0.0
-    secrets: inherit  # Pass org-level secrets (NPM token if private packages)
+    uses: diggsweden/reusable-ci/.github/workflows/pullrequest-orchestrator.yml@e29145e720cef0b86ef147c72c2d001b5ac6c8b9 # v2.4.2
+    secrets: inherit # Pass org-level secrets (NPM token if private packages)
     permissions:
-      contents: read         # Clone repository and read source code
-      packages: read         # Access private NPM packages from GitHub registry
+      contents: read # Clone repository and read source code
+      packages: read # Access private NPM packages from GitHub registry
       security-events: write # Upload ESLint/security findings to GitHub Security tab
     with:
       project-type: npm
-      linters.publiccodelint: false  # No publiccode.yml file in this project
-  
+      # Use just+mise linting (replaces megalint, commitlint, licenselint)
+      linters.justmiselint: true
+      linters.megalint: false
+      linters.commitlint: false
+      linters.licenselint: false
+      linters.publiccodelint: false # No publiccode.yml file in this project
+
   test:
     needs: [pr-checks]
-    if: always()  # Run tests even if linting fails (get full CI feedback)
+    if: always() # Run tests even if linting fails (get full CI feedback)
     permissions:
-      contents: read  # Read test files and source code
-      packages: read  # Fetch test dependencies from registry
+      contents: read # Read test files and source code
+      packages: read # Fetch test dependencies from registry
     uses: ./.github/workflows/test.yml
