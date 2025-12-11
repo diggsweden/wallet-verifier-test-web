@@ -3,7 +3,7 @@
 [![REUSE](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fapi.reuse.software%2Fstatus%2Fgithub.com%2Fdiggsweden%2Fwallet-verifier-test-web&query=status&style=for-the-badge&label=REUSE)](https://api.reuse.software/info/github.com/diggsweden/wallet-verifier-test-web)
 [![OpenSSF Scorecard](https://api.scorecard.dev/projects/github.com/diggsweden/wallet-verifier-test-web/badge?style=for-the-badge)](https://scorecard.dev/viewer/?uri=github.com/diggsweden/wallet-verifier-test-web)
 ![Standard for Public Code Commitment](https://img.shields.io/badge/Standard%20for%20Public%20Code%20Commitment-green?style=for-the-badge)
-
+d
 Demo application demonstrating how a relying party may implement authentication using EUDI wallet verification.
 
 ## Quick Start
