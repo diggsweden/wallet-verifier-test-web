@@ -137,10 +137,9 @@ lint-license:
 lint-xml:
     @{{lint}}/xml.sh
 
-# Lint containers (no-op for this project)
+# Lint containers (disabled - no Containerfile in this project)
 [group('lint')]
 lint-container:
-    @{{lint}}/container.sh
 
 # Lint Node code (all: eslint, prettier, types)
 [group('lint')]
