@@ -34,7 +34,7 @@ jobs:
       security-events: write # Upload container vulnerability scan results
       attestations: write # Attach SBOM attestation to container images
       issues: write # Close issues and add release comments
-    uses: diggsweden/reusable-ci/.github/workflows/release-orchestrator.yml@e29145e720cef0b86ef147c72c2d001b5ac6c8b9 # v2.4.2
+    uses: diggsweden/reusable-ci/.github/workflows/release-orchestrator.yml@e1e1387d5b0399bb5edb00e40485746772344176 # v2.6.0
     with:
       artifacts-config: .github/artifacts.yml
       file-pattern: "CHANGELOG.md package.json package-lock.json"
