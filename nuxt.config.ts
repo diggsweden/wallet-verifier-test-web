@@ -19,7 +19,7 @@ export default defineNuxtConfig({
   },
   runtimeConfig: {
     public: {
-      hostApi: process.env.HOST_API || "http://eudi-verifier",
+      hostApi: process.env.HOST_API || "https://localhost/refimpl-verifier-backend",
       walletUrl: process.env.WALLET_URL || "openid4vp://",
     },
   },
@@ -40,11 +40,11 @@ export default defineNuxtConfig({
     host: "0.0.0.0",
     devProxy: {
       "/ui/": {
-        target: "https://eudi-verifier-backend.wallet.local/ui/",
+        target: "https://localhost/refimpl-verifier-backend/ui/",
         changeOrigin: true,
       },
       "/wallet/": {
-        target: "https://eudi-verifier-backend.wallet.local/wallet/",
+        target: "https://localhost/refimpl-verifier-backend/wallet/",
         changeOrigin: true,
       },
     },

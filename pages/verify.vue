@@ -16,11 +16,11 @@ SPDX-License-Identifier: EUPL-1.2
       
       <div class="text-center mb-8">
         <h1 class="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600 mb-2">
-          Strumpsorteringscentralen
+          Strump&shy;sorterings&shy;centralen
         </h1>
       </div>
       
-      <div class="bg-white rounded-xl shadow-xl p-10 mb-6 border border-gray-100">
+      <div class="bg-white text-center rounded-xl shadow-xl sm:p-10 p-6 mb-6 border border-gray-100">
         <div v-if="state === 'idle'" class="text-center">
           <div class="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-blue-100 to-indigo-100 rounded-full mb-6">
             <svg class="w-10 h-10 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -49,8 +49,8 @@ SPDX-License-Identifier: EUPL-1.2
           <p class="mt-6 text-gray-600 font-medium">Förbereder säker verifiering...</p>
         </div>
 
-        <div v-else-if="state === 'waiting'" class="text-center">
-          <div class="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl p-8 mb-6">
+        <div v-else-if="state === 'waiting'"> 
+          <div class="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl p-2 sm:p-8 mb-6">
             <div class="inline-flex items-center justify-center w-16 h-16 bg-white rounded-full shadow-lg mb-4">
               <svg class="w-8 h-8 text-blue-600 animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z"></path>
@@ -72,8 +72,8 @@ SPDX-License-Identifier: EUPL-1.2
               </div>
             </div>
             <div v-else>
-              <div class="mt-6">
-                <Qrcode :value="qrcodeUrl" class="mx-auto border-6 border-white shadow-lg rounded-lg" style="width: 250px; height: 250px;"/>  
+              <div class="bg-white mx-auto mx-auto sm:w-[min(250px,90vw)] w-[min(200px,90vw)] aspect-square rounded-xl shadow-xl p-2 border border-gray-100">
+                <Qrcode :value="qrcodeUrl" class="w-full h-full mx-auto rounded-xl border-2 border-white"/>  
               </div>
               <div class="mt-6">
                 <button @click="switchToSameDevice" class="text-blue-600 hover:text-blue-700 text-sm font-medium transition-colors">
@@ -105,31 +105,32 @@ SPDX-License-Identifier: EUPL-1.2
             <h3 class="text-2xl font-bold text-gray-800 mt-6 mb-2">Inloggningen lyckades!</h3>
             <p class="text-gray-600">Din identitet har verifierats framgångsrikt</p>
           </div>
-          <div v-if="credentials" class="bg-gradient-to-r from-gray-50 to-gray-100 rounded-xl p-8 mb-8">
+          <div v-if="credentials" class="bg-gradient-to-r from-gray-50 to-gray-100 rounded-xl sm:p-8 p-3 sm:mb-8 mb-3">
             <h4 class="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-4">Verifierad information</h4>
             <div class="space-y-4">
-              <div class="flex justify-between items-center py-3 border-b border-gray-200">
+              <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center py-3 border-b border-gray-200 gap-1 sm:gap-0">
                 <span class="text-gray-600 font-medium">Förnamn</span>
                 <span class="text-gray-800 font-semibold">{{ credentials.given_name || '-' }}</span>
               </div>
-              <div class="flex justify-between items-center py-3 border-b border-gray-200">
+              <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center py-3 border-b border-gray-200 gap-1 sm:gap-0">
                 <span class="text-gray-600 font-medium">Efternamn</span>
                 <span class="text-gray-800 font-semibold">{{ credentials.family_name || '-' }}</span>
               </div>
-              <div class="flex justify-between items-center py-3">
+              <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center py-3 border-b border-gray-200 gap-1 sm:gap-0">
+
                 <span class="text-gray-600 font-medium">Personnummer</span>
                 <span class="text-gray-800 font-semibold font-mono">{{ credentials.personal_administrative_number || '-' }}</span>
               </div>
             </div>
           </div>
-          <div class="flex justify-center space-x-4">
-            <button @click="reset" class="inline-flex items-center px-6 py-3 border border-gray-300 rounded-xl text-gray-700 hover:bg-gray-50 transition-colors">
+          <div class="flex flex-col-reverse sm:flex-row justify-center sm:items-center py-3 border-b border-gray-200 gap-2">
+            <button @click="reset" class="inline-flex items-center justify-center text-center sm:w-auto w-full px-6 py-3 border border-gray-300 rounded-xl text-gray-700 hover:bg-gray-50 transition-colors">
               <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
               </svg>
               Verifiera igen
             </button>
-            <NuxtLink to="/" class="inline-flex items-center px-6 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-xl hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-200">
+            <NuxtLink to="/" class="inline-flex items-center justify-center px-6 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-xl hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-200">
               Logga ut
               <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
