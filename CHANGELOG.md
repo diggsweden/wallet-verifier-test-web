@@ -5,6 +5,22 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.0.8] - 2026-01-26
+
+### Changed
+
+- Merge pull request #99 from diggsweden/feat/small-improvements
+- Make the verify page more responsive
+- Use reuseable ci 2.6.0
+- Change name, improve dev doc
+- Sync package lock json
+
+### Fixed
+
+- Change default backend host to match wallet-ecosystem
+- Correct lintwarning justfile mise
+- Correct lintwarnings for docs, container,nvmrc
+
 ## [0.0.7] - 2025-12-11
 
 ### Changed
@@ -19,6 +35,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Update dependency tailwindcss to v4.1.14 (#92)
 - Update dependency typescript to v5.9.3 (#91)
 - Update docker/login-action action to v3.6.0 (#90)
+
 
 ## [0.0.6] - 2025-09-22
 
@@ -240,6 +257,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Exclude false positive gitleak (#6)
 
+[0.0.8]: https://github.com/diggsweden/wallet-verifier-test-web/compare/v0.0.7..v0.0.8
 [0.0.7]: https://github.com/diggsweden/wallet-verifier-test-web/compare/v0.0.6..v0.0.7
 [0.0.6]: https://github.com/diggsweden/wallet-verifier-test-web/compare/v0.0.5..v0.0.6
 [0.0.5]: https://github.com/diggsweden/wallet-verifier-test-web/compare/v0.0.4..v0.0.5
