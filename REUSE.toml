@@ -17,6 +17,7 @@ path = [
   ".gitignore",
   ".gitleaks.toml",
   ".nvmrc",
+  ".nuxtrc",
   ".tool-versions",
   ".gitleaks-test/tests/suite-report-approved.jsonl"
 ]
