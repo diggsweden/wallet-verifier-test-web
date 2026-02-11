@@ -3,70 +3,141 @@
   "extends": [
     "local>diggsweden/.github:renovate-base",
     ":maintainLockFilesWeekly",
-    "npm:unpublishSafe"
+    "security:minimumReleaseAgeNpm"
   ],
-  "enabledManagers": ["npm", "github-actions", "dockerfile", "docker-compose"],
+  "enabledManagers": [
+    "npm",
+    "github-actions",
+    "dockerfile",
+    "docker-compose"
+  ],
   "packageRules": [
     {
       "description": "Node.js dependencies - Major updates",
-      "matchManagers": ["npm"],
-      "matchUpdateTypes": ["major"],
-      "addLabels": ["dependencies", "major-update"]
+      "matchManagers": [
+        "npm"
+      ],
+      "matchUpdateTypes": [
+        "major"
+      ],
+      "addLabels": [
+        "dependencies",
+        "major-update"
+      ]
     },
     {
       "description": "Node.js dependencies - Non-major updates",
-      "matchManagers": ["npm"],
-      "matchUpdateTypes": ["minor", "patch"],
-      "addLabels": ["dependencies"],
+      "matchManagers": [
+        "npm"
+      ],
+      "matchUpdateTypes": [
+        "minor",
+        "patch"
+      ],
+      "addLabels": [
+        "dependencies"
+      ],
       "groupName": "npm non-major"
     },
     {
       "description": "Development dependencies",
-      "matchManagers": ["npm"],
-      "matchDepTypes": ["devDependencies"],
+      "matchManagers": [
+        "npm"
+      ],
+      "matchDepTypes": [
+        "devDependencies"
+      ],
       "groupName": "dev dependencies",
-      "addLabels": ["dev-deps"]
+      "addLabels": [
+        "dev-deps"
+      ]
     },
     {
       "description": "Core dependencies",
-      "matchManagers": ["npm"],
-      "matchDepTypes": ["dependencies"],
+      "matchManagers": [
+        "npm"
+      ],
+      "matchDepTypes": [
+        "dependencies"
+      ],
       "groupName": "core dependencies",
-      "addLabels": ["core-deps"]
+      "addLabels": [
+        "core-deps"
+      ]
     },
     {
       "description": "Node.js engine",
-      "matchManagers": ["npm"],
-      "matchDepTypes": ["engines"],
-      "matchPackageNames": ["node"],
+      "matchManagers": [
+        "npm"
+      ],
+      "matchDepTypes": [
+        "engines"
+      ],
+      "matchPackageNames": [
+        "node"
+      ],
       "rangeStrategy": "replace",
-      "labels": ["node-engine"]
+      "labels": [
+        "node-engine"
+      ]
     },
     {
       "description": "Vue.js ecosystem",
-      "matchManagers": ["npm"],
+      "matchManagers": [
+        "npm"
+      ],
       "groupName": "vue ecosystem",
-      "addLabels": ["vue", "frontend"],
-      "matchPackageNames": ["/^vue/", "/^@vue//", "/^nuxt/"]
+      "addLabels": [
+        "vue",
+        "frontend"
+      ],
+      "matchPackageNames": [
+        "/^vue/",
+        "/^@vue//",
+        "/^nuxt/"
+      ]
     },
     {
       "description": "Testing dependencies",
-      "matchManagers": ["npm"],
+      "matchManagers": [
+        "npm"
+      ],
       "groupName": "testing dependencies",
-      "addLabels": ["testing"],
-      "matchPackageNames": ["/test/", "/junit/", "/vitest/", "/playwright/"]
+      "addLabels": [
+        "testing"
+      ],
+      "matchPackageNames": [
+        "/test/",
+        "/junit/",
+        "/vitest/",
+        "/playwright/"
+      ]
     },
     {
       "description": "Docker base images",
-      "matchManagers": ["dockerfile", "docker-compose"],
-      "addLabels": ["docker", "infrastructure"]
+      "matchManagers": [
+        "dockerfile",
+        "docker-compose"
+      ],
+      "addLabels": [
+        "docker",
+        "infrastructure"
+      ]
     },
     {
       "description": "TailwindCSS ecosystem",
-      "matchManagers": ["npm"],
+      "matchManagers": [
+        "npm"
+      ],
       "groupName": "tailwind ecosystem",
-      "addLabels": ["tailwind", "frontend"],
-      "matchPackageNames": ["/tailwind/", "/@tailwindcss//"]
+      "addLabels": [
+        "tailwind",
+        "frontend"
+      ],
+      "matchPackageNames": [
+        "/tailwind/",
+        "/@tailwindcss//"
+      ]
     }
   ]
 }
