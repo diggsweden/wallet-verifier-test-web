@@ -1,5 +1,5 @@
 # Build stage
-FROM node:20-bullseye-slim@sha256:f25986842968667c16e5ae7408817cb9b23ee9b3d5cf46ed2be3b171110fa294 AS builder
+FROM node:20-bullseye-slim@sha256:be08b7dfa11af5daa0757d12160117e02587f28a746f4cbffe20b46896e50608 AS builder
 
 # Proxy args for build stage (needed for npm install)
 ARG HTTP_PROXY
@@ -37,7 +37,7 @@ ENV HOST_API=http://eudi-verifier
 RUN npm run build
 RUN npm prune --omit=dev
 
-FROM node:20-bullseye-slim@sha256:f25986842968667c16e5ae7408817cb9b23ee9b3d5cf46ed2be3b171110fa294 AS production
+FROM node:20-bullseye-slim@sha256:be08b7dfa11af5daa0757d12160117e02587f28a746f4cbffe20b46896e50608 AS production
 
 WORKDIR /app
 
