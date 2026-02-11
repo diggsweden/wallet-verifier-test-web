@@ -5,6 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.0.9] - 2026-02-11
+
+### Added
+
+- Add package-lock file for updating nuxt and vue-router (#102)
+- Add build as an allowed conventional commit type (#100)
+
+### Changed
+
+- Migrate dependency happy-dom to v20 [security] (#101)
+
 ## [0.0.8] - 2026-01-26
 
 ### Changed
@@ -20,6 +31,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Change default backend host to match wallet-ecosystem
 - Correct lintwarning justfile mise
 - Correct lintwarnings for docs, container,nvmrc
+
 
 ## [0.0.7] - 2025-12-11
 
@@ -257,6 +269,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Exclude false positive gitleak (#6)
 
+[0.0.9]: https://github.com/diggsweden/wallet-verifier-test-web/compare/v0.0.8..v0.0.9
 [0.0.8]: https://github.com/diggsweden/wallet-verifier-test-web/compare/v0.0.7..v0.0.8
 [0.0.7]: https://github.com/diggsweden/wallet-verifier-test-web/compare/v0.0.6..v0.0.7
 [0.0.6]: https://github.com/diggsweden/wallet-verifier-test-web/compare/v0.0.5..v0.0.6

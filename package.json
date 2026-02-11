@@ -2,7 +2,7 @@
   "name": "nuxt-app",
   "private": true,
   "type": "module",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "scripts": {
     "build": "nuxt build",
     "dev": "nuxt dev",
