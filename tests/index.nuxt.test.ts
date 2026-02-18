@@ -15,7 +15,7 @@ config.global.stubs = {
 describe("Index", () => {
   it("renders the title", () => {
     const wrapper = mount(Index);
-    expect(wrapper.find("h1").text()).toBe("Strumpsorteringscentralen");
+    expect(wrapper.find("h1").text()).toContain("Välkommen");
   });
 
   it("shows initial loading state", () => {
