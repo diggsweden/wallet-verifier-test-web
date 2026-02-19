@@ -24,7 +24,7 @@ export default defineEventHandler(async (event) => {
     if (!transactionData) {
       return sendRedirect(
         event,
-        `${baseUrl}/verify?error=Invalid%20verification%20link`,
+        `${baseUrl}/vaccincentralen?error=Invalid%20verification%20link`,
         302,
       );
     }
@@ -46,20 +46,20 @@ export default defineEventHandler(async (event) => {
         const data = encodeURIComponent(JSON.stringify(verifiedData));
         return sendRedirect(
           event,
-          `${baseUrl}/verify?success=true&data=${data}`,
+          `${baseUrl}/vaccincentralen?success=true&data=${data}`,
           302,
         );
       }
 
       return sendRedirect(
         event,
-        `${baseUrl}/verify?error=Verification%20pending`,
+        `${baseUrl}/vaccincentralen?error=Verification%20pending`,
         302,
       );
     } catch (error) {
       return sendRedirect(
         event,
-        `${baseUrl}/verify?error=Verification%20failed`,
+        `${baseUrl}/vaccincentralen?error=Verification%20failed`,
         302,
       );
     }

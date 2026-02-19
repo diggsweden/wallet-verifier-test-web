@@ -1,36 +1,40 @@
 <!--
 SPDX-FileCopyrightText: 2025 The Wallet Test Verifier Web Authors
-
 SPDX-License-Identifier: EUPL-1.2
 -->
 
 <template>
-  <div class="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <div class="bg-gradient-to-r from-blue-600 to-blue-700 text-white text-center py-2 text-sm shadow-md">
+    DEMO
+  </div>
+  <div class="min-h-screen bg-gradient-to-br from-red-50 to-red-100">
     <div class="p-8 max-w-2xl mx-auto">
-      <NuxtLink to="/" class="inline-flex items-center space-x-2 text-blue-600 hover:text-blue-700 transition-colors mb-8 group">
+      <NuxtLink to="/" class="inline-flex items-center space-x-2 text-red-600 hover:text-red-700 transition-colors mb-8 group">
         <svg class="w-5 h-5 transform group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
         </svg>
         <span class="font-medium">Tillbaka</span>
       </NuxtLink>
-      
+
       <div class="text-center mb-8">
-        <h1 class="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600 mb-2">
-          Strump&shy;sorterings&shy;centralen
+        <h1 class="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-red-600 to-pink-600 mb-2">
+          Vaccin&shy;centralen
         </h1>
       </div>
-      
+
       <div class="bg-white text-center rounded-xl shadow-xl sm:p-10 p-6 mb-6 border border-gray-100">
         <div v-if="state === 'idle'" class="text-center">
-          <div class="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-blue-100 to-indigo-100 rounded-full mb-6">
-            <svg class="w-10 h-10 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
-            </svg>
+          <div class="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-red-100 to-pink-100 rounded-full mb-6">
+            <i class="fa-solid fa-syringe text-red-600 text-3xl"></i>
           </div>
-          <h2 class="text-2xl font-semibold text-gray-800 mb-3">Verifiera din identitet</h2>
-          <p class="text-gray-600 mb-8 max-w-md mx-auto">Verifiera din identitet med din digitala plånbok för att fortsätta.</p>
-          <button @click="startVerification" class="group relative inline-flex items-center justify-center px-10 py-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-medium rounded-xl hover:shadow-2xl transform hover:-translate-y-0.5 transition-all duration-200">
-            <span class="relative">Starta inloggningen</span>
+          <h2 class="text-2xl font-semibold text-gray-800 mb-3">Välkommen</h2>
+          <p class="text-gray-600 mb-8 max-w-md mx-auto">
+            För att säkerställa att du får rätt vaccin och dos,
+            bekräfta din identitet med din digitala plånbok.
+          </p>
+          <button @click="startVerification" class="group relative inline-flex items-center justify-center px-10 py-4 bg-gradient-to-r from-red-600 to-pink-600 text-white font-medium rounded-xl hover:shadow-2xl transform hover:-translate-y-0.5 transition-all duration-200">
+            <span class="relative">Identifiera dig</span>
             <svg class="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
             </svg>
@@ -39,25 +43,22 @@ SPDX-License-Identifier: EUPL-1.2
 
         <div v-else-if="state === 'initializing'" class="text-center py-12">
           <div class="relative inline-flex">
-            <div class="w-16 h-16 bg-blue-600 rounded-full animate-ping absolute inline-flex opacity-20"></div>
-            <div class="relative inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-full">
-              <svg class="w-8 h-8 text-white animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
-              </svg>
+            <div class="w-16 h-16 bg-red-600 rounded-full animate-ping absolute inline-flex opacity-20"></div>
+            <div class="relative inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-red-600 to-pink-600 rounded-full">
+              <i class="fa-solid fa-spinner fa-spin text-white text-2xl"></i>
             </div>
           </div>
           <p class="mt-6 text-gray-600 font-medium">Förbereder säker verifiering...</p>
         </div>
 
-        <div v-else-if="state === 'waiting'"> 
-          <div class="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl p-2 sm:p-8 mb-6">
+        <div v-else-if="state === 'waiting'">
+          <div class="bg-gradient-to-br from-red-50 to-pink-50 rounded-xl p-2 sm:p-8 mb-6">
             <div class="inline-flex items-center justify-center w-16 h-16 bg-white rounded-full shadow-lg mb-4">
-              <svg class="w-8 h-8 text-blue-600 animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z"></path>
-              </svg>
+              <i class="fa-solid fa-clock text-red-600 text-2xl"></i>
             </div>
             <h2 class="text-xl font-semibold text-gray-800 mb-2">Väntar på din plånbok</h2>
-            <p class="text-gray-600 mb-6">Öppna din digitala plånbok för att slutföra verifieringen</p>
+            <p class="text-gray-600 mb-6">Öppna din digitala plånbok för att slutföra identifieringen</p>
+
             <div v-if="flowType === 'same_device'">
               <a :href="authUrl" @click="startPolling" target="_blank" class="group inline-flex items-center justify-center px-8 py-3 bg-gradient-to-r from-green-500 to-green-600 text-white font-medium rounded-xl hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200">
                 <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -66,27 +67,29 @@ SPDX-License-Identifier: EUPL-1.2
                 <span>Öppna wallet</span>
               </a>
               <div class="mt-6">
-                <button @click="switchToCrossDevice" class="text-blue-600 hover:text-blue-700 text-sm font-medium transition-colors">
+                <button @click="switchToCrossDevice" class="text-red-600 hover:text-red-700 text-sm font-medium transition-colors">
                   Har du plånboken på en annan enhet?
                 </button>
               </div>
             </div>
+
             <div v-else>
-              <div class="bg-white mx-auto mx-auto sm:w-[min(250px,90vw)] w-[min(200px,90vw)] aspect-square rounded-xl shadow-xl p-2 border border-gray-100">
-                <Qrcode :value="qrcodeUrl" class="w-full h-full mx-auto rounded-xl border-2 border-white"/>  
+              <div class="bg-white mx-auto sm:w-[min(250px,90vw)] w-[min(200px,90vw)] aspect-square rounded-xl shadow-xl p-2 border border-gray-100">
+                <Qrcode :value="qrcodeUrl" class="w-full h-full mx-auto rounded-xl border-2 border-white"/>
               </div>
               <div class="mt-6">
-                <button @click="switchToSameDevice" class="text-blue-600 hover:text-blue-700 text-sm font-medium transition-colors">
+                <button @click="switchToSameDevice" class="text-red-600 hover:text-red-700 text-sm font-medium transition-colors">
                   Har du plånboken på den här enheten?
                 </button>
               </div>
             </div>
           </div>
-          <div class="bg-blue-100 rounded-xl p-4 inline-flex items-center space-x-3">
-            <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+
+          <div class="bg-red-100 rounded-xl p-4 inline-flex items-center space-x-3">
+            <svg class="w-5 h-5 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
             </svg>
-            <p class="text-sm text-blue-800">
+            <p class="text-sm text-red-800">
               Återstående tid: <span class="font-mono font-bold text-lg">{{ Math.floor(timeLeft / 60) }}:{{ String(timeLeft % 60).padStart(2, '0') }}</span>
             </p>
           </div>
@@ -102,11 +105,10 @@ SPDX-License-Identifier: EUPL-1.2
                 </svg>
               </div>
             </div>
-            <h3 class="text-2xl font-bold text-gray-800 mt-6 mb-2">Inloggningen lyckades!</h3>
-            <p class="text-gray-600">Din identitet har verifierats framgångsrikt</p>
+            <h3 class="text-2xl font-bold text-gray-800 mt-6 mb-2">Verifierad information</h3>
           </div>
-          <div v-if="credentials" class="bg-gradient-to-r from-gray-50 to-gray-100 rounded-xl sm:p-8 p-3 sm:mb-8 mb-3">
-            <h4 class="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-4">Verifierad information</h4>
+
+          <div class="bg-gradient-to-r from-gray-50 to-gray-100 rounded-xl sm:p-8 p-3 sm:mb-8 mb-3">
             <div class="space-y-4">
               <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center py-3 border-b border-gray-200 gap-1 sm:gap-0">
                 <span class="text-gray-600 font-medium">Förnamn</span>
@@ -117,12 +119,12 @@ SPDX-License-Identifier: EUPL-1.2
                 <span class="text-gray-800 font-semibold">{{ credentials.family_name || '-' }}</span>
               </div>
               <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center py-3 border-b border-gray-200 gap-1 sm:gap-0">
-
                 <span class="text-gray-600 font-medium">Personnummer</span>
                 <span class="text-gray-800 font-semibold font-mono">{{ credentials.personal_administrative_number || '-' }}</span>
               </div>
             </div>
           </div>
+
           <div class="flex flex-col-reverse sm:flex-row justify-center sm:items-center py-3 border-b border-gray-200 gap-2">
             <button @click="reset" class="inline-flex items-center justify-center text-center sm:w-auto w-full px-6 py-3 border border-gray-300 rounded-xl text-gray-700 hover:bg-gray-50 transition-colors">
               <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -130,12 +132,7 @@ SPDX-License-Identifier: EUPL-1.2
               </svg>
               Verifiera igen
             </button>
-            <NuxtLink to="/" class="inline-flex items-center justify-center px-6 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-xl hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-200">
-              Logga ut
-              <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
-              </svg>
-            </NuxtLink>
+
           </div>
         </div>
 
@@ -158,16 +155,6 @@ SPDX-License-Identifier: EUPL-1.2
             Försök igen
           </button>
         </div>
-      </div>
-      
-      <div class="bg-white/80 backdrop-blur rounded-xl shadow-sm p-6 text-center">
-        <p class="text-sm text-gray-600">Behöver du hjälp?</p>
-        <a href="mailto:support@exempel.se" class="inline-flex items-center space-x-2 text-blue-600 hover:text-blue-700 font-medium mt-1">
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
-          </svg>
-          <span>support@exempel.se</span>
-        </a>
       </div>
     </div>
   </div>
@@ -207,7 +194,7 @@ const walletBaseUrl = config.public.walletUrl
 const startVerification = async () => {
   state.value = 'initializing'
   error.value = null
-  
+
   if (window.location.search.includes('demo=true')) {
     state.value = 'waiting'
     authUrl.value = '#demo'
@@ -218,20 +205,19 @@ const startVerification = async () => {
     }, 3000)
     return
   }
-  
+
   try {
-    const response = await $fetch('/api/verifier-request', {
+    const response = await $fetch('/api/vaccincentralen-request', {
       method: 'POST',
       body: { type: 'vp_token', request_uri_method: "get", flow_type: flowType.value }
     })
-    
+
     transactionId.value = response.transaction_id
     const requestUri = response.request_uri
     const clientId = response.client_id || 'Verifier'
-    
+
     qrcodeUrl.value = `openid4vp://?client_id=${encodeURIComponent(clientId)}&request_uri=${encodeURIComponent(requestUri)}`
     authUrl.value = `${walletBaseUrl}?client_id=${encodeURIComponent(clientId)}&request_uri=${encodeURIComponent(requestUri)}`
-    console.log(authUrl.value)
     state.value = 'waiting'
     startCountdown()
   } catch (e) {
@@ -242,11 +228,11 @@ const startVerification = async () => {
 
 const startPolling = () => {
   if (polling.value) return
-  
+
   polling.value = setInterval(async () => {
     try {
       const result = await $fetch(`/api/verifier-status/${transactionId.value}`)
-      
+
       if (result.status === 'completed') {
         clearInterval(polling.value)
         state.value = 'success'
@@ -276,7 +262,7 @@ const startCountdown = () => {
       }
     }
   }, 1000)
-  
+
   setTimeout(() => {
     if (state.value === 'waiting' && !polling.value) startPolling()
   }, 5000)
@@ -288,7 +274,7 @@ const switchToSameDevice = async () => {
 }
 
 const switchToCrossDevice = async () => {
-  flowType.value = 'qr_code'  
+  flowType.value = 'qr_code'
   await startVerification()
 }
 
