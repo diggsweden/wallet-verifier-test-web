@@ -5,6 +5,21 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.0.10] - 2026-02-19
+
+### Changed
+
+- Merge pull request #110 from diggsweden/feat/make-it-more-demoable
+- Rebrand strumpsorteringscentralen and examplify additions of new services
+- Update tailwind ecosystem (#106)
+- Update actions/checkout action to v4.3.1 (#105)
+- Pin dependencies (#104)
+- Pin dependencies (#103)
+- Update node.js to be08b7d (#68)
+- Lock file maintenance (#74)
+- Update nginx:alpine docker digest to 1d13701 (#93)
+- Migrate config renovate.json (#95)
+
 ## [0.0.9] - 2026-02-11
 
 ### Added
@@ -15,6 +30,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Migrate dependency happy-dom to v20 [security] (#101)
+
 
 ## [0.0.8] - 2026-01-26
 
@@ -269,6 +285,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Exclude false positive gitleak (#6)
 
+[0.0.10]: https://github.com/diggsweden/wallet-verifier-test-web/compare/v0.0.9..v0.0.10
 [0.0.9]: https://github.com/diggsweden/wallet-verifier-test-web/compare/v0.0.8..v0.0.9
 [0.0.8]: https://github.com/diggsweden/wallet-verifier-test-web/compare/v0.0.7..v0.0.8
 [0.0.7]: https://github.com/diggsweden/wallet-verifier-test-web/compare/v0.0.6..v0.0.7
