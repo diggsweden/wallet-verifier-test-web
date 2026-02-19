@@ -2,7 +2,7 @@ name: eudi-verifier-integration
 
 services:
   eudi-verifier-backend:
-    image: ghcr.io/eu-digital-identity-wallet/eudi-srv-web-verifier-endpoint-23220-4-kt:latest@sha256:0a721f67ae67785419556d890cdb2114e9ea479e33f1b5892f7090c09d8b12e1
+    image: ghcr.io/eu-digital-identity-wallet/eudi-srv-web-verifier-endpoint-23220-4-kt:latest@sha256:9068a7a8f71c333612a968c15e7b307290ccfe52bea962774ceb9493bfb98a0f
     container_name: eudi-verifier-backend
     hostname: eudi-verifier-backend
     ports:
