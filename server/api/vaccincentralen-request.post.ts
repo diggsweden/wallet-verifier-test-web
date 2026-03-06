@@ -48,7 +48,7 @@ export default defineEventHandler(async (event) => {
     };
 
     if (flow_type === "same_device") {
-      requestBody.wallet_response_redirect_uri_template = `${publicBaseUrl}/api/verifier-status/${verifyId}?response_code={RESPONSE_CODE}`;
+      requestBody.wallet_response_redirect_uri_template = `${publicBaseUrl}/api/verifier-status/vaccincentralen/${verifyId}?response_code={RESPONSE_CODE}`;
     }
 
     console.log(

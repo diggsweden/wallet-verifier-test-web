@@ -231,7 +231,7 @@ const startPolling = () => {
 
   polling.value = setInterval(async () => {
     try {
-      const result = await $fetch(`/api/verifier-status/${transactionId.value}`)
+      const result = await $fetch(`/api/verifier-status/vaccincentralen/${transactionId.value}`)
 
       if (result.status === 'completed') {
         clearInterval(polling.value)
