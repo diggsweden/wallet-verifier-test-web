@@ -52,6 +52,32 @@ SPDX-License-Identifier: EUPL-1.2
         </NuxtLink>
 
         <NuxtLink
+            to="/matcentralen"
+            class="group relative block bg-white p-6 rounded-xl shadow-sm hover:shadow-md border border-gray-200 transition-shadow"
+        >
+          <div class="absolute top-0 right-0 -mt-2 -mr-2 bg-blue-500 text-white text-xs font-bold px-2 py-0.5 rounded-full">
+            Demo
+          </div>
+
+          <div class="flex items-center space-x-4">
+            <div class="flex-shrink-0">
+              <div class="w-12 h-12 bg-red-50 rounded-full flex items-center justify-center">
+                <i class="fa-solid fa-truck text-red-500 text-xl"></i>
+              </div>
+            </div>
+            <div>
+              <h3 class="font-medium text-gray-800 mb-1">Matcentralen</h3>
+              <p class="text-sm text-gray-500">Testa att dela andra uppgifter</p>
+            </div>
+            <div class="ml-auto">
+              <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+              </svg>
+            </div>
+          </div>
+        </NuxtLink>
+
+        <NuxtLink
           to="/"
           class="group relative block bg-white p-6 rounded-xl shadow-sm hover:shadow-md border border-gray-200 transition-shadow"
         >
