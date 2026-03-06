@@ -37,7 +37,10 @@ export default defineEventHandler(async (event) => {
                 path: ["given_name"],
               },
               {
-                path: ["personal_administrative_number"],
+                path: ["birthdate"],
+              },
+              {
+                path: ["email"],
               },
             ],
           },
@@ -48,7 +51,7 @@ export default defineEventHandler(async (event) => {
     };
 
     if (flow_type === "same_device") {
-      requestBody.wallet_response_redirect_uri_template = `${publicBaseUrl}/api/verifier-status/vaccincentralen/${verifyId}?response_code={RESPONSE_CODE}`;
+      requestBody.wallet_response_redirect_uri_template = `${publicBaseUrl}/api/verifier-status/matcentralen/${verifyId}?response_code={RESPONSE_CODE}`;
     }
 
     console.log(
