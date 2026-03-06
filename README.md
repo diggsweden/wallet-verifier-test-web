@@ -129,7 +129,7 @@ of claimed attributes from a wallet. Each web page are represented as a
 
 #### Start page
 
-```
+```text
 pages/index.vue
 ```
 
@@ -138,7 +138,7 @@ the sub-pages representing each relaying party web page used for demo .
 
 #### Relaying party demo page
 
-```
+```text
 pages/vaccincentralen.vue
 ```
 
@@ -147,7 +147,7 @@ attributes from the wallet for demo purposes.
 
 #### Request attributes from wallet
 
-```
+```text
 server/api/verifier-status/vaccincentralen-request.post.ts
 ```
 
@@ -155,7 +155,7 @@ This file handles the claims request initiated by the relaying party demo page.
 
 #### Poll for result
 
-```
+```text
 server/api/verifier-status/[site]/[id].ts
 ```
 
@@ -172,7 +172,7 @@ Any number of new relaying party demo pages can be added to this web app.
 Two files are specific for each demo page. For convenience, make a copy
 of these existing files for vaccincentralen in the same location:
 
-```
+```text
 pages/vaccincentralen.vue
 server/api/verifier-status/vaccincentralen-request.post.ts
 ```
@@ -182,7 +182,7 @@ file names and url references.
 
 New files result example:
 
-```
+```text
 pages/<new-demo-site-name>.vue
 server/api/verifier-status/<new-demo-site-name>-request.post.ts
 ```
