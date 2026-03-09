@@ -93,7 +93,7 @@ sequenceDiagram
     end
     
     loop Every 2 seconds (max 90 seconds)
-        Frontend->>ServerAPI: GET /api/verifier-status/democentralen/{id}
+        Frontend->>ServerAPI: GET /api/verifier-status/{sitename}/{id}
         ServerAPI->>Backend: GET /ui/presentations/{id}
         
         alt Backend has result
