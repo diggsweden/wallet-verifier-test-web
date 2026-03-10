@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.1.0] - 2026-03-10
+
+### Changed
+
+- Multiple demo apps support
+
 ## [0.0.10] - 2026-02-19
 
 ### Changed
@@ -19,6 +25,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Lock file maintenance (#74)
 - Update nginx:alpine docker digest to 1d13701 (#93)
 - Migrate config renovate.json (#95)
+
 
 ## [0.0.9] - 2026-02-11
 
@@ -285,6 +292,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Exclude false positive gitleak (#6)
 
+[0.1.0]: https://github.com/diggsweden/wallet-verifier-test-web/compare/v0.0.10..v0.1.0
 [0.0.10]: https://github.com/diggsweden/wallet-verifier-test-web/compare/v0.0.9..v0.0.10
 [0.0.9]: https://github.com/diggsweden/wallet-verifier-test-web/compare/v0.0.8..v0.0.9
 [0.0.8]: https://github.com/diggsweden/wallet-verifier-test-web/compare/v0.0.7..v0.0.8
