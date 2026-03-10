@@ -8,7 +8,7 @@ SPDX-License-Identifier: EUPL-1.2
   <div class="bg-gradient-to-r from-blue-600 to-blue-700 text-white text-center py-2 text-sm shadow-md">
     DEMO
   </div>
-  <div class="min-h-screen bg-gradient-to-br from-red-50 to-red-100">
+  <div class="min-h-screen bg-gradient-to-br from-green-50 to-green-100">
     <div class="p-8 max-w-2xl mx-auto">
       <NuxtLink to="/" class="inline-flex items-center space-x-2 text-red-600 hover:text-red-700 transition-colors mb-8 group">
         <svg class="w-5 h-5 transform group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -19,22 +19,22 @@ SPDX-License-Identifier: EUPL-1.2
 
       <div class="text-center mb-8">
         <h1 class="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-red-600 to-pink-600 mb-2">
-          Vaccin&shy;centralen
+          Mat&shy;centralen
         </h1>
       </div>
 
       <div class="bg-white text-center rounded-xl shadow-xl sm:p-10 p-6 mb-6 border border-gray-100">
         <div v-if="state === 'idle'" class="text-center">
           <div class="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-red-100 to-pink-100 rounded-full mb-6">
-            <i class="fa-solid fa-syringe text-red-600 text-3xl"></i>
+            <i class="fa-solid fa-truck text-red-600 text-3xl"></i>
           </div>
           <h2 class="text-2xl font-semibold text-gray-800 mb-3">Välkommen</h2>
           <p class="text-gray-600 mb-8 max-w-md mx-auto">
-            För att säkerställa att du får rätt vaccin och dos,
-            bekräfta din identitet med din digitala plånbok.
+            För att säkerställa att du får hem matleveransen,
+            bekräfta uppgifter med din digitala plånbok.
           </p>
           <button @click="startVerification" class="group relative inline-flex items-center justify-center px-10 py-4 bg-gradient-to-r from-red-600 to-pink-600 text-white font-medium rounded-xl hover:shadow-2xl transform hover:-translate-y-0.5 transition-all duration-200">
-            <span class="relative">Identifiera dig</span>
+            <span class="relative">Dela dina uppgifter</span>
             <svg class="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
             </svg>
@@ -57,7 +57,7 @@ SPDX-License-Identifier: EUPL-1.2
               <i class="fa-solid fa-clock text-red-600 text-2xl"></i>
             </div>
             <h2 class="text-xl font-semibold text-gray-800 mb-2">Väntar på din plånbok</h2>
-            <p class="text-gray-600 mb-6">Öppna din digitala plånbok för att slutföra identifieringen</p>
+            <p class="text-gray-600 mb-6">Öppna din digitala plånbok för att slutföra förfrågan</p>
 
             <div v-if="flowType === 'same_device'">
               <a :href="authUrl" @click="startPolling" target="_blank" class="group inline-flex items-center justify-center px-8 py-3 bg-gradient-to-r from-green-500 to-green-600 text-white font-medium rounded-xl hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200">
@@ -98,7 +98,7 @@ SPDX-License-Identifier: EUPL-1.2
         <div v-else-if="state === 'success'" class="text-center">
           <div class="mb-8">
             <div class="relative inline-flex">
-              <div class="absolute inset-0 bg-green-500 rounded-full animate-ping opacity-20"></div>
+              <div class="absolute inset-0 bg-red-500 rounded-full animate-ping opacity-20"></div>
               <div class="relative inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-green-400 to-green-600 rounded-full shadow-lg">
                 <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path>
@@ -119,8 +119,12 @@ SPDX-License-Identifier: EUPL-1.2
                 <span class="text-gray-800 font-semibold">{{ credentials.family_name || '-' }}</span>
               </div>
               <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center py-3 border-b border-gray-200 gap-1 sm:gap-0">
-                <span class="text-gray-600 font-medium">Personnummer</span>
-                <span class="text-gray-800 font-semibold font-mono">{{ credentials.personal_administrative_number || '-' }}</span>
+                <span class="text-gray-600 font-medium">E-post</span>
+                <span class="text-gray-800 font-semibold">{{ credentials.email || '-' }}</span>
+              </div>
+              <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center py-3 border-b border-gray-200 gap-1 sm:gap-0">
+                <span class="text-gray-600 font-medium">Födelsedatum</span>
+                <span class="text-gray-800 font-semibold">{{ credentials.birthdate || '-' }}</span>
               </div>
             </div>
           </div>
@@ -201,13 +205,13 @@ const startVerification = async () => {
     qrcodeUrl.value = '#demo'
     setTimeout(() => {
       state.value = 'success'
-      credentials.value = { given_name: 'Anna', family_name: 'Andersson', personal_administrative_number: '199001011234' }
+      credentials.value = { given_name: 'Anna', family_name: 'Andersson', birthdate: '1990-01-01', email: 'anna.andersson@test.se' }
     }, 3000)
     return
   }
 
   try {
-    const response = await $fetch('/api/vaccincentralen-request', {
+    const response = await $fetch('/api/matcentralen-request', {
       method: 'POST',
       body: { type: 'vp_token', request_uri_method: "get", flow_type: flowType.value }
     })
@@ -231,7 +235,7 @@ const startPolling = () => {
 
   polling.value = setInterval(async () => {
     try {
-      const result = await $fetch(`/api/verifier-status/vaccincentralen/${transactionId.value}`)
+      const result = await $fetch(`/api/verifier-status/matcentralen/${transactionId.value}`)
 
       if (result.status === 'completed') {
         clearInterval(polling.value)
