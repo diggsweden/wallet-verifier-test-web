@@ -209,7 +209,7 @@ const startVerification = async () => {
     qrcodeUrl.value = '#demo'
     setTimeout(() => {
       state.value = 'success'
-      credentials.value = { birthdate: '1990-01-01', address: { country: 'SE', locality: 'Stockholm', postal_code: '11122', street_address: 'Kungsgatan 1' } }
+      credentials.value = { birthdate: '1990-01-01', country: 'SE', locality: 'Stockholm', postal_code: '11122', street_address: 'Kungsgatan 1' }
     }, 3000)
     return
   }
