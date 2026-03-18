@@ -10,7 +10,7 @@ SPDX-License-Identifier: EUPL-1.2
   </div>
   <div class="min-h-screen bg-gradient-to-br from-green-50 to-green-100">
     <div class="p-8 max-w-2xl mx-auto">
-      <NuxtLink to="/" class="inline-flex items-center space-x-2 text-red-600 hover:text-red-700 transition-colors mb-8 group">
+      <NuxtLink to="/" class="inline-flex items-center space-x-2 text-green-600 hover:text-green-700 transition-colors mb-8 group">
         <svg class="w-5 h-5 transform group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
         </svg>
@@ -18,23 +18,22 @@ SPDX-License-Identifier: EUPL-1.2
       </NuxtLink>
 
       <div class="text-center mb-8">
-        <h1 class="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-red-600 to-pink-600 mb-2">
+        <h1 class="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-green-600 to-emerald-600 mb-2">
           Mat&shy;centralen
         </h1>
       </div>
 
       <div class="bg-white text-center rounded-xl shadow-xl sm:p-10 p-6 mb-6 border border-gray-100">
         <div v-if="state === 'idle'" class="text-center">
-          <div class="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-red-100 to-pink-100 rounded-full mb-6">
-            <i class="fa-solid fa-truck text-red-600 text-3xl"></i>
+          <div class="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-green-100 to-emerald-100 rounded-full mb-6">
+            <i class="fa-solid fa-truck text-green-600 text-3xl"></i>
           </div>
           <h2 class="text-2xl font-semibold text-gray-800 mb-3">Välkommen</h2>
           <p class="text-gray-600 mb-8 max-w-md mx-auto">
-            För att säkerställa att du får hem matleveransen,
-            bekräfta uppgifter med din digitala plånbok.
+            Presentera adressuppgifter från din PID för att visa att maten levererats till rätt adress.
           </p>
-          <button @click="startVerification" class="group relative inline-flex items-center justify-center px-10 py-4 bg-gradient-to-r from-red-600 to-pink-600 text-white font-medium rounded-xl hover:shadow-2xl transform hover:-translate-y-0.5 transition-all duration-200">
-            <span class="relative">Dela dina uppgifter</span>
+          <button @click="startVerification" class="group relative inline-flex items-center justify-center px-10 py-4 bg-gradient-to-r from-green-600 to-emerald-600 text-white font-medium rounded-xl hover:shadow-2xl transform hover:-translate-y-0.5 transition-all duration-200">
+            <span class="relative">Presentera adressuppgifter</span>
             <svg class="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
             </svg>
@@ -43,8 +42,8 @@ SPDX-License-Identifier: EUPL-1.2
 
         <div v-else-if="state === 'initializing'" class="text-center py-12">
           <div class="relative inline-flex">
-            <div class="w-16 h-16 bg-red-600 rounded-full animate-ping absolute inline-flex opacity-20"></div>
-            <div class="relative inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-red-600 to-pink-600 rounded-full">
+            <div class="w-16 h-16 bg-green-600 rounded-full animate-ping absolute inline-flex opacity-20"></div>
+            <div class="relative inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-green-600 to-emerald-600 rounded-full">
               <i class="fa-solid fa-spinner fa-spin text-white text-2xl"></i>
             </div>
           </div>
@@ -52,9 +51,9 @@ SPDX-License-Identifier: EUPL-1.2
         </div>
 
         <div v-else-if="state === 'waiting'">
-          <div class="bg-gradient-to-br from-red-50 to-pink-50 rounded-xl p-2 sm:p-8 mb-6">
+          <div class="bg-gradient-to-br from-green-50 to-emerald-50 rounded-xl p-2 sm:p-8 mb-6">
             <div class="inline-flex items-center justify-center w-16 h-16 bg-white rounded-full shadow-lg mb-4">
-              <i class="fa-solid fa-clock text-red-600 text-2xl"></i>
+              <i class="fa-solid fa-clock text-green-600 text-2xl"></i>
             </div>
             <h2 class="text-xl font-semibold text-gray-800 mb-2">Väntar på din plånbok</h2>
             <p class="text-gray-600 mb-6">Öppna din digitala plånbok för att slutföra förfrågan</p>
@@ -67,7 +66,7 @@ SPDX-License-Identifier: EUPL-1.2
                 <span>Öppna wallet</span>
               </a>
               <div class="mt-6">
-                <button @click="switchToCrossDevice" class="text-red-600 hover:text-red-700 text-sm font-medium transition-colors">
+                <button @click="switchToCrossDevice" class="text-green-600 hover:text-green-700 text-sm font-medium transition-colors">
                   Har du plånboken på en annan enhet?
                 </button>
               </div>
@@ -78,18 +77,18 @@ SPDX-License-Identifier: EUPL-1.2
                 <Qrcode :value="qrcodeUrl" class="w-full h-full mx-auto rounded-xl border-2 border-white"/>
               </div>
               <div class="mt-6">
-                <button @click="switchToSameDevice" class="text-red-600 hover:text-red-700 text-sm font-medium transition-colors">
+                <button @click="switchToSameDevice" class="text-green-600 hover:text-green-700 text-sm font-medium transition-colors">
                   Har du plånboken på den här enheten?
                 </button>
               </div>
             </div>
           </div>
 
-          <div class="bg-red-100 rounded-xl p-4 inline-flex items-center space-x-3">
-            <svg class="w-5 h-5 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <div class="bg-green-100 rounded-xl p-4 inline-flex items-center space-x-3">
+            <svg class="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
             </svg>
-            <p class="text-sm text-red-800">
+            <p class="text-sm text-green-800">
               Återstående tid: <span class="font-mono font-bold text-lg">{{ Math.floor(timeLeft / 60) }}:{{ String(timeLeft % 60).padStart(2, '0') }}</span>
             </p>
           </div>
@@ -98,7 +97,7 @@ SPDX-License-Identifier: EUPL-1.2
         <div v-else-if="state === 'success'" class="text-center">
           <div class="mb-8">
             <div class="relative inline-flex">
-              <div class="absolute inset-0 bg-red-500 rounded-full animate-ping opacity-20"></div>
+              <div class="absolute inset-0 bg-green-500 rounded-full animate-ping opacity-20"></div>
               <div class="relative inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-green-400 to-green-600 rounded-full shadow-lg">
                 <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path>
@@ -145,18 +144,18 @@ SPDX-License-Identifier: EUPL-1.2
         </div>
 
         <div v-else-if="state === 'error'" class="text-center">
-          <div class="inline-flex items-center justify-center w-20 h-20 bg-red-100 rounded-full mb-6">
-            <svg class="w-10 h-10 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <div class="inline-flex items-center justify-center w-20 h-20 bg-green-100 rounded-full mb-6">
+            <svg class="w-10 h-10 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
             </svg>
           </div>
           <h3 class="text-xl font-semibold text-gray-800 mb-3">Något gick fel</h3>
-          <div class="bg-red-50 border border-red-200 rounded-xl p-6 mb-8 max-w-md mx-auto">
-            <p class="text-red-800">
+          <div class="bg-green-50 border border-green-200 rounded-xl p-6 mb-8 max-w-md mx-auto">
+            <p class="text-green-800">
               {{ error || 'Inloggningen kunde inte slutföras. Försök igen.' }}
             </p>
           </div>
-          <button @click="reset" class="inline-flex items-center px-8 py-3 bg-gradient-to-r from-red-500 to-red-600 text-white rounded-xl hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-200">
+          <button @click="reset" class="inline-flex items-center px-8 py-3 bg-gradient-to-r from-green-500 to-green-600 text-white rounded-xl hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-200">
             <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
             </svg>

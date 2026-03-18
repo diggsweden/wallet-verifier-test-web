@@ -28,6 +28,7 @@ logs
 
 # Megalinter
 megalinter-reports
+.scannerwork
 
 # External repositories cloned by docker setup
 docker/wallet-ecosystem
