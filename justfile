@@ -97,6 +97,11 @@ lint-all: _ensure-devtools
 lint-commits:
     @{{lint}}/commits.sh
 
+# Validate version control
+[group('lint')]
+lint-version-control:
+    @{{lint}}/version-control.sh
+
 # Scan for secrets
 [group('lint')]
 lint-secrets:
