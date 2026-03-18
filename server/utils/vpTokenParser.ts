@@ -48,11 +48,6 @@ export function parseVpToken(rawVpToken: any): Record<string, any> {
       }
     }
 
-    // Fallback if no name found
-    if (!verifiedData.given_name) {
-      Object.assign(verifiedData, DEFAULT_DATA);
-    }
-
     console.log(
       "Parsed VP Token fields:",
       JSON.stringify(verifiedData, null, 2),

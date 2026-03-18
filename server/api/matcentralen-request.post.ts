@@ -24,25 +24,47 @@ export default defineEventHandler(async (event) => {
       dcql_query: {
         credentials: [
           {
-            id: "query_0",
+            id: "address_credential",
             format: "dc+sd-jwt",
             meta: {
               vct_values: ["urn:eudi:pid:1"],
             },
             claims: [
               {
-                path: ["family_name"],
+                path: ["address", "street_address"],
               },
               {
-                path: ["given_name"],
+                path: ["address", "postal_code"],
               },
+              {
+                path: ["address", "locality"],
+              },
+              {
+                path: ["address", "country"],
+              },
+            ],
+          },
+          {
+            id: "birthdate_credential",
+            format: "dc+sd-jwt",
+            meta: {
+              vct_values: ["urn:eudi:pid:1"],
+            },
+            claims: [
               {
                 path: ["birthdate"],
               },
-              {
-                path: ["email"],
-              },
             ],
+          },
+        ],
+        credential_sets: [
+          {
+            options: [["address_credential"]],
+            required: true,
+          },
+          {
+            options: [["birthdate_credential"]],
+            required: false,
           },
         ],
       },
