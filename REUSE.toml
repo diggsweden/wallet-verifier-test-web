@@ -16,6 +16,7 @@ path = [
   "**/favicon.ico",
   ".gitignore",
   ".gitleaks.toml",
+  ".gommitlint.yaml",
   ".nvmrc",
   ".nuxtrc",
   ".tool-versions",
