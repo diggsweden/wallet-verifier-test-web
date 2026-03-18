@@ -61,13 +61,13 @@ SPDX-License-Identifier: EUPL-1.2
 
           <div class="flex items-center space-x-4">
             <div class="flex-shrink-0">
-              <div class="w-12 h-12 bg-red-50 rounded-full flex items-center justify-center">
-                <i class="fa-solid fa-truck text-red-500 text-xl"></i>
+              <div class="w-12 h-12 bg-gradient-to-br from-green-100 to-emerald-100 rounded-full flex items-center justify-center">
+                <i class="fa-solid fa-truck text-green-600 text-xl"></i>
               </div>
             </div>
             <div>
               <h3 class="font-medium text-gray-800 mb-1">Matcentralen</h3>
-              <p class="text-sm text-gray-500">Testa att dela andra uppgifter</p>
+              <p class="text-sm text-gray-500">Testa att dela adressuppgifter</p>
             </div>
             <div class="ml-auto">
               <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
