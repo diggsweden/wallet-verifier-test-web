@@ -18,9 +18,9 @@ ENV NODE_OPTIONS=${NODE_OPTIONS}
 ENV NODE_EXTRA_CA_CERTS=${NODE_EXTRA_CA_CERTS}
 
 # Debug proxy settings (optional)
-RUN echo "BUILD STAGE - HTTP_PROXY=$HTTP_PROXY"
-RUN echo "BUILD STAGE - HTTPS_PROXY=$HTTPS_PROXY"
-RUN echo "BUILD STAGE - NO_PROXY=$NO_PROXY"
+RUN echo "BUILD STAGE - HTTP_PROXY=$HTTP_PROXY" && \
+    echo "BUILD STAGE - HTTPS_PROXY=$HTTPS_PROXY" && \
+    echo "BUILD STAGE - NO_PROXY=$NO_PROXY"
 
 # Install all dependencies (including dev deps for building)
 COPY package*.json ./
@@ -34,8 +34,8 @@ COPY server server
 COPY app.vue nuxt.config.ts tsconfig.json ./
 
 ENV HOST_API=http://eudi-verifier
-RUN npm run build
-RUN npm prune --omit=dev
+RUN npm run build && \
+    npm prune --omit=dev
 
 FROM node:20-bullseye-slim@sha256:be08b7dfa11af5daa0757d12160117e02587f28a746f4cbffe20b46896e50608 AS production
 
