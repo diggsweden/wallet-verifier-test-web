@@ -13,58 +13,62 @@ const DEFAULT_DATA = {
 };
 
 export function parseVpToken(rawVpToken: any): Record<string, any> {
-  // Extract string token from various formats
-  let vpToken = extractToken(rawVpToken);
+  const vpTokens = extractToken(rawVpToken);
 
-  console.log("Processing VP Token:", typeof vpToken, vpToken?.length);
+  console.log("Processing VP Token:", typeof vpTokens, vpTokens?.length);
 
-  if (typeof vpToken !== "string") {
-    console.error("VP Token is not a string after processing");
+  if (!vpTokens.length) {
+    console.error("No vp token found");
     return DEFAULT_DATA;
   }
-
-  try {
-    const parts = vpToken.split("~");
-    if (parts.length < 2) return DEFAULT_DATA;
-
-    const verifiedData: Record<string, any> = {
-      issuer: decodeJwt(parts[0]).iss || DEFAULT_DATA.issuer,
-      vct: decodeJwt(parts[0]).vct || DEFAULT_DATA.vct,
-    };
-
-    // Parse disclosures
-    for (const disclosure of parts.slice(1, -1)) {
-      if (!disclosure) continue;
-
-      try {
-        const decoded = JSON.parse(
-          Buffer.from(disclosure, "base64url").toString(),
-        );
-        if (Array.isArray(decoded) && decoded.length >= 3) {
-          verifiedData[decoded[1]] = decoded[2]; // [salt, claimName, claimValue]
-        }
-      } catch (e) {
-        console.error("Failed to parse disclosure:", e);
+  const mergedData: Record<string, any> = {
+    issuer: DEFAULT_DATA.issuer,
+    vct: DEFAULT_DATA.vct,
+  };
+  for (const vpToken of vpTokens) {
+    try {
+      const parts = vpToken.split("~");
+      if (parts.length < 2) continue;
+      if (!mergedData.issuer && parts[0]) {
+        mergedData.issuer = decodeJwt(parts[0]).iss || DEFAULT_DATA.issuer;
+        mergedData.vct = decodeJwt(parts[0]).vct || DEFAULT_DATA.vct;
       }
-    }
+      for (const disclosure of parts.slice(1, -1)) {
+        if (!disclosure) continue;
 
-    console.log(
-      "Parsed VP Token fields:",
-      JSON.stringify(verifiedData, null, 2),
-    );
-    return verifiedData;
-  } catch (parseError) {
-    console.error("Error parsing SD-JWT:", parseError);
-    return DEFAULT_DATA;
+        try {
+          const decoded = JSON.parse(
+            Buffer.from(disclosure, "base64url").toString(),
+          );
+          if (Array.isArray(decoded) && decoded.length >= 3) {
+            mergedData[decoded[1]] = decoded[2];
+          }
+        } catch (e) {
+          console.error("Failed to parse disclosure:", e);
+        }
+      }
+    } catch (parseError) {
+      console.error("Error parsing SD-JWT:", parseError);
+      return DEFAULT_DATA;
+    }
   }
+  console.log(
+    "Parsed VP Token fields:",
+    JSON.stringify(mergedData, null, 2),
+  );
+  return mergedData;
 }
 
-function extractToken(token: any): string | null {
-  if (typeof token === "string") return token;
+function extractToken(token: any): string[] {
+  if (typeof token === "string") return [token];
   if (Array.isArray(token)) return extractToken(token[0]);
   if (token && typeof token === "object") {
-    const firstKey = Object.keys(token)[0];
-    return firstKey ? extractToken(token[firstKey]) : null;
+    const tokens: string[] = [];
+    for (const key of Object.keys(token)){
+      const extracted = extractToken(token[key]);
+      if (extracted) tokens.push(...extracted);
+    }
+    return tokens;
   }
-  return null;
+  return [];
 }
