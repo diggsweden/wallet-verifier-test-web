@@ -111,13 +111,17 @@ SPDX-License-Identifier: EUPL-1.2
             <div class="space-y-4">
               <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center py-3 border-b border-gray-200 gap-1 sm:gap-0">
                 <span class="text-gray-600 font-medium">Födelsedatum</span>
-                <span class="text-gray-800 font-semibold">{{ credentials.birthdate || '-' }}</span>
+                <span class="text-gray-800 font-semibold">
+                    <div v-if="credentials.birthdate">{{ credentials.birthdate }}</div>
+                </span>
               </div>
             </div>
             <div class="space-y-4">
               <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center py-3 border-b border-gray-200 gap-1 sm:gap-0">
                 <span class="text-gray-600 font-medium">Efternamn</span>
-                <span class="text-gray-800 font-semibold">{{ credentials.family_name || '-' }}</span>
+                <span class="text-gray-800 font-semibold">
+                    <div v-if="credentials.family_name">{{ credentials.family_name }}</div>
+                </span>
               </div>
             </div>
           </div>
