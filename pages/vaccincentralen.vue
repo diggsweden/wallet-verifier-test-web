@@ -113,19 +113,19 @@ SPDX-License-Identifier: EUPL-1.2
               <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center py-3 border-b border-gray-200 gap-1 sm:gap-0">
                 <span class="text-gray-600 font-medium">Förnamn</span>
                 <span class="text-gray-800 font-semibold">
-                    <div v-if="credentials.given_name">{{ credentials.given_name }}</div>
+                    <div>{{ credentials.given_name }}</div>
                 </span>
               </div>
               <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center py-3 border-b border-gray-200 gap-1 sm:gap-0">
                 <span class="text-gray-600 font-medium">Efternamn</span>
                 <span class="text-gray-800 font-semibold">
-                    <div v-if="credentials.familey_name">{{ credentials.family_name }}</div>
+                    <div>{{ credentials.family_name }}</div>
                 </span>
               </div>
               <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center py-3 border-b border-gray-200 gap-1 sm:gap-0">
                 <span class="text-gray-600 font-medium">Personnummer</span>
                 <span class="text-gray-800 font-semibold font-mono">
-                    <div v-if="credentials.personal_administrative_number">{{ credentials.personal_administrative_number }}</div>
+                    <div>{{ credentials.personal_administrative_number }}</div>
                 </span>
               </div>
             </div>
