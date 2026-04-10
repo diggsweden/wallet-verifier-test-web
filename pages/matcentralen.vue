@@ -109,25 +109,35 @@ SPDX-License-Identifier: EUPL-1.2
 
           <div class="bg-gradient-to-r from-gray-50 to-gray-100 rounded-xl sm:p-8 p-3 sm:mb-8 mb-3">
             <div class="space-y-4">
-              <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center py-3 border-b border-gray-200 gap-1 sm:gap-0">
+              <div v-if="credentials.birthdate" class="flex flex-col sm:flex-row sm:justify-between sm:items-center py-3 border-b border-gray-200 gap-1 sm:gap-0">
                 <span class="text-gray-600 font-medium">Födelsedatum</span>
-                <span class="text-gray-800 font-semibold">{{ credentials.birthdate || '-' }}</span>
+                <span class="text-gray-800 font-semibold">
+                    <div>{{ credentials.birthdate }}</div>
+                </span>
               </div>
               <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center py-3 border-b border-gray-200 gap-1 sm:gap-0">
                 <span class="text-gray-600 font-medium">Gatuadress</span>
-                <span class="text-gray-800 font-semibold">{{ credentials.street_address || '-' }}</span>
+                <span class="text-gray-800 font-semibold">
+                    <div>{{ credentials.street_address }}</div>
+                </span>
               </div>
               <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center py-3 border-b border-gray-200 gap-1 sm:gap-0">
                 <span class="text-gray-600 font-medium">Postnummer</span>
-                <span class="text-gray-800 font-semibold">{{ credentials.postal_code || '-' }}</span>
+                <span class="text-gray-800 font-semibold">
+                    <div>{{ credentials.postal_code }}</div>
+                </span>
               </div>
               <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center py-3 border-b border-gray-200 gap-1 sm:gap-0">
                 <span class="text-gray-600 font-medium">Ort</span>
-                <span class="text-gray-800 font-semibold">{{ credentials.locality || '-' }}</span>
+                <span class="text-gray-800 font-semibold">
+                    <div>{{ credentials.locality }}</div>
+                </span>
               </div>
               <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center py-3 border-b border-gray-200 gap-1 sm:gap-0">
                 <span class="text-gray-600 font-medium">Land</span>
-                <span class="text-gray-800 font-semibold">{{ credentials.country || '-' }}</span>
+                <span class="text-gray-800 font-semibold">
+                    <div>{{ credentials.country }}</div>
+                </span>
               </div>
             </div>
           </div>
