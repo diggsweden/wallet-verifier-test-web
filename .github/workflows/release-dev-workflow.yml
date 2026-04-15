@@ -26,6 +26,7 @@ jobs:
       packages: write # Push dev images to ghcr.io
     uses: diggsweden/reusable-ci/.github/workflows/release-dev-orchestrator.yml@feat/build-sbom-npm-cargo-gradle # v2.7.6
     with:
+      generate-sbom: true
       reusable-ci-ref: feat/build-sbom-npm-cargo-gradle 
       project-type: npm
       container-file: src/main/docker/Dockerfile.build
