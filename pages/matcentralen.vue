@@ -1,5 +1,5 @@
 <!--
-SPDX-FileCopyrightText: 2025 The Wallet Test Verifier Web Authors
+SPDX-FileCopyrightText: 2026 Digg - Agency for Digital Government
 SPDX-License-Identifier: EUPL-1.2
 -->
 
