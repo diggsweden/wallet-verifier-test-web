@@ -20,6 +20,6 @@ jobs:
       contents: read
       security-events: write
       id-token: write
-    uses: diggsweden/reusable-ci/.github/workflows/security-openssf-scorecard.yml@f29aac6d44b8b57f3e64120dcde531c33f8cbe36 # test feat/build-sbom-enhanced
+    uses: diggsweden/reusable-ci/.github/workflows/security-openssf-scorecard.yml@a51c0edbdb0799550d4293863edfc4d8f1643742 # test feat/build-sbom-enhanced
     with:
       publish-results: true

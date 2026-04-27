@@ -34,9 +34,9 @@ jobs:
       security-events: write # Upload container vulnerability scan results
       attestations: write # Attach SBOM attestation to container images
       issues: write # Close issues and add release comments
-    uses: diggsweden/reusable-ci/.github/workflows/release-orchestrator.yml@f29aac6d44b8b57f3e64120dcde531c33f8cbe36 # test feat/build-sbom-enhanced
+    uses: diggsweden/reusable-ci/.github/workflows/release-orchestrator.yml@a51c0edbdb0799550d4293863edfc4d8f1643742 # test feat/build-sbom-enhanced
     with:
-      reusable-ci-ref: f29aac6d44b8b57f3e64120dcde531c33f8cbe36
+      reusable-ci-ref: a51c0edbdb0799550d4293863edfc4d8f1643742
       artifacts-config: .github/artifacts.yml
       file-pattern: "CHANGELOG.md package.json package-lock.json"
       changelog-creator: git-cliff
