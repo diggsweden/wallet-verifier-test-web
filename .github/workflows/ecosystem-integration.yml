@@ -20,7 +20,7 @@ concurrency:
 
 jobs:
   integration-test:
-    uses: diggsweden/wallet-ecosystem/.github/workflows/reusable-integration.yml@main
+    uses: diggsweden/wallet-ecosystem/.github/workflows/reusable-integration.yml@a7424b872d4bfe533e989c964f82b1bd1df0b9e0 # main
     with:
       service-name: demo-verifier
       service-repo: ${{ github.repository }}
