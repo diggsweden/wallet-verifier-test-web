@@ -8,5 +8,17 @@ export default defineVitestConfig({
   test: {
     environment: 'nuxt',
     environmentOptions: { nuxt: { url: 'http://localhost:3000' }},
+    coverage: {
+      provider: 'v8',
+      reporter: ['text', 'json', 'html', 'lcov'],
+      exclude: [
+        '**/node_modules/**',
+        '.nuxt/**',
+        'dist/**',
+        'tests/**',
+        '**/*.d.ts',
+        '**/*.config.*',
+      ],
+    },
   },
 });

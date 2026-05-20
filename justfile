@@ -204,9 +204,9 @@ lint-node-format-fix:
 test:
     #!/usr/bin/env bash
     source "{{colors}}"
-    just_header "Running tests" "npm run test:once"
-    npm run test:once
-    just_success "Tests passed"
+    just_header "Running tests with coverage" "npm run test:coverage"
+    npm run test:coverage
+    just_success "Tests passed and coverage report generated"
 
 # ==================================================================================== #
 # BUILD - Build project
