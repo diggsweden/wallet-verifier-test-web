@@ -3,6 +3,9 @@
 // SPDX-License-Identifier: EUPL-1.2
 
 import { parseVpToken } from "#server/utils/vpTokenParser";
+import { createLogger } from "~/server/utils/logger";
+
+const logger = createLogger("verifier-status");
 
 export default defineEventHandler(async (event) => {
   const config = useRuntimeConfig();
@@ -78,7 +81,7 @@ export default defineEventHandler(async (event) => {
     );
 
     if (response && response.vp_token) {
-      console.log("Received VP Token:", response.vp_token);
+      logger.info("Received VP Token", { transactionId, hasToken: true });
 
       const verifiedData = parseVpToken(response.vp_token);
 
@@ -89,18 +92,21 @@ export default defineEventHandler(async (event) => {
       };
     }
 
+    logger.debug("No VP token yet, status pending", { transactionId });
     return { status: "pending" };
   } catch (error) {
     const storage = useStorage("memory");
     const stored = await storage.getItem(`verification:${transactionId}`);
 
     if (stored) {
+      logger.info("Returning stored verification data", { transactionId });
       return {
         status: "completed",
         verifiedCredentials: stored,
       };
     }
 
+    logger.debug("Verification still pending", { transactionId });
     return { status: "pending" };
   }
 });

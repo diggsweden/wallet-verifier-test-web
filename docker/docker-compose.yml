@@ -63,6 +63,7 @@ services:
       NUXT_PUBLIC_BASE_URL: "${NGROK_URL:-http://localhost:8000}"
       PUBLIC_BASE_URL: "${NGROK_URL:-http://localhost:8000}"
       WALLET_URL: "eudi-openid4vp://"
+      LOG_LEVEL: "${LOG_LEVEL:-info}"
     depends_on:
       - eudi-verifier-backend
     restart: on-failure
