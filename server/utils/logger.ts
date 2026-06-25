@@ -45,7 +45,7 @@ const otelJsonReporter = {
       },
     };
     
-    console.log(JSON.stringify(output));
+    console.log(JSON.stringify(output, null, 2));
   }
 };
 
