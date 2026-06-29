@@ -120,7 +120,7 @@ export default defineEventHandler(async (event) => {
       "url.full": presentationUrl,
     });
     throw createError({
-      statusCode: 500,
+      statusCode: responseStatus,
       statusMessage: "Failed to create verification request",
     });
   }

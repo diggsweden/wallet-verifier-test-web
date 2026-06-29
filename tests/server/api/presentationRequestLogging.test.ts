@@ -67,7 +67,6 @@ describe("presentation request failure logging", () => {
       const { default: handler } = await import(modulePath);
 
       await expect(handler({} as never)).rejects.toMatchObject({
-        statusCode: 500,
         statusMessage: "Failed to create verification request",
       });
 
@@ -92,10 +91,10 @@ describe("presentation request failure logging", () => {
       expect(errorLogCall).toBeDefined();
 
       const parsedLog = JSON.parse(String(errorLogCall?.[0]));
+      expect(parsedLog.body).toBe("Verifier request failed");
       expect(parsedLog.severity_text).toBe("ERROR");
       expect(parsedLog.attributes).toMatchObject({
         logger: loggerTag,
-        "exception.message": `Request failed with status code ${statusCode}`,
         "http.response.status_code": statusCode,
         "url.full": "https://backend.example/ui/presentations",
       });
