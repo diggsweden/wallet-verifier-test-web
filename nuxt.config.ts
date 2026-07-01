@@ -10,8 +10,7 @@ export default defineNuxtConfig({
   modules: ["@nuxtjs/tailwindcss", "nuxt-qrcode"],
   vite: {
     esbuild: {
-      drop:
-        process.env.NODE_ENV === "production" ? ["console", "debugger"] : [],
+      drop: [],
     },
   },
   typescript: {
@@ -47,6 +46,9 @@ export default defineNuxtConfig({
         target: "https://localhost/refimpl-verifier-backend/wallet/",
         changeOrigin: true,
       },
+    },
+    logger: {
+      level: process.env.LOG_LEVEL || "info",
     },
   },
 });

@@ -3,6 +3,9 @@
 // SPDX-License-Identifier: EUPL-1.2
 
 import { decodeJwt } from "jose";
+import { createLogger } from "./logger";
+
+const logger = createLogger("vpTokenParser");
 
 export function parseVpToken(rawVpToken: any): Record<string, any> {
   const vpTokens = extractToken(rawVpToken);
@@ -37,12 +40,16 @@ export function parseVpToken(rawVpToken: any): Record<string, any> {
               mergedData[decoded[1]] = decoded[2];
             }
           } catch (e) {
-            console.error("Failed to parse disclosure:", e);
+            logger.error("Failed to parse disclosure", {
+              "exception.message": e instanceof Error ? e.message : String(e),
+            });
           }
         }
       }
     } catch (parseError) {
-      console.error("Error parsing SD-JWT:", parseError);
+      logger.error("Error parsing SD-JWT", {
+        "exception.message": parseError instanceof Error ? parseError.message : String(parseError),
+      });
       throw new Error("Invalid VP Token");
     }
   }
@@ -51,10 +58,7 @@ export function parseVpToken(rawVpToken: any): Record<string, any> {
     throw new Error("Invalid VP Token: Missing issuer or vct");
   }
 
-  console.log(
-    "Parsed VP Token fields:",
-    JSON.stringify(mergedData, null, 2),
-  );
+  logger.info("Parsed VP Token fields", { mergedData });
   return mergedData;
 }
 

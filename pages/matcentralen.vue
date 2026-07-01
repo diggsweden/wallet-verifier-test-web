@@ -178,6 +178,9 @@ SPDX-License-Identifier: EUPL-1.2
 </template>
 
 <script setup>
+import { createLogger } from '../utils/logger.client';
+
+const logger = createLogger('matcentralen-page');
 const TIMELIMIT = 90;
 const state = ref('idle')
 const transactionId = ref(null)
@@ -198,6 +201,7 @@ onMounted(() => {
       state.value = 'success'
       credentials.value = data
     } catch (e) {
+      logger.error('Failed to load verification data', e)
       state.value = 'error'
       error.value = 'Failed to load verification data'
     }
@@ -238,6 +242,7 @@ const startVerification = async () => {
     state.value = 'waiting'
     startCountdown()
   } catch (e) {
+    logger.error('Failed to start verification', e)
     state.value = 'error'
     error.value = e.data?.message || e.message || 'Kunde inte starta verifieringen'
   }
@@ -262,7 +267,7 @@ const startPolling = () => {
         timeLeft.value = TIMELIMIT
       }
     } catch (e) {
-      console.error('Polling error:', e)
+      logger.error('Polling error', e)
     }
   }, 2000)
 }

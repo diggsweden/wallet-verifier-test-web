@@ -3,6 +3,7 @@
 // SPDX-License-Identifier: EUPL-1.2
 
 import { randomUUID } from "crypto";
+import { createLogger } from "~/server/utils/logger";
 
 export default defineEventHandler(async (event) => {
   const config = useRuntimeConfig();
@@ -16,6 +17,9 @@ export default defineEventHandler(async (event) => {
     process.env.NUXT_PUBLIC_BASE_URL ||
     "https://custom-verifier";
   const { flow_type } = await readBody(event);
+  const presentationUrl = `${hostApi}/ui/presentations`;
+
+  const logger = createLogger("vaccincentralen-request");
 
   try {
     const verifyId = randomUUID();
@@ -51,17 +55,21 @@ export default defineEventHandler(async (event) => {
       requestBody.wallet_response_redirect_uri_template = `${publicBaseUrl}/api/verifier-status/vaccincentralen/${verifyId}?response_code={RESPONSE_CODE}`;
     }
 
-    console.log(
-      "Sending request to EUDI backend:",
-      JSON.stringify(requestBody, null, 2),
-    );
+    logger.info("Sending presentation request to verifier backend",  {
+      verifyId,
+      flowType: flow_type,
+      "url.full": presentationUrl,
+    });
+    logger.debug("Request body", requestBody);
 
-    const response = await $fetch(`${hostApi}/ui/presentations`, {
+    const response = await $fetch(presentationUrl, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: requestBody,
       ignoreHTTPSErrors: true,
     });
+
+    logger.info("Request successful", { verifyId, transactionId: response.transaction_id });
 
     const storage = useStorage("memory");
     await storage.setItem(`verify:${verifyId}`, {
@@ -70,9 +78,24 @@ export default defineEventHandler(async (event) => {
 
     return response;
   } catch (error) {
-    console.error("Verifier request error:", error);
+    const responseStatus =
+      typeof error === "object" &&
+      error !== null &&
+      "response" in error &&
+      typeof error.response === "object" &&
+      error.response !== null &&
+      "status" in error.response &&
+      typeof error.response.status === "number"
+        ? error.response.status
+        : undefined;
+
+    logger.error("Verifier request failed", {
+      "exception.message": error instanceof Error ? error.message : String(error),
+      "http.response.status_code": responseStatus,
+      "url.full": presentationUrl,
+    });
     throw createError({
-      statusCode: 500,
+      statusCode: responseStatus,
       statusMessage: "Failed to create verification request",
     });
   }

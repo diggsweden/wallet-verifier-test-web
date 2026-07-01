@@ -118,6 +118,9 @@ SPDX-License-Identifier: EUPL-1.2
 </template>
 
 <script setup>
+import { createLogger } from '../utils/logger.client';
+
+const logger = createLogger('index-page');
 const status = ref({ online: false, metadata: {} })
 
 onMounted(async () => {
@@ -125,6 +128,7 @@ onMounted(async () => {
     const { status: s, metadata } = await $fetch('/api/verifier-status')
     status.value = { online: s === 'online', metadata }
   } catch (e) {
+    logger.error('Failed to fetch verifier status', e)
     status.value = { online: false, metadata: { error: 'Kunde inte hämta status' } }
   }
 })
