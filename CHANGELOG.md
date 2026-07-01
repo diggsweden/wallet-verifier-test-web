@@ -5,6 +5,37 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.1.6] - 2026-07-01
+
+### Added
+
+- Add tests for logging PID presentation failure
+- Add new logging
+
+### Changed
+
+- Merge pull request #137 from diggsweden/feat/add-new-logg
+- Pin dependency @vue/test-utils to 2.4.6 (#135)
+- Update dependency vitest to v3.2.6 [security] (#132)
+- Merge pull request #133 from diggsweden/chore/update-codeowners
+- Bump reusable-ci to v2.8.2
+- Update dependency postcss to v8.5.10 [security] (#130)
+- Merge pull request #129 from diggsweden/fix/use-main-version-of-reusable-integration
+- Merge pull request #128 from diggsweden/chore/update-copyright
+- Update copyright year to 2026
+- Update copyright holder
+- Merge pull request #127 from diggsweden/chore/bump-reusable-integration-workflow
+- Bump reusable integration workflow
+- Merge pull request #126 from diggsweden/chore/bump-reusable-integration-workflow
+- Bump gommitlint to 0.9.10, switch rumdl from ubi to aqua
+- Bump reusable-ci to v2.7.9
+
+### Fixed
+
+- Assert log messages
+- Use main version of reusable integration script
+- Bump reusable integration workflow
+
 ## [0.1.5] - 2026-04-10
 
 ### Changed
@@ -19,6 +50,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - Bump release-dev-workflow to 2.7.6
+
 
 ## [0.1.4] - 2026-03-25
 
@@ -351,6 +383,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Exclude false positive gitleak (#6)
 
+[0.1.6]: https://github.com/diggsweden/wallet-verifier-test-web/compare/v0.1.5..v0.1.6
 [0.1.5]: https://github.com/diggsweden/wallet-verifier-test-web/compare/v0.1.4..v0.1.5
 [0.1.4]: https://github.com/diggsweden/wallet-verifier-test-web/compare/v0.1.3..v0.1.4
 [0.1.3]: https://github.com/diggsweden/wallet-verifier-test-web/compare/v0.1.2..v0.1.3
