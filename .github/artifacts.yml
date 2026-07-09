@@ -11,7 +11,7 @@ artifacts:
     working-directory: .
     build-type: application
     config:
-      node-version: 22
+      node-version: 26
 
 containers:
   - name: wallet-verifier-test-web
