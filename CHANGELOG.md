@@ -5,6 +5,28 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.1.7] - 2026-07-09
+
+### Added
+
+- Add missing newline at end of file
+
+### Changed
+
+- Merge pull request #139 from diggsweden/chore/bump-vitest-to-4.1.0
+- Move nuxt/test-utils to dev dependencies
+- Bump vitest to 4.1.0
+- Merge pull request #138 from diggsweden/fix/address-opengrep-issues
+- Ignore IntelliJ project file
+
+### Fixed
+
+- Set minimum release age for npm dependencies
+- Set minimum release age for npm dependencies
+- Restrict HTTP upgrade to websockets only
+- Exclude test sources from OpenGrep scanning
+- Exclude GitHub workflow files from OpenGrep scanning
+
 ## [0.1.6] - 2026-07-01
 
 ### Added
@@ -35,6 +57,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Assert log messages
 - Use main version of reusable integration script
 - Bump reusable integration workflow
+
 
 ## [0.1.5] - 2026-04-10
 
@@ -383,6 +406,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Exclude false positive gitleak (#6)
 
+[0.1.7]: https://github.com/diggsweden/wallet-verifier-test-web/compare/v0.1.6..v0.1.7
 [0.1.6]: https://github.com/diggsweden/wallet-verifier-test-web/compare/v0.1.5..v0.1.6
 [0.1.5]: https://github.com/diggsweden/wallet-verifier-test-web/compare/v0.1.4..v0.1.5
 [0.1.4]: https://github.com/diggsweden/wallet-verifier-test-web/compare/v0.1.3..v0.1.4
