@@ -16,7 +16,6 @@
   },
   "dependencies": {
     "@heroicons/vue": "^2.2.0",
-    "@nuxt/test-utils": "^4.0.3",
     "commander": "^13.1.0",
     "jose": "^6.0.11",
     "nuxt": "^4.0.0",
@@ -26,6 +25,7 @@
   },
   "devDependencies": {
     "@nuxtjs/tailwindcss": "7.0.0-beta.1",
+    "@nuxt/test-utils": "^4.0.3",
     "@tailwindcss/forms": "0.5.11",
     "@vitejs/plugin-vue": "5.2.4",
     "@vue/test-utils": "2.4.6",
