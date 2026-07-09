@@ -23,7 +23,8 @@
       "addLabels": [
         "dependencies",
         "major-update"
-      ]
+      ],
+      "minimumReleaseAge": "7 days"
     },
     {
       "description": "Node.js dependencies - Non-major updates",
@@ -37,7 +38,8 @@
       "addLabels": [
         "dependencies"
       ],
-      "groupName": "npm non-major"
+      "groupName": "npm non-major",
+      "minimumReleaseAge": "7 days"
     },
     {
       "description": "Development dependencies",
@@ -50,7 +52,8 @@
       "groupName": "dev dependencies",
       "addLabels": [
         "dev-deps"
-      ]
+      ],
+      "minimumReleaseAge": "7 days"
     },
     {
       "description": "Core dependencies",
@@ -63,7 +66,8 @@
       "groupName": "core dependencies",
       "addLabels": [
         "core-deps"
-      ]
+      ],
+      "minimumReleaseAge": "7 days"
     },
     {
       "description": "Node.js engine",
@@ -79,7 +83,8 @@
       "rangeStrategy": "replace",
       "labels": [
         "node-engine"
-      ]
+      ],
+      "minimumReleaseAge": "7 days"
     },
     {
       "description": "Vue.js ecosystem",
@@ -95,7 +100,8 @@
         "/^vue/",
         "/^@vue//",
         "/^nuxt/"
-      ]
+      ],
+      "minimumReleaseAge": "7 days"
     },
     {
       "description": "Testing dependencies",
@@ -111,7 +117,8 @@
         "/junit/",
         "/vitest/",
         "/playwright/"
-      ]
+      ],
+      "minimumReleaseAge": "7 days"
     },
     {
       "description": "Docker base images",
@@ -137,7 +144,8 @@
       "matchPackageNames": [
         "/tailwind/",
         "/@tailwindcss//"
-      ]
+      ],
+      "minimumReleaseAge": "7 days"
     }
   ]
 }
