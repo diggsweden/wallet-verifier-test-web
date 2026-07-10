@@ -5,6 +5,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.1.8] - 2026-07-10
+
+### Changed
+
+- Merge pull request #140 from diggsweden/build/use-node-version-26
+- Explicitly allow install scripts of node dependencies
+- Use node version 26
+- Merge pull request #108 from diggsweden/renovate/actions-setup-node-6.x
+- Update actions/setup-node action to v6
+
+### Removed
+
+- Remove depreacted npm setting 'always-auth'
+
 ## [0.1.7] - 2026-07-09
 
 ### Added
@@ -26,6 +40,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Restrict HTTP upgrade to websockets only
 - Exclude test sources from OpenGrep scanning
 - Exclude GitHub workflow files from OpenGrep scanning
+
 
 ## [0.1.6] - 2026-07-01
 
@@ -406,6 +421,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Exclude false positive gitleak (#6)
 
+[0.1.8]: https://github.com/diggsweden/wallet-verifier-test-web/compare/v0.1.7..v0.1.8
 [0.1.7]: https://github.com/diggsweden/wallet-verifier-test-web/compare/v0.1.6..v0.1.7
 [0.1.6]: https://github.com/diggsweden/wallet-verifier-test-web/compare/v0.1.5..v0.1.6
 [0.1.5]: https://github.com/diggsweden/wallet-verifier-test-web/compare/v0.1.4..v0.1.5
