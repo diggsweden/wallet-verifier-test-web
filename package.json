@@ -19,7 +19,7 @@
     "commander": "^13.1.0",
     "jose": "^6.0.11",
     "nuxt": "^4.0.0",
-    "nuxt-qrcode": "0.4.8",
+    "nuxt-qrcode": "0.4.10",
     "vue": "^3.5.16",
     "vue-router": "^5.0.0"
   },
@@ -36,7 +36,7 @@
     "tailwindcss": "4.1.18",
     "typescript": "5.9.3",
     "vitest": "^4.1.0",
-    "vue-tsc": "3.2.4"
+    "vue-tsc": "3.3.7"
   },
   "allowScripts": {
     "esbuild@0.27.2": true,
