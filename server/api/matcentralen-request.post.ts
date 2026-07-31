@@ -30,8 +30,9 @@ export default defineEventHandler(async (event) => {
           {
             id: "address_credential",
             format: "dc+sd-jwt",
+            vct: "urn:eudi:pid:1",
             meta: {
-              vct_values: ["urn:eudi:pid:1"],
+              doctype_value: "eu.europa.ec.eudi.pid.1",
             },
             claims: [
               {
@@ -51,8 +52,9 @@ export default defineEventHandler(async (event) => {
           {
             id: "birthdate_credential",
             format: "dc+sd-jwt",
+            vct: "urn:eudi:pid:1",
             meta: {
-              vct_values: ["urn:eudi:pid:1"],
+              doctype_value: "eu.europa.ec.eudi.pid.1",
             },
             claims: [
               {
@@ -74,6 +76,8 @@ export default defineEventHandler(async (event) => {
       },
       nonce: randomUUID(),
       request_uri_method: "get",
+      response_mode: "direct_post",
+      intended_use_id: "1",
     };
 
     if (flow_type === "same_device") {
@@ -118,6 +122,7 @@ export default defineEventHandler(async (event) => {
       "exception.message": error instanceof Error ? error.message : String(error),
       "http.response.status_code": responseStatus,
       "url.full": presentationUrl,
+      "response.body": error.data ? JSON.stringify(error.data) : "No data",
     });
     throw createError({
       statusCode: responseStatus,
