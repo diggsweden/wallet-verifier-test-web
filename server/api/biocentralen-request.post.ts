@@ -30,9 +30,8 @@ export default defineEventHandler(async (event) => {
            {
             id: "birthdate_credential",
             format: "dc+sd-jwt",
-            vct: "urn:eudi:pid:1",
             meta: {
-              doctype_value: "eu.europa.ec.eudi.pid.1",
+              vct_values: ["urn:eudi:pid:1"],
             },
             claims: [
               {
@@ -43,9 +42,8 @@ export default defineEventHandler(async (event) => {
           {
             id: "family_name_credential",
             format: "dc+sd-jwt",
-            vct: "urn:eudi:pid:1",
             meta: {
-              doctype_value: "eu.europa.ec.eudi.pid.1",
+              vct_values: ["urn:eudi:pid:1"],
             },
             claims: [
               {
