@@ -30,8 +30,8 @@ export default defineEventHandler(async (event) => {
           {
             id: "query_0",
             format: "dc+sd-jwt",
-            meta: { 
-              "vct_values": ["urn:eudi:pid:1",] 
+            meta: {
+              vct_values: ["urn:eudi:pid:1"],
             },
             claims: [
               {

@@ -30,9 +30,9 @@ export default defineEventHandler(async (event) => {
           {
             id: "address_credential",
             format: "dc+sd-jwt",
-            meta: [
-              "urn:eudi:pid:1",
-            ],
+            meta: {
+              vct_values: ["urn:eudi:pid:1"],
+            },
             claims: [
               {
                 path: ["address", "street_address"],
@@ -51,9 +51,9 @@ export default defineEventHandler(async (event) => {
           {
             id: "birthdate_credential",
             format: "dc+sd-jwt",
-            meta: [
-              "urn:eudi:pid:1",
-            ],
+            meta: {
+              vct_values: ["urn:eudi:pid:1"],
+            },
             claims: [
               {
                 path: ["birthdate"],
