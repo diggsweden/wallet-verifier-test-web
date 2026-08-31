@@ -237,7 +237,6 @@ const startPolling = () => {
   polling.value = setInterval(async () => {
     try {
       const result = await $fetch(`/api/verifier-status/biocentralen/${transactionId.value}`)
-      logger.debug('Polling result', result.verifiedCredentials);
       if (result.status === 'completed') {
         clearInterval(polling.value)
         state.value = 'success'

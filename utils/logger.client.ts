@@ -13,19 +13,19 @@ export function createLogger(tag: string): ClientLogger {
   return {
     info: (message: string, data?: Record<string, any>) => {
       const output = { tag, level: "INFO", message, ...data };
-      process.stdout.write(JSON.stringify(output) + '\n');
+      console.log(JSON.stringify(output));
     },
     debug: (message: string, data?: Record<string, any>) => {
       const output = { tag, level: "DEBUG", message, ...data };
-      process.stdout.write(JSON.stringify(output) + '\n');
+      console.log(JSON.stringify(output));
     },
     warn: (message: string, data?: Record<string, any>) => {
       const output = { tag, level: "WARN", message, ...data };
-      process.stdout.write(JSON.stringify(output) + '\n');
+      console.log(JSON.stringify(output));
     },
     error: (message: string, data?: Record<string, any>) => {
       const output = { tag, level: "ERROR", message, ...data };
-      process.stderr.write(JSON.stringify(output) + '\n');
+      console.error(JSON.stringify(output));
     },
   };
 }
