@@ -74,7 +74,7 @@ export default defineEventHandler(async (event) => {
       },
       nonce: randomUUID(),
       request_uri_method: "get",
-      response_mode: "direct_post",
+      response_mode: "direct_post.jwt",
       intended_use_id: "1",
     };
 
