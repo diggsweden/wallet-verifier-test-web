@@ -2,7 +2,7 @@
 //
 // SPDX-License-Identifier: EUPL-1.2
 
-import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 
 const handlerCases = [
   {
@@ -28,6 +28,12 @@ describe("presentation request failure logging", () => {
   let readBodySpy: ReturnType<typeof vi.fn>;
 
   beforeEach(() => {
+    vi.unstubAllGlobals();
+    vi.restoreAllMocks();
+    vi.resetModules();
+    delete process.env.HOST_API;
+    delete process.env.INTERNAL_HOST_API;
+
     fetchSpy = vi.fn();
     defineEventHandlerSpy = vi.fn((handler) => handler);
     readBodySpy = vi.fn().mockResolvedValue({ flow_type: "same_device" });
@@ -40,14 +46,6 @@ describe("presentation request failure logging", () => {
         hostApi: "https://runtime-config.example",
       },
     }));
-  });
-
-  afterEach(() => {
-    vi.unstubAllGlobals();
-    vi.restoreAllMocks();
-    vi.resetModules();
-    delete process.env.HOST_API;
-    delete process.env.INTERNAL_HOST_API;
   });
 
   it.each(handlerCases.flatMap((handlerCase) => (
