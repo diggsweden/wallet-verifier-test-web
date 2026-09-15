@@ -125,7 +125,7 @@ const status = ref({ online: false, metadata: {} })
 
 onMounted(async () => {
   try {
-    const { status: s, metadata } = await $fetch('/api/verifier-status')
+    const { status: s, metadata } = await global.$fetch('/api/verifier-status')
     status.value = { online: s === 'online', metadata }
   } catch (e) {
     logger.error('Failed to fetch verifier status', e)
