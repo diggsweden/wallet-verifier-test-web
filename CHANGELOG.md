@@ -5,6 +5,22 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.1.15] - 2026-10-07
+
+### Changed
+
+- Merge pull request #164 from diggsweden/renovate/lock-file-maintenance
+- Update npm dependencies
+- Merge pull request #163 from diggsweden/renovate/testing-dependencies
+- Update dependency @vue/test-utils to v2.5.1
+- Merge pull request #161 from diggsweden/renovate/testing-dependencies
+- Pin dependencies
+
+### Fixed
+
+- Sync package lock
+- Sync package lock
+
 ## [0.1.14] - 2026-09-15
 
 ### Changed
@@ -14,6 +30,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Use global fetch to retrieve verifier status
 - Reset state before each test instead of after
 - Update dependency vitest to v4.1.11 [security] (#159)
+
 
 ## [0.1.13] - 2026-09-08
 
@@ -501,6 +518,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Exclude false positive gitleak (#6)
 
+[0.1.15]: https://github.com/diggsweden/wallet-verifier-test-web/compare/v0.1.14..v0.1.15
 [0.1.14]: https://github.com/diggsweden/wallet-verifier-test-web/compare/v0.1.13..v0.1.14
 [0.1.13]: https://github.com/diggsweden/wallet-verifier-test-web/compare/v0.1.12..v0.1.13
 [0.1.12]: https://github.com/diggsweden/wallet-verifier-test-web/compare/v0.1.11..v0.1.12
