@@ -98,47 +98,82 @@ SPDX-License-Identifier: EUPL-1.2
         <div v-else-if="state === 'success'" class="text-center">
           <div class="mb-8">
             <div class="relative inline-flex">
-              <div class="absolute inset-0 bg-green-500 rounded-full animate-ping opacity-20"></div>
+              <div class="absolute inset-0 bg-green-500 rounded-full opacity-20"></div>
               <div class="relative inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-green-400 to-green-600 rounded-full shadow-lg">
                 <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path>
                 </svg>
               </div>
             </div>
-            <h3 class="text-2xl font-bold text-gray-800 mt-6 mb-2">Verifierad information</h3>
+            <h3 class="text-2xl font-bold text-gray-800 mt-6 mb-2">Välkommen {{ credentials.given_name}}!</h3>
           </div>
 
-          <div class="bg-gradient-to-r from-gray-50 to-gray-100 rounded-xl sm:p-8 p-3 sm:mb-8 mb-3">
-            <div class="space-y-4">
-              <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center py-3 border-b border-gray-200 gap-1 sm:gap-0">
-                <span class="text-gray-600 font-medium">Förnamn</span>
-                <span class="text-gray-800 font-semibold">
-                    <div>{{ credentials.given_name }}</div>
-                </span>
-              </div>
-              <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center py-3 border-b border-gray-200 gap-1 sm:gap-0">
-                <span class="text-gray-600 font-medium">Efternamn</span>
-                <span class="text-gray-800 font-semibold">
-                    <div>{{ credentials.family_name }}</div>
-                </span>
-              </div>
-              <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center py-3 border-b border-gray-200 gap-1 sm:gap-0">
-                <span class="text-gray-600 font-medium">Personnummer</span>
-                <span class="text-gray-800 font-semibold font-mono">
-                    <div>{{ credentials.personal_administrative_number }}</div>
-                </span>
+          <div class="max-w-md mx-auto mb-8 text-left">
+            <div class="mb-8 border-y border-gray-200 py-3">
+              <div class="grid grid-cols-3 gap-2 text-center text-xs font-semibold leading-tight sm:text-sm">
+                <span class="text-pink-600">1. Välj behandling</span>
+                <span class="text-gray-400">2. Välj tid</span>
+                <span class="text-gray-400">3. Boka</span>
               </div>
             </div>
-          </div>
 
-          <div class="flex flex-col-reverse sm:flex-row justify-center sm:items-center py-3 border-b border-gray-200 gap-2">
-            <button @click="reset" class="inline-flex items-center justify-center text-center sm:w-auto w-full px-6 py-3 border border-gray-300 rounded-xl text-gray-700 hover:bg-gray-50 transition-colors">
-              <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
-              </svg>
-              Verifiera igen
+            <p class="text-gray-600 text-center mb-6">
+              Vänligen välj behandling och lokal.
+            </p>
+
+            <div class="space-y-4">
+              <div>
+                <label for="appointment" class="block text-gray-700 font-medium mb-2">Behandling</label>
+                <select id="appointment" class="w-full rounded-lg border border-black bg-white px-3 py-1.5 text-gray-800 shadow-sm transition focus:border-green-500 focus:ring-4 focus:ring-green-100">
+                  <option>Välj Behandling</option>
+                  <option>Vaccination mot TBE</option>
+                  <option>Vaccination mot vattkoppor</option>
+                </select>
+              </div>
+
+              <div>
+                <label for="clinic" class="block text-gray-700 font-medium mb-2">Vaccinationsmottagning</label>
+                <select id="clinic" class="w-full rounded-lg border border-black bg-white px-3 py-1.5 text-gray-800 shadow-sm transition focus:border-green-500 focus:ring-4 focus:ring-green-100">
+                  <option>Välj Vaccinationsmottagning</option>
+                  <option>Citygatan 12B</option>
+                  <option>Köpcentrum 99</option>
+                  <option>Sjukhusflygel A</option>
+                </select>
+              </div>
+            </div>
+
+            <button type="button" class="mt-6 w-full rounded-xl bg-gradient-to-r from-pink-500 to-red-600 px-6 py-3 font-semibold text-white shadow-lg transition hover:-translate-y-0.5 hover:from-pink-600 hover:to-red-700 hover:shadow-xl focus:outline-none focus:ring-4 focus:ring-pink-200">
+              Se lediga tider →
             </button>
 
+            <details class="group mt-4 text-left">
+              <summary class="list-none cursor-pointer px-1 py-2 text-xs text-gray-400 transition hover:text-gray-500">
+                <span class="group-open:hidden">↓</span><span class="hidden group-open:inline">→</span>
+                Uppgifter från plånboken
+              </summary>
+              <div class="mt-1 rounded-xl border border-gray-200 bg-gray-50 px-4 py-2">
+                <table class="w-full text-sm">
+                  <tbody>
+                    <tr class="border-b border-gray-200">
+                      <th scope="row" class="py-3 pr-4 text-left font-medium text-gray-500">Förnamn</th>
+                      <td class="py-3 text-right font-semibold text-gray-800">{{ credentials.given_name }}</td>
+                    </tr>
+                    <tr class="border-b border-gray-200">
+                      <th scope="row" class="py-3 pr-4 text-left font-medium text-gray-500">Efternamn</th>
+                      <td class="py-3 text-right font-semibold text-gray-800">{{ credentials.family_name }}</td>
+                    </tr>
+                    <tr>
+                      <th scope="row" class="py-3 pr-4 text-left font-medium text-gray-500">Personnummer</th>
+                      <td class="py-3 text-right font-semibold text-gray-800 font-mono">{{ credentials.personal_administrative_number }}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </details>
+
+            <p class="mt-4 text-center text-xs text-gray-400">
+              Endast exempel, ingen verklig tid kan bokas
+            </p>
           </div>
         </div>
 
