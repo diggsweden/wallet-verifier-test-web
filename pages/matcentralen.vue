@@ -30,7 +30,7 @@ SPDX-License-Identifier: EUPL-1.2
           </div>
           <h2 class="text-2xl font-semibold text-gray-800 mb-3">Välkommen</h2>
           <p class="text-gray-600 mb-8 max-w-md mx-auto">
-            Presentera adressuppgifter från din PID för att visa att maten levererats till rätt adress.
+            Beställ en matkasse hem till dig. Presentera adressuppgifter från din digitala plånbok så att vi vet vart matkassen ska levereras. Därefter väljer du vilken matkasse du vill boka.
           </p>
           <button @click="startVerification" class="group relative inline-flex items-center justify-center px-10 py-4 bg-gradient-to-r from-green-600 to-emerald-600 text-white font-medium rounded-xl hover:shadow-2xl transform hover:-translate-y-0.5 transition-all duration-200">
             <span class="relative">Presentera adressuppgifter</span>
@@ -97,60 +97,82 @@ SPDX-License-Identifier: EUPL-1.2
         <div v-else-if="state === 'success'" class="text-center">
           <div class="mb-8">
             <div class="relative inline-flex">
-              <div class="absolute inset-0 bg-green-500 rounded-full animate-ping opacity-20"></div>
+              <div class="absolute inset-0 bg-green-500 rounded-full opacity-20"></div>
               <div class="relative inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-green-400 to-green-600 rounded-full shadow-lg">
                 <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path>
                 </svg>
               </div>
             </div>
-            <h3 class="text-2xl font-bold text-gray-800 mt-6 mb-2">Verifierad information</h3>
+            <h3 class="text-2xl font-bold text-gray-800 mt-6 mb-2">Välj din matkasse</h3>
           </div>
 
-          <div class="bg-gradient-to-r from-gray-50 to-gray-100 rounded-xl sm:p-8 p-3 sm:mb-8 mb-3">
-            <div class="space-y-4">
-              <div v-if="credentials.birthdate" class="flex flex-col sm:flex-row sm:justify-between sm:items-center py-3 border-b border-gray-200 gap-1 sm:gap-0">
-                <span class="text-gray-600 font-medium">Födelsedatum</span>
-                <span class="text-gray-800 font-semibold">
-                    <div>{{ credentials.birthdate }}</div>
-                </span>
-              </div>
-              <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center py-3 border-b border-gray-200 gap-1 sm:gap-0">
-                <span class="text-gray-600 font-medium">Gatuadress</span>
-                <span class="text-gray-800 font-semibold">
-                    <div>{{ credentials.street_address }}</div>
-                </span>
-              </div>
-              <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center py-3 border-b border-gray-200 gap-1 sm:gap-0">
-                <span class="text-gray-600 font-medium">Postnummer</span>
-                <span class="text-gray-800 font-semibold">
-                    <div>{{ credentials.postal_code }}</div>
-                </span>
-              </div>
-              <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center py-3 border-b border-gray-200 gap-1 sm:gap-0">
-                <span class="text-gray-600 font-medium">Ort</span>
-                <span class="text-gray-800 font-semibold">
-                    <div>{{ credentials.locality }}</div>
-                </span>
-              </div>
-              <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center py-3 border-b border-gray-200 gap-1 sm:gap-0">
-                <span class="text-gray-600 font-medium">Land</span>
-                <span class="text-gray-800 font-semibold">
-                    <div>{{ credentials.country }}</div>
-                </span>
-              </div>
-            </div>
-          </div>
-
-          <div class="flex flex-col-reverse sm:flex-row justify-center sm:items-center py-3 border-b border-gray-200 gap-2">
-            <button @click="reset" class="inline-flex items-center justify-center text-center sm:w-auto w-full px-6 py-3 border border-gray-300 rounded-xl text-gray-700 hover:bg-gray-50 transition-colors">
-              <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
-              </svg>
-              Verifiera igen
+          <div class="max-w-md mx-auto text-left">
+            <p class="text-center text-gray-600 leading-relaxed mb-6">
+              Välkommen! Vi levererar till din adress:
+              <span class="font-semibold text-gray-800">{{ credentials.street_address }}</span>.
+            </p>
+            <label for="meal-kit" class="block text-gray-700 font-medium mb-2">Välj matkasse</label>
+            <select id="meal-kit" class="w-full rounded-lg border border-black bg-white px-3 py-1.5 text-gray-800 shadow-sm transition focus:border-green-500 focus:ring-4 focus:ring-green-100">
+              <option value="" disabled selected>Välj matkasse</option>
+              <option value="classic">Klassiska matkassen</option>
+              <option value="vegetarian">Vegetariska matkassen</option>
+              <option value="family">Familjematkassen</option>
+            </select>
+            <label for="delivery-day" class="mt-4 block text-gray-700 font-medium mb-2">Leveransdag</label>
+            <select id="delivery-day" class="w-full rounded-lg border border-black bg-white px-3 py-1.5 text-gray-800 shadow-sm transition focus:border-green-500 focus:ring-4 focus:ring-green-100">
+              <option value="" disabled selected>Välj veckodag</option>
+              <option>Måndag</option>
+              <option>Tisdag</option>
+              <option>Onsdag</option>
+              <option>Torsdag</option>
+              <option>Fredag</option>
+              <option>Lördag</option>
+              <option>Söndag</option>
+            </select>
+            <button type="button" class="mt-6 w-full rounded-xl bg-gradient-to-r from-green-600 to-emerald-600 px-6 py-3 font-semibold text-white shadow-lg transition hover:-translate-y-0.5 hover:from-green-700 hover:to-emerald-700 hover:shadow-xl focus:outline-none focus:ring-4 focus:ring-green-200">
+              Boka
             </button>
-
           </div>
+
+          <div class="max-w-md mx-auto text-left">
+            <details class="group mt-4">
+              <summary class="list-none cursor-pointer px-1 py-2 text-xs text-gray-400 transition hover:text-gray-500">
+                <span class="group-open:hidden">↓</span><span class="hidden group-open:inline">→</span>
+                Uppgifter från plånboken
+              </summary>
+              <div class="mt-1 rounded-xl border border-gray-200 bg-gray-50 px-4 py-2">
+                <table class="w-full text-sm">
+                  <tbody>
+                    <tr class="border-b border-gray-200">
+                      <th scope="row" class="py-3 pr-4 text-left font-medium text-gray-500">Födelsedatum</th>
+                      <td class="py-3 text-right font-semibold text-gray-800">{{ credentials.birthdate }}</td>
+                    </tr>
+                    <tr class="border-b border-gray-200">
+                      <th scope="row" class="py-3 pr-4 text-left font-medium text-gray-500">Gatuadress</th>
+                      <td class="py-3 text-right font-semibold text-gray-800">{{ credentials.street_address }}</td>
+                    </tr>
+                    <tr class="border-b border-gray-200">
+                      <th scope="row" class="py-3 pr-4 text-left font-medium text-gray-500">Postnummer</th>
+                      <td class="py-3 text-right font-semibold text-gray-800">{{ credentials.postal_code }}</td>
+                    </tr>
+                    <tr class="border-b border-gray-200">
+                      <th scope="row" class="py-3 pr-4 text-left font-medium text-gray-500">Ort</th>
+                      <td class="py-3 text-right font-semibold text-gray-800">{{ credentials.locality }}</td>
+                    </tr>
+                    <tr>
+                      <th scope="row" class="py-3 pr-4 text-left font-medium text-gray-500">Land</th>
+                      <td class="py-3 text-right font-semibold text-gray-800">{{ credentials.country }}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </details>
+            <p class="mt-4 text-center text-xs text-gray-400">
+              Endast exempel, ingen verklig matkasse kan bokas
+            </p>
+          </div>
+
         </div>
 
         <div v-else-if="state === 'error'" class="text-center">
