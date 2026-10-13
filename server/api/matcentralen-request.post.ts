@@ -35,6 +35,12 @@ export default defineEventHandler(async (event) => {
             },
             claims: [
               {
+                path: ["given_name"],
+              },
+              {
+                path: ["family_name"],
+              },
+              {
                 path: ["address", "street_address"],
               },
               {

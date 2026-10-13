@@ -30,10 +30,10 @@ SPDX-License-Identifier: EUPL-1.2
           </div>
           <h2 class="text-2xl font-semibold text-gray-800 mb-3">Välkommen</h2>
           <p class="text-gray-600 mb-8 max-w-md mx-auto">
-            Beställ en matkasse hem till dig. Presentera adressuppgifter från din digitala plånbok så att vi vet vart matkassen ska levereras. Därefter väljer du vilken matkasse du vill boka.
+            Beställ en matkasse hem till dig. Presentera namn och adressuppgifter från din digitala plånbok så att vi vet vem som ska ta emot matkassen och vart den ska levereras. Därefter väljer du vilken matkasse du vill boka.
           </p>
           <button @click="startVerification" class="group relative inline-flex items-center justify-center px-10 py-4 bg-gradient-to-r from-green-600 to-emerald-600 text-white font-medium rounded-xl hover:shadow-2xl transform hover:-translate-y-0.5 transition-all duration-200">
-            <span class="relative">Presentera adressuppgifter</span>
+            <span class="relative">Presentera namn och adress</span>
             <svg class="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
             </svg>
@@ -109,9 +109,44 @@ SPDX-License-Identifier: EUPL-1.2
 
           <div class="max-w-md mx-auto text-left">
             <p class="text-center text-gray-600 leading-relaxed mb-6">
-              Välkommen! Vi levererar till din adress:
-              <span class="font-semibold text-gray-800">{{ credentials.street_address }}</span>.
+              Välkommen {{ credentials.given_name }}! Välj vart vi ska leverera din matkasse.
             </p>
+            <fieldset class="mb-6">
+              <legend class="text-gray-700 font-medium mb-2">Leveransadress</legend>
+              <label class="flex items-start gap-3 py-2 cursor-pointer">
+                <input v-model="deliveryAddressType" type="radio" name="delivery-address" value="wallet" class="mt-1 text-green-600 focus:ring-green-500">
+                <span>
+                  <span class="block text-gray-800">Adressen från min plånbok</span>
+                  <span class="block text-sm text-gray-500">{{ credentials.given_name }} {{ credentials.family_name }}</span>
+                  <span class="block text-sm text-gray-500">{{ credentials.street_address }}, {{ credentials.postal_code }} {{ credentials.locality }}</span>
+                </span>
+              </label>
+              <label class="flex items-center gap-3 py-2 cursor-pointer">
+                <input v-model="deliveryAddressType" type="radio" name="delivery-address" value="other" class="text-green-600 focus:ring-green-500" aria-controls="alternative-delivery-address">
+                <span class="text-gray-800">Leverera till en annan adress</span>
+              </label>
+              <div v-if="deliveryAddressType === 'other'" id="alternative-delivery-address" class="mt-3 space-y-4">
+                <div>
+                  <label for="delivery-recipient" class="block text-gray-700 font-medium mb-2">Mottagare</label>
+                  <input id="delivery-recipient" v-model="alternativeDeliveryAddress.recipient" autocomplete="shipping name" class="w-full rounded-lg border border-black px-3 py-1.5 text-gray-800 focus:border-green-500 focus:ring-green-100">
+                </div>
+                <div>
+                  <label for="delivery-street" class="block text-gray-700 font-medium mb-2">Gatuadress</label>
+                  <input id="delivery-street" v-model="alternativeDeliveryAddress.street" autocomplete="shipping address-line1" class="w-full rounded-lg border border-black px-3 py-1.5 text-gray-800 focus:border-green-500 focus:ring-green-100">
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                  <div>
+                    <label for="delivery-postcode" class="block text-gray-700 font-medium mb-2">Postnummer</label>
+                    <input id="delivery-postcode" v-model="alternativeDeliveryAddress.postcode" autocomplete="shipping postal-code" class="w-full rounded-lg border border-black px-3 py-1.5 text-gray-800 focus:border-green-500 focus:ring-green-100">
+                  </div>
+                  <div>
+                    <label for="delivery-locality" class="block text-gray-700 font-medium mb-2">Ort</label>
+                    <input id="delivery-locality" v-model="alternativeDeliveryAddress.locality" autocomplete="shipping address-level2" class="w-full rounded-lg border border-black px-3 py-1.5 text-gray-800 focus:border-green-500 focus:ring-green-100">
+                  </div>
+                </div>
+                <p class="text-xs text-gray-500">Den här leveransadressen anges av dig och hämtas inte från plånboken.</p>
+              </div>
+            </fieldset>
             <label for="meal-kit" class="block text-gray-700 font-medium mb-2">Välj matkasse</label>
             <select id="meal-kit" class="w-full rounded-lg border border-black bg-white px-3 py-1.5 text-gray-800 shadow-sm transition focus:border-green-500 focus:ring-4 focus:ring-green-100">
               <option value="" disabled selected>Välj matkasse</option>
@@ -144,6 +179,14 @@ SPDX-License-Identifier: EUPL-1.2
               <div class="mt-1 rounded-xl border border-gray-200 bg-gray-50 px-4 py-2">
                 <table class="w-full text-sm">
                   <tbody>
+                    <tr class="border-b border-gray-200">
+                      <th scope="row" class="py-3 pr-4 text-left font-medium text-gray-500">Förnamn</th>
+                      <td class="py-3 text-right font-semibold text-gray-800">{{ credentials.given_name }}</td>
+                    </tr>
+                    <tr class="border-b border-gray-200">
+                      <th scope="row" class="py-3 pr-4 text-left font-medium text-gray-500">Efternamn</th>
+                      <td class="py-3 text-right font-semibold text-gray-800">{{ credentials.family_name }}</td>
+                    </tr>
                     <tr class="border-b border-gray-200">
                       <th scope="row" class="py-3 pr-4 text-left font-medium text-gray-500">Födelsedatum</th>
                       <td class="py-3 text-right font-semibold text-gray-800">{{ credentials.birthdate }}</td>
@@ -209,6 +252,8 @@ const transactionId = ref(null)
 const qrcodeUrl = ref(null)
 const authUrl = ref(null)
 const credentials = ref(null)
+const deliveryAddressType = ref('wallet')
+const alternativeDeliveryAddress = ref({ recipient: '', street: '', postcode: '', locality: '' })
 const error = ref(null)
 const timeLeft = ref(TIMELIMIT)
 const polling = ref(null)
@@ -244,7 +289,7 @@ const startVerification = async () => {
     qrcodeUrl.value = '#demo'
     setTimeout(() => {
       state.value = 'success'
-      credentials.value = { birthdate: '1990-01-01', country: 'SE', locality: 'Stockholm', postal_code: '11122', street_address: 'Kungsgatan 1' }
+      credentials.value = { given_name: 'Anna', family_name: 'Andersson', birthdate: '1990-01-01', country: 'SE', locality: 'Stockholm', postal_code: '11122', street_address: 'Kungsgatan 1' }
     }, 3000)
     return
   }
