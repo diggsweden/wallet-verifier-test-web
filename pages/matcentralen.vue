@@ -30,7 +30,7 @@ SPDX-License-Identifier: EUPL-1.2
           </div>
           <h2 class="text-2xl font-semibold text-gray-800 mb-3">Välkommen</h2>
           <p class="text-gray-600 mb-8 max-w-md mx-auto">
-            Beställ en matkasse hem till dig. Presentera namn och adressuppgifter från din digitala plånbok så att vi vet vem som ska ta emot matkassen och vart den ska levereras. Därefter väljer du vilken matkasse du vill boka.
+            Beställ en matkasse hem till dig. Presentera namn och adressuppgifter från din digitala plånbok. Därefter väljer du matkasse, leveransdag och om vi ska leverera till adressen från plånboken eller en annan adress.
           </p>
           <button @click="startVerification" class="group relative inline-flex items-center justify-center px-10 py-4 bg-gradient-to-r from-green-600 to-emerald-600 text-white font-medium rounded-xl hover:shadow-2xl transform hover:-translate-y-0.5 transition-all duration-200">
             <span class="relative">Presentera namn och adress</span>
@@ -96,22 +96,32 @@ SPDX-License-Identifier: EUPL-1.2
 
         <div v-else-if="state === 'success'" class="text-center">
           <div class="mb-8">
-            <div class="relative inline-flex">
-              <div class="absolute inset-0 bg-green-500 rounded-full opacity-20"></div>
-              <div class="relative inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-green-400 to-green-600 rounded-full shadow-lg">
-                <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path>
-                </svg>
-              </div>
-            </div>
-            <h3 class="text-2xl font-bold text-gray-800 mt-6 mb-2">Välj din matkasse</h3>
+            <h3 class="text-2xl font-bold text-gray-800 mb-2">Välj din matkasse</h3>
           </div>
 
           <div class="max-w-md mx-auto text-left">
             <p class="text-center text-gray-600 leading-relaxed mb-6">
-              Välkommen {{ credentials.given_name }}! Välj vart vi ska leverera din matkasse.
+              Välkommen {{ credentials.given_name }}! Välj matkasse, leveransdag och leveransadress.
             </p>
-            <fieldset class="mb-6">
+            <label for="meal-kit" class="block text-gray-700 font-medium mb-2">Välj matkasse</label>
+            <select id="meal-kit" class="w-full rounded-lg border border-black bg-white px-3 py-1.5 text-gray-800 shadow-sm transition focus:border-green-500 focus:ring-4 focus:ring-green-100">
+              <option value="" disabled selected>Välj matkasse</option>
+              <option value="classic">Klassiska matkassen</option>
+              <option value="vegetarian">Vegetariska matkassen</option>
+              <option value="family">Familjematkassen</option>
+            </select>
+            <label for="delivery-day" class="mt-4 block text-gray-700 font-medium mb-2">Leveransdag</label>
+            <select id="delivery-day" class="w-full rounded-lg border border-black bg-white px-3 py-1.5 text-gray-800 shadow-sm transition focus:border-green-500 focus:ring-4 focus:ring-green-100">
+              <option value="" disabled selected>Välj veckodag</option>
+              <option>Måndag</option>
+              <option>Tisdag</option>
+              <option>Onsdag</option>
+              <option>Torsdag</option>
+              <option>Fredag</option>
+              <option>Lördag</option>
+              <option>Söndag</option>
+            </select>
+            <fieldset class="mt-6">
               <legend class="text-gray-700 font-medium mb-2">Leveransadress</legend>
               <label class="flex items-start gap-3 py-2 cursor-pointer">
                 <input v-model="deliveryAddressType" type="radio" name="delivery-address" value="wallet" class="mt-1 text-green-600 focus:ring-green-500">
@@ -147,24 +157,6 @@ SPDX-License-Identifier: EUPL-1.2
                 <p class="text-xs text-gray-500">Den här leveransadressen anges av dig och hämtas inte från plånboken.</p>
               </div>
             </fieldset>
-            <label for="meal-kit" class="block text-gray-700 font-medium mb-2">Välj matkasse</label>
-            <select id="meal-kit" class="w-full rounded-lg border border-black bg-white px-3 py-1.5 text-gray-800 shadow-sm transition focus:border-green-500 focus:ring-4 focus:ring-green-100">
-              <option value="" disabled selected>Välj matkasse</option>
-              <option value="classic">Klassiska matkassen</option>
-              <option value="vegetarian">Vegetariska matkassen</option>
-              <option value="family">Familjematkassen</option>
-            </select>
-            <label for="delivery-day" class="mt-4 block text-gray-700 font-medium mb-2">Leveransdag</label>
-            <select id="delivery-day" class="w-full rounded-lg border border-black bg-white px-3 py-1.5 text-gray-800 shadow-sm transition focus:border-green-500 focus:ring-4 focus:ring-green-100">
-              <option value="" disabled selected>Välj veckodag</option>
-              <option>Måndag</option>
-              <option>Tisdag</option>
-              <option>Onsdag</option>
-              <option>Torsdag</option>
-              <option>Fredag</option>
-              <option>Lördag</option>
-              <option>Söndag</option>
-            </select>
             <button type="button" class="mt-6 w-full rounded-xl bg-gradient-to-r from-green-600 to-emerald-600 px-6 py-3 font-semibold text-white shadow-lg transition hover:-translate-y-0.5 hover:from-green-700 hover:to-emerald-700 hover:shadow-xl focus:outline-none focus:ring-4 focus:ring-green-200">
               Boka
             </button>

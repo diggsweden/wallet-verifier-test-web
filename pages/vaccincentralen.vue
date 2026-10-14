@@ -97,18 +97,10 @@ SPDX-License-Identifier: EUPL-1.2
 
         <div v-else-if="state === 'success'" class="text-center">
           <div class="mb-8">
-            <div class="relative inline-flex">
-              <div class="absolute inset-0 bg-green-500 rounded-full opacity-20"></div>
-              <div class="relative inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-green-400 to-green-600 rounded-full shadow-lg">
-                <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path>
-                </svg>
-              </div>
-            </div>
-            <h3 class="text-2xl font-bold text-gray-800 mt-6 mb-2">Välkommen {{ credentials.given_name}}!</h3>
+            <h3 class="text-2xl font-bold text-gray-800 mb-2">Välkommen {{ credentials.given_name}}!</h3>
           </div>
 
-          <div class="max-w-md mx-auto mb-8 text-left">
+          <div class="max-w-md mx-auto text-left">
             <div class="mb-8 border-y border-gray-200 py-3">
               <div class="grid grid-cols-3 gap-2 text-center text-xs font-semibold leading-tight sm:text-sm">
                 <span class="text-pink-600">1. Välj behandling</span>
@@ -142,8 +134,11 @@ SPDX-License-Identifier: EUPL-1.2
               </div>
             </div>
 
-            <button type="button" class="mt-6 w-full rounded-xl bg-gradient-to-r from-pink-500 to-red-600 px-6 py-3 font-semibold text-white shadow-lg transition hover:-translate-y-0.5 hover:from-pink-600 hover:to-red-700 hover:shadow-xl focus:outline-none focus:ring-4 focus:ring-pink-200">
-              Se lediga tider →
+            <button type="button" class="group mt-6 inline-flex items-center justify-center w-full rounded-xl bg-gradient-to-r from-pink-500 to-red-600 px-6 py-3 font-semibold text-white shadow-lg transition hover:-translate-y-0.5 hover:from-pink-600 hover:to-red-700 hover:shadow-xl focus:outline-none focus:ring-4 focus:ring-pink-200">
+              <span>Se lediga tider</span>
+              <svg class="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+              </svg>
             </button>
 
             <details class="group mt-4 text-left">
