@@ -4,6 +4,7 @@
 
 import { randomUUID } from "crypto";
 import { createLogger } from "~/server/utils/logger";
+import { serviceConfigs } from "../../shared/utils/serviceConfig";
 
 export default defineEventHandler(async (event) => {
   const config = useRuntimeConfig();
@@ -49,7 +50,7 @@ export default defineEventHandler(async (event) => {
       },
       nonce: randomUUID(),
       request_uri_method: "get",
-      response_mode: "direct_post",
+      response_mode: serviceConfigs.vaccincentralen.response_mode,
       intended_use_id: "1",
     };
 
