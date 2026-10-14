@@ -113,6 +113,8 @@ SPDX-License-Identifier: EUPL-1.2
             </span>
           </div>
         </div>
+
+      <ServiceConfigOverview class="mt-8" />
     </div>
   </div>
 </template>
