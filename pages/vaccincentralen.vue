@@ -104,8 +104,8 @@ SPDX-License-Identifier: EUPL-1.2
             <div class="mb-8 border-y border-gray-200 py-3">
               <div class="grid grid-cols-3 gap-2 text-center text-xs font-semibold leading-tight sm:text-sm">
                 <span class="text-pink-600">1. Välj behandling</span>
-                <span class="text-gray-400">2. Välj tid</span>
-                <span class="text-gray-400">3. Boka</span>
+                <span class="text-gray-600">2. Välj tid</span>
+                <span class="text-gray-600">3. Boka</span>
               </div>
             </div>
 
@@ -142,7 +142,7 @@ SPDX-License-Identifier: EUPL-1.2
             </button>
 
             <details class="group mt-4 text-left">
-              <summary class="list-none cursor-pointer px-1 py-2 text-xs text-gray-400 transition hover:text-gray-500">
+              <summary class="list-none cursor-pointer px-1 py-2 text-xs text-gray-600 transition hover:text-gray-800">
                 <span class="group-open:hidden">↓</span><span class="hidden group-open:inline">→</span>
                 Uppgifter från plånboken
               </summary>
@@ -150,15 +150,15 @@ SPDX-License-Identifier: EUPL-1.2
                 <table class="w-full text-sm">
                   <tbody>
                     <tr class="border-b border-gray-200">
-                      <th scope="row" class="py-3 pr-4 text-left font-medium text-gray-500">Förnamn</th>
+                      <th scope="row" class="py-3 pr-4 text-left font-medium text-gray-600">Förnamn</th>
                       <td class="py-3 text-right font-semibold text-gray-800">{{ credentials.given_name }}</td>
                     </tr>
                     <tr class="border-b border-gray-200">
-                      <th scope="row" class="py-3 pr-4 text-left font-medium text-gray-500">Efternamn</th>
+                      <th scope="row" class="py-3 pr-4 text-left font-medium text-gray-600">Efternamn</th>
                       <td class="py-3 text-right font-semibold text-gray-800">{{ credentials.family_name }}</td>
                     </tr>
                     <tr>
-                      <th scope="row" class="py-3 pr-4 text-left font-medium text-gray-500">Personnummer</th>
+                      <th scope="row" class="py-3 pr-4 text-left font-medium text-gray-600">Personnummer</th>
                       <td class="py-3 text-right font-semibold text-gray-800 font-mono">{{ credentials.personal_administrative_number }}</td>
                     </tr>
                   </tbody>
@@ -166,7 +166,7 @@ SPDX-License-Identifier: EUPL-1.2
               </div>
             </details>
 
-            <p class="mt-4 text-center text-xs text-gray-400">
+            <p class="mt-4 text-center text-xs text-gray-600">
               Endast exempel, ingen verklig tid kan bokas
             </p>
           </div>

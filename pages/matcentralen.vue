@@ -127,8 +127,8 @@ SPDX-License-Identifier: EUPL-1.2
                 <input v-model="deliveryAddressType" type="radio" name="delivery-address" value="wallet" class="mt-1 text-green-600 focus:ring-green-500">
                 <span>
                   <span class="block text-gray-800">Adressen från min plånbok</span>
-                  <span class="block text-sm text-gray-500">{{ credentials.given_name }} {{ credentials.family_name }}</span>
-                  <span class="block text-sm text-gray-500">{{ credentials.street_address }}, {{ credentials.postal_code }} {{ credentials.locality }}</span>
+                  <span class="block text-sm text-gray-600">{{ credentials.given_name }} {{ credentials.family_name }}</span>
+                  <span class="block text-sm text-gray-600">{{ credentials.street_address }}, {{ credentials.postal_code }} {{ credentials.locality }}</span>
                 </span>
               </label>
               <label class="flex items-center gap-3 py-2 cursor-pointer">
@@ -154,7 +154,7 @@ SPDX-License-Identifier: EUPL-1.2
                     <input id="delivery-locality" v-model="alternativeDeliveryAddress.locality" autocomplete="shipping address-level2" class="w-full rounded-lg border border-black px-3 py-1.5 text-gray-800 focus:border-green-500 focus:ring-green-100">
                   </div>
                 </div>
-                <p class="text-xs text-gray-500">Den här leveransadressen anges av dig och hämtas inte från plånboken.</p>
+                <p class="text-xs text-gray-600">Den här leveransadressen anges av dig och hämtas inte från plånboken.</p>
               </div>
             </fieldset>
             <button type="button" class="mt-6 w-full rounded-xl bg-gradient-to-r from-green-600 to-emerald-600 px-6 py-3 font-semibold text-white shadow-lg transition hover:-translate-y-0.5 hover:from-green-700 hover:to-emerald-700 hover:shadow-xl focus:outline-none focus:ring-4 focus:ring-green-200">
@@ -164,7 +164,7 @@ SPDX-License-Identifier: EUPL-1.2
 
           <div class="max-w-md mx-auto text-left">
             <details class="group mt-4">
-              <summary class="list-none cursor-pointer px-1 py-2 text-xs text-gray-400 transition hover:text-gray-500">
+              <summary class="list-none cursor-pointer px-1 py-2 text-xs text-gray-600 transition hover:text-gray-800">
                 <span class="group-open:hidden">↓</span><span class="hidden group-open:inline">→</span>
                 Uppgifter från plånboken
               </summary>
@@ -172,38 +172,38 @@ SPDX-License-Identifier: EUPL-1.2
                 <table class="w-full text-sm">
                   <tbody>
                     <tr class="border-b border-gray-200">
-                      <th scope="row" class="py-3 pr-4 text-left font-medium text-gray-500">Förnamn</th>
+                      <th scope="row" class="py-3 pr-4 text-left font-medium text-gray-600">Förnamn</th>
                       <td class="py-3 text-right font-semibold text-gray-800">{{ credentials.given_name }}</td>
                     </tr>
                     <tr class="border-b border-gray-200">
-                      <th scope="row" class="py-3 pr-4 text-left font-medium text-gray-500">Efternamn</th>
+                      <th scope="row" class="py-3 pr-4 text-left font-medium text-gray-600">Efternamn</th>
                       <td class="py-3 text-right font-semibold text-gray-800">{{ credentials.family_name }}</td>
                     </tr>
                     <tr class="border-b border-gray-200">
-                      <th scope="row" class="py-3 pr-4 text-left font-medium text-gray-500">Födelsedatum</th>
+                      <th scope="row" class="py-3 pr-4 text-left font-medium text-gray-600">Födelsedatum</th>
                       <td class="py-3 text-right font-semibold text-gray-800">{{ credentials.birthdate }}</td>
                     </tr>
                     <tr class="border-b border-gray-200">
-                      <th scope="row" class="py-3 pr-4 text-left font-medium text-gray-500">Gatuadress</th>
+                      <th scope="row" class="py-3 pr-4 text-left font-medium text-gray-600">Gatuadress</th>
                       <td class="py-3 text-right font-semibold text-gray-800">{{ credentials.street_address }}</td>
                     </tr>
                     <tr class="border-b border-gray-200">
-                      <th scope="row" class="py-3 pr-4 text-left font-medium text-gray-500">Postnummer</th>
+                      <th scope="row" class="py-3 pr-4 text-left font-medium text-gray-600">Postnummer</th>
                       <td class="py-3 text-right font-semibold text-gray-800">{{ credentials.postal_code }}</td>
                     </tr>
                     <tr class="border-b border-gray-200">
-                      <th scope="row" class="py-3 pr-4 text-left font-medium text-gray-500">Ort</th>
+                      <th scope="row" class="py-3 pr-4 text-left font-medium text-gray-600">Ort</th>
                       <td class="py-3 text-right font-semibold text-gray-800">{{ credentials.locality }}</td>
                     </tr>
                     <tr>
-                      <th scope="row" class="py-3 pr-4 text-left font-medium text-gray-500">Land</th>
+                      <th scope="row" class="py-3 pr-4 text-left font-medium text-gray-600">Land</th>
                       <td class="py-3 text-right font-semibold text-gray-800">{{ credentials.country }}</td>
                     </tr>
                   </tbody>
                 </table>
               </div>
             </details>
-            <p class="mt-4 text-center text-xs text-gray-400">
+            <p class="mt-4 text-center text-xs text-gray-600">
               Endast exempel, ingen verklig matkasse kan bokas
             </p>
           </div>
