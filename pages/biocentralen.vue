@@ -38,6 +38,8 @@ SPDX-License-Identifier: EUPL-1.2
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
             </svg>
           </button>
+
+          <ServiceConfigAccordion service="biocentralen" />
         </div>
 
         <div v-else-if="state === 'initializing'" class="text-center py-12">

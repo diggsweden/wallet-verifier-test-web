@@ -27,10 +27,12 @@ COPY package*.json ./
 RUN npm ci --no-audit --no-fund
 
 # Copy source and build
+COPY components components
 COPY layouts layouts
 COPY pages pages
 COPY public public
 COPY server server
+COPY shared shared
 COPY utils utils
 COPY app.vue nuxt.config.ts tsconfig.json ./
 
