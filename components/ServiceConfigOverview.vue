@@ -4,7 +4,8 @@ SPDX-License-Identifier: EUPL-1.2
 -->
 
 <template>
-  <AccordionSection title="Konfiguration">
+  <AccordionSection title="Information för utvecklare">
+    <h4 class="text-sm font-medium text-gray-600 mb-2">Konfiguration</h4>
     <ConfigTable caption="Konfiguration per tjänst" :columns="columns" :rows="rows" />
   </AccordionSection>
 </template>
