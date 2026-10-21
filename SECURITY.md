@@ -11,15 +11,15 @@ If you wish to report a security vulnerability privately, we appreciate your dil
 To report a security vulnerability, please provide the following information:
 
 1. **PROJECT**
-    - Include the URL of the project repository - Example: <https://github.com/open-source-project-template>
+   - Include the URL of the project repository - Example: <https://github.com/open-source-project-template>
 
 2. **PUBLIC**
-    - Indicate whether this vulnerability has already been publicly discussed or disclosed.
-    - If so, provide relevant links.
+   - Indicate whether this vulnerability has already been publicly discussed or disclosed.
+   - If so, provide relevant links.
 
 3. **DESCRIPTION**
-    - Provide a detailed description of the security vulnerability.
-    - Include as much information as possible to help us understand and address the issue.
+   - Provide a detailed description of the security vulnerability.
+   - Include as much information as possible to help us understand and address the issue.
 
 Send this information, along with any additional relevant details, to <ospo@digg.se>.
 
@@ -48,15 +48,15 @@ Följ riktlinjerna nedan för att skicka in din rapport.
 För att rapportera en säkerhetssårbarhet, tillhandahåll följande:
 
 1. **PROJEKT**
-    - Inkludera URL:en till projektet.
+   - Inkludera URL:en till projektet.
 
 2. **OFFENTLIG SÅRBARHET**
-    - Ange om denna sårbarhet redan har diskuterats eller avslöjats offentligt.
-    - Om så är fallet, tillhandahåll relevanta länkar.
+   - Ange om denna sårbarhet redan har diskuterats eller avslöjats offentligt.
+   - Om så är fallet, tillhandahåll relevanta länkar.
 
 3. **BESKRIVNING**
-    - Ge en detaljerad beskrivning av säkerhetssårbarheten.
-    - Inkludera så mycket information som möjligt för att hjälpa oss förstå och åtgärda problemet.
+   - Ge en detaljerad beskrivning av säkerhetssårbarheten.
+   - Inkludera så mycket information som möjligt för att hjälpa oss förstå och åtgärda problemet.
 
 Skicka denna information, tillsammans med eventuella relevanta detaljer, till <ospo@digg.se>.
 
