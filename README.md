@@ -170,12 +170,12 @@ Path variables:
 
 ### Offline / Standalone Demo Mode (`?demo=true`)
 
-For frontend UI testing, demonstrations, or running the web application without live backend services (`wallet-ecosystem` / `refimpl-verifier-backend`), each demo page supports an offline bypass mode:
+For frontend UI testing, demonstrations, or running the web application without live backend services, each demo page supports an offline bypass mode:
 
 - Append `?demo=true` to the page URL (e.g., `/vaccincentralen?demo=true`, `/matcentralen?demo=true`, `/biocentralen?demo=true`).
 - Clicking the verification button simulates the flow:
   1. Sets state to `waiting` for 3 seconds.
-  2. Bypasses backend polling and returns pre-populated mock credentials for that specific scenario (e.g., Anna Andersson).
+  2. Bypasses backend polling and returns pre-populated mock credentials for that specific scenario.
   3. Transitions directly to the `success` presentation view.
 
 ### Add new relaying party demo page
