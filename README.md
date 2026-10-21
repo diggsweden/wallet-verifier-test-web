@@ -119,6 +119,7 @@ sequenceDiagram
         Frontend->>User: Show error message
     end
 ```
+
 ## Demo websites
 
 This app contains multiple demo-pages to illustrate different scenarios
@@ -163,8 +164,19 @@ This is a generic handler for poll requests called by the relaying party
 web page when waiting for the wallet request to be completed.
 
 Path variables:
-* site = name of the relaying party demo. Ex. "vaccincentralen"
-* id = id of the claims request
+
+- site = name of the relaying party demo. Ex. "vaccincentralen"
+- id = id of the claims request
+
+### Offline / Standalone Demo Mode (`?demo=true`)
+
+For frontend UI testing, demonstrations, or running the web application without live backend services, each demo page supports an offline bypass mode:
+
+- Append `?demo=true` to the page URL (e.g., `/vaccincentralen?demo=true`, `/matcentralen?demo=true`, `/biocentralen?demo=true`).
+- Clicking the verification button simulates the flow:
+  1. Sets state to `waiting` for 3 seconds.
+  2. Bypasses backend polling and returns pre-populated mock credentials for that specific scenario.
+  3. Transitions directly to the `success` presentation view.
 
 ### Add new relaying party demo page
 
@@ -189,6 +201,9 @@ server/api/verifier-status/<new-demo-site-name>-request.post.ts
 
 Update title, content and url references in the new xxx.vue file appropriate
 to the new-demo-site-name.
+
+Update the mock credentials inside the `if (window.location.search.includes('demo=true'))`
+block in the new `.vue` file to match the attributes expected by your scenario.
 
 Update the set of attributes to be claimed by changing the request object in the
 xxx-request.post.ts file. Expose/display the claimed attributes by add/edit
