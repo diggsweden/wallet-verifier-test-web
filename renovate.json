@@ -11,6 +11,9 @@
     "dockerfile",
     "docker-compose"
   ],
+  "npm": {
+    "postUpdateOptions": ["npmInstallTwice"]
+  },
   "packageRules": [
     {
       "description": "Node.js dependencies - Major updates",
