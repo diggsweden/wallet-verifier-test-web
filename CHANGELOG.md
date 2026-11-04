@@ -5,11 +5,33 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [0.1.18] - 2026-10-16
+## [0.1.19] - 2026-11-04
+
+### Changed
+
+- Merge pull request #172 from diggsweden/renovate/npm-happy-dom-vulnerability
+- Bump dependencies to avoid vulnerabilities
+- Update dependency happy-dom to v21 [security]
+- Merge pull request #173 from diggsweden/renovate/dev-dependencies
+- Sync package lock
+- Update dev dependencies
+- Merge pull request #170 from diggsweden/fix/renovate-npm-package-lock
+- Docs/document demo mode (#171)
+- Merge pull request #169 from diggsweden/renovate/dev-dependencies
+- Update dev dependencies
+
+### Fixed
+
+- Sync package lock
+- Configure renovate to run npm install twice
+- Sync npm package lock
+
+## [0.1.18] - 2026-10-19
 
 ### Changed
 
 - Use response mode direct_post.jwt
+
 
 ## [0.1.17] - 2026-10-14
 
@@ -554,6 +576,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Exclude false positive gitleak (#6)
 
+[0.1.19]: https://github.com/diggsweden/wallet-verifier-test-web/compare/v0.1.18..v0.1.19
 [0.1.18]: https://github.com/diggsweden/wallet-verifier-test-web/compare/v0.1.17..v0.1.18
 [0.1.17]: https://github.com/diggsweden/wallet-verifier-test-web/compare/v0.1.16..v0.1.17
 [0.1.16]: https://github.com/diggsweden/wallet-verifier-test-web/compare/v0.1.15..v0.1.16
