@@ -2,10 +2,20 @@
 //
 // SPDX-License-Identifier: EUPL-1.2
 
-import { parseVpToken } from "#server/utils/vpTokenParser";
+import { parseVpToken, parseVpTokenByQueryId } from "#server/utils/vpTokenParser";
 import { createLogger } from "~/server/utils/logger";
 
 const logger = createLogger("verifier-status");
+
+// Sites that request several credentials get one result per DCQL query id,
+// the others get a single merged result.
+const SITES_WITH_SEPARATE_CREDENTIALS = ["jobbcentralen"];
+
+function parseVerified(siteName: string | undefined, vpToken: any) {
+  return siteName && SITES_WITH_SEPARATE_CREDENTIALS.includes(siteName)
+    ? parseVpTokenByQueryId(vpToken)
+    : parseVpToken(vpToken);
+}
 
 export default defineEventHandler(async (event) => {
   const config = useRuntimeConfig();
@@ -47,7 +57,7 @@ export default defineEventHandler(async (event) => {
       );
 
       if (response && response.vp_token) {
-        const verifiedData = parseVpToken(response.vp_token);
+        const verifiedData = parseVerified(siteName, response.vp_token);
         const data = encodeURIComponent(JSON.stringify(verifiedData));
         return sendRedirect(
           event,
@@ -83,7 +93,7 @@ export default defineEventHandler(async (event) => {
     if (response && response.vp_token) {
       logger.info("Received VP Token", { transactionId, hasToken: true });
 
-      const verifiedData = parseVpToken(response.vp_token);
+      const verifiedData = parseVerified(siteName, response.vp_token);
 
       return {
         status: "completed",

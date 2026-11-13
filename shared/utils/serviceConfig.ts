@@ -15,12 +15,13 @@ export interface ServiceConfig {
   response_mode: ResponseMode;
 }
 
-export type ServiceName = "matcentralen" | "biocentralen" | "vaccincentralen";
+export type ServiceName = "matcentralen" | "biocentralen" | "vaccincentralen" | "jobbcentralen";
 
 export const serviceTitles: Record<ServiceName, string> = {
   matcentralen: "Matcentralen",
   biocentralen: "Biocentralen",
   vaccincentralen: "Vaccincentralen",
+  jobbcentralen: "Jobbcentralen",
 };
 
 export const configLabels: Record<keyof ServiceConfig, string> = {
@@ -31,6 +32,7 @@ export const serviceConfigs: Record<ServiceName, ServiceConfig> = {
   matcentralen: { response_mode: "direct_post.jwt" },
   biocentralen: { response_mode: "direct_post" },
   vaccincentralen: { response_mode: "direct_post" },
+  jobbcentralen: { response_mode: "direct_post" },
 };
 
 export const getConfigRows = (service: ServiceName) =>
