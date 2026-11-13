@@ -3,7 +3,7 @@
 // SPDX-License-Identifier: EUPL-1.2
 
 import { describe, it, expect } from "vitest";
-import { parseVpToken } from "~/server/utils/vpTokenParser";
+import { parseVpToken, parseVpTokenByQueryId } from "~/server/utils/vpTokenParser";
 
 const disclosureBirthdate = ["679abf7d", "birthdate", "1990-01-01"];
 const disclosureFamilyName = ["789abf7d", "family_name", "Andersson"];
@@ -140,5 +140,41 @@ describe("VP Token Parser", () => {
       };
       expect(() => parseVpToken(input)).toThrow("Invalid VP Token");
     });
+  });
+});
+
+describe("parseVpTokenByQueryId", () => {
+  it("keeps credentials apart per DCQL query id", () => {
+    const result = parseVpTokenByQueryId({
+      pid: [mockFamilyNameCredential],
+      learning: [mockBirthdateCredential],
+    });
+    expect(Object.keys(result).sort()).toEqual(["learning", "pid"]);
+    expect(result.pid.family_name).toBe("Andersson");
+    expect(result.pid.birthdate).toBeUndefined();
+    expect(result.learning.birthdate).toBe("1990-01-01");
+    expect(result.learning.family_name).toBeUndefined();
+  });
+
+  it("includes plain claims from the issuer JWT, but not registered ones", () => {
+    const payload = Buffer.from(
+      JSON.stringify({
+        iss: "https://issuer.example.com",
+        vct: "urn:example:learning:1",
+        iat: 1,
+        achievement_title: "Foundations",
+      }),
+    ).toString("base64url");
+    const token = `eyJhbGciOiJFUzI1NiJ9.${payload}.sig~${encodedDisclosureBirthdate}~`;
+    const result = parseVpTokenByQueryId({ learning: [token] });
+    expect(result.learning.achievement_title).toBe("Foundations");
+    expect(result.learning.birthdate).toBe("1990-01-01");
+    expect(result.learning.iat).toBeUndefined();
+    expect(parseVpToken([token]).achievement_title).toBeUndefined();
+  });
+
+  it("rejects a token that is not keyed by query id", () => {
+    expect(() => parseVpTokenByQueryId([mockBirthdateCredential])).toThrow();
+    expect(() => parseVpTokenByQueryId("abc")).toThrow();
   });
 });
