@@ -5,6 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.1.20] - 2026-11-16
+
+### Changed
+
+- Merge pull request #175 from diggsweden/renovate/vue-ecosystem
+- Update dependency vue-tsc to v3.3.14
+
+### Fixed
+
+- Sync package lock
+
 ## [0.1.19] - 2026-11-04
 
 ### Changed
@@ -25,6 +36,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Sync package lock
 - Configure renovate to run npm install twice
 - Sync npm package lock
+
 
 ## [0.1.18] - 2026-10-19
 
@@ -576,6 +588,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Exclude false positive gitleak (#6)
 
+[0.1.20]: https://github.com/diggsweden/wallet-verifier-test-web/compare/v0.1.19..v0.1.20
 [0.1.19]: https://github.com/diggsweden/wallet-verifier-test-web/compare/v0.1.18..v0.1.19
 [0.1.18]: https://github.com/diggsweden/wallet-verifier-test-web/compare/v0.1.17..v0.1.18
 [0.1.17]: https://github.com/diggsweden/wallet-verifier-test-web/compare/v0.1.16..v0.1.17
