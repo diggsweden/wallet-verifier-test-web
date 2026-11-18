@@ -24,6 +24,7 @@ const accents: Record<ServiceName, string> = {
   matcentralen: 'text-green-700 hover:text-green-800',
   biocentralen: 'text-purple-700 hover:text-purple-800',
   vaccincentralen: 'text-red-700 hover:text-red-800',
+  testcentralen: 'text-amber-700 hover:text-amber-800',
 }
 
 const rows = computed(() =>

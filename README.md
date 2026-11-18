@@ -178,6 +178,21 @@ For frontend UI testing, demonstrations, or running the web application without 
   2. Bypasses backend polling and returns pre-populated mock credentials for that specific scenario.
   3. Transitions directly to the `success` presentation view.
 
+### Testcentralen: expired registration certificate
+
+`/testcentralen` is a manual negative test for the wallet's error screen. It
+requests the PID birthdate using the backend intended use `expired-registration`.
+The wallet must reject the request before sharing any attributes and display an
+understandable error. Inspect that message in the wallet; the website does not
+infer a test result from a timeout or lack of a response.
+
+The verifier backend must configure that intended use with a correctly signed,
+expired registration JWT. `wallet-ecosystem` supplies the fixture and its PKI
+regeneration command. Deploy the ecosystem configuration before using this page.
+The existing centrals continue using intended use `1`.
+
+This page always uses the real backend, including when `?demo=true` is present.
+
 ### Add new relaying party demo page
 
 Any number of new relaying party demo pages can be added to this web app.

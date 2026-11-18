@@ -104,6 +104,17 @@ SPDX-License-Identifier: EUPL-1.2
         </NuxtLink>
       </div>
 
+      <NuxtLink
+        to="/testcentralen"
+        class="block bg-amber-50 rounded-xl border border-amber-300 p-6 mb-8 hover:bg-amber-100 transition-colors"
+      >
+        <h2 class="font-semibold text-amber-900 mb-2">Testcentralen – feltest</h2>
+        <p class="text-sm text-amber-900">
+          Kontrollera plånbokens felmeddelande för ett utgånget registreringscertifikat.
+          Förfrågan ska stoppas innan några uppgifter delas.
+        </p>
+      </NuxtLink>
+
       <div class="bg-white/80 backdrop-blur rounded-lg shadow-sm p-4 text-center">
         <div class="flex items-center justify-center space-x-2 text-sm">
             <div :class="status.online ? 'bg-green-500' : 'bg-red-500'" class="w-2 h-2 rounded-full animate-pulse"></div>

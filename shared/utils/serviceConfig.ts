@@ -13,24 +13,35 @@ export type ResponseMode = "direct_post" | "direct_post.jwt";
 
 export interface ServiceConfig {
   response_mode: ResponseMode;
+  intended_use_id: string;
 }
 
-export type ServiceName = "matcentralen" | "biocentralen" | "vaccincentralen";
+export type ServiceName =
+  | "matcentralen"
+  | "biocentralen"
+  | "vaccincentralen"
+  | "testcentralen";
 
 export const serviceTitles: Record<ServiceName, string> = {
   matcentralen: "Matcentralen",
   biocentralen: "Biocentralen",
   vaccincentralen: "Vaccincentralen",
+  testcentralen: "Testcentralen",
 };
 
 export const configLabels: Record<keyof ServiceConfig, string> = {
   response_mode: "Response mode",
+  intended_use_id: "Intended use ID",
 };
 
 export const serviceConfigs: Record<ServiceName, ServiceConfig> = {
-  matcentralen: { response_mode: "direct_post.jwt" },
-  biocentralen: { response_mode: "direct_post" },
-  vaccincentralen: { response_mode: "direct_post" },
+  matcentralen: { response_mode: "direct_post.jwt", intended_use_id: "1" },
+  biocentralen: { response_mode: "direct_post", intended_use_id: "1" },
+  vaccincentralen: { response_mode: "direct_post", intended_use_id: "1" },
+  testcentralen: {
+    response_mode: "direct_post",
+    intended_use_id: "expired-registration",
+  },
 };
 
 export const getConfigRows = (service: ServiceName) =>
