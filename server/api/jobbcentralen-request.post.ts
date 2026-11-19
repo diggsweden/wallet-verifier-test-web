@@ -31,21 +31,6 @@ export default defineEventHandler(async (event) => {
       dcql_query: {
         credentials: [
           {
-            id: "pid",
-            format: "dc+sd-jwt",
-            meta: {
-              vct_values: ["urn:eudi:pid:1"],
-            },
-            claims: [
-              {
-                path: ["family_name"],
-              },
-              {
-                path: ["given_name"],
-              },
-            ],
-          },
-          {
             id: "learning",
             format: "dc+sd-jwt",
             meta: {
@@ -71,7 +56,7 @@ export default defineEventHandler(async (event) => {
       nonce: randomUUID(),
       request_uri_method: "get",
       response_mode,
-      intended_use_id: "1",
+      intended_use_id: "2",
     };
 
     if (flow_type === "same_device") {
