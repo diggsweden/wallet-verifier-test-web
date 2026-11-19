@@ -97,49 +97,22 @@ SPDX-License-Identifier: EUPL-1.2
           </div>
         </div>
 
-        <div v-else-if="state === 'success' && !identityMatches" class="text-center">
-          <div class="inline-flex items-center justify-center w-20 h-20 bg-red-100 rounded-full mb-6">
-            <i class="fa-solid fa-triangle-exclamation text-red-600 text-3xl"></i>
-          </div>
-          <h3 class="text-xl font-semibold text-gray-800 mb-3">Intyget hör inte till dig</h3>
-          <div class="bg-red-50 border border-red-200 rounded-xl p-6 mb-8 max-w-md mx-auto text-left">
-            <p class="text-red-800 mb-3">
-              Namnet i din PID och namnet i intyget stämmer inte överens, så vi kan inte använda intyget.
-            </p>
-            <table class="w-full text-sm text-red-900">
-              <tbody>
-                <tr>
-                  <th scope="row" class="py-1 pr-4 text-left font-medium">PID</th>
-                  <td class="py-1 text-right font-semibold">{{ credentials.pid?.given_name }} {{ credentials.pid?.family_name }}</td>
-                </tr>
-                <tr>
-                  <th scope="row" class="py-1 pr-4 text-left font-medium">Intyg</th>
-                  <td class="py-1 text-right font-semibold">{{ credentials.learning?.given_name }} {{ credentials.learning?.family_name }}</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          <button @click="reset" class="inline-flex items-center px-8 py-3 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-xl hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-200">
-            Försök igen
-          </button>
-        </div>
-
         <div v-else-if="state === 'success'" class="text-center">
           <div class="mb-8">
-            <h3 class="text-2xl font-bold text-gray-800 mb-2">Välkommen {{ credentials.pid?.given_name }}!</h3>
+            <h3 class="text-2xl font-bold text-gray-800 mb-2">Välkommen {{ credentials.learning?.given_name }}!</h3>
           </div>
 
           <div class="max-w-md mx-auto text-left">
             <p class="text-gray-600 text-center mb-6">
-              Vi har tagit emot ditt intyg och ditt namn från PID, och kan visa jobb som passar din utbildning.
+              Vi har tagit emot ditt intyg och kan visa jobb som passar din utbildning.
             </p>
 
             <div class="rounded-xl border border-gray-200 bg-gray-50 px-4 py-2">
               <table class="w-full text-sm">
                 <tbody>
                   <tr class="border-b border-gray-200">
-                    <th scope="row" class="py-3 pr-4 text-left font-medium text-gray-600">Namn (ur PID)</th>
-                    <td class="py-3 text-right font-semibold text-gray-800">{{ credentials.pid?.given_name }} {{ credentials.pid?.family_name }}</td>
+                    <th scope="row" class="py-3 pr-4 text-left font-medium text-gray-600">Namn</th>
+                    <td class="py-3 text-right font-semibold text-gray-800">{{ credentials.learning?.given_name }} {{ credentials.learning?.family_name }}</td>
                   </tr>
                   <tr v-if="credentials.learning?.achievement_title" class="border-b border-gray-200">
                     <th scope="row" class="py-3 pr-4 text-left font-medium text-gray-600">Utbildning</th>
@@ -152,21 +125,6 @@ SPDX-License-Identifier: EUPL-1.2
                 </tbody>
               </table>
             </div>
-
-            <details class="group mt-4 text-left">
-              <summary class="list-none cursor-pointer px-1 py-2 text-xs text-gray-600 transition hover:text-gray-800">
-                Utfärdare och typ
-              </summary>
-              <div class="mt-1 rounded-xl border border-gray-200 bg-gray-50 px-4 py-2 text-xs font-mono break-all">
-                <p>PID iss: {{ credentials.pid?.issuer }}</p>
-                <p>Intyg iss: {{ credentials.learning?.issuer }}</p>
-                <p>Intyg vct: {{ credentials.learning?.vct }}</p>
-              </div>
-            </details>
-
-            <p class="mt-4 text-center text-xs text-gray-600">
-              Endast exempel, inga verkliga jobb visas
-            </p>
           </div>
         </div>
 
@@ -196,7 +154,6 @@ SPDX-License-Identifier: EUPL-1.2
 
 <script setup>
 import { createLogger } from '../utils/logger.client';
-import { namesMatch } from '~~/shared/utils/credentialNames';
 
 const logger = createLogger('jobbcentralen-page');
 const TIMELIMIT = 90;
@@ -205,9 +162,6 @@ const transactionId = ref(null)
 const qrcodeUrl = ref(null)
 const authUrl = ref(null)
 const credentials = ref(null)
-const identityMatches = computed(() =>
-  namesMatch(credentials.value?.pid, credentials.value?.learning),
-)
 const error = ref(null)
 const timeLeft = ref(TIMELIMIT)
 const polling = ref(null)
@@ -243,7 +197,7 @@ const startVerification = async () => {
     qrcodeUrl.value = '#demo'
     setTimeout(() => {
       state.value = 'success'
-      credentials.value = { pid: { given_name: 'Anna', family_name: 'Andersson' }, learning: { given_name: 'Anna', family_name: 'Andersson', achievement_title: 'Applied Sciences', assessment_grade: 'A' } }
+      credentials.value = { learning: { given_name: 'Anna', family_name: 'Andersson', achievement_title: 'Applied Sciences', assessment_grade: 'A' } }
     }, 3000)
     return
   }
