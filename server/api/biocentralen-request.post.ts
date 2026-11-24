@@ -6,7 +6,8 @@ import { randomUUID } from "crypto";
 import { createLogger } from "~/server/utils/logger";
 import { serviceConfigs } from "~~/shared/utils/serviceConfig";
 
-const { response_mode } = serviceConfigs.biocentralen;
+const { dcql_query, request_uri_method, response_mode } =
+  serviceConfigs.biocentralen;
 
 export default defineEventHandler(async (event) => {
   const config = useRuntimeConfig();
@@ -26,48 +27,11 @@ export default defineEventHandler(async (event) => {
 
   try {
     const verifyId = randomUUID();
-    const requestBody = {
+    const requestBody: Record<string, unknown> = {
       type: "vp_token",
-      dcql_query: {
-        credentials: [
-           {
-            id: "birthdate_credential",
-            format: "dc+sd-jwt",
-            meta: {
-              vct_values: ["urn:eudi:pid:1"],
-            },
-            claims: [
-              {
-                path: ["birthdate"],
-              },
-            ],
-          },
-          {
-            id: "family_name_credential",
-            format: "dc+sd-jwt",
-            meta: {
-              vct_values: ["urn:eudi:pid:1"],
-            },
-            claims: [
-              {
-                path: ["family_name"],
-              },
-            ],
-          }
-        ],
-        credential_sets: [
-          {
-            options: [["birthdate_credential"]],
-            required: true,
-          },
-          {
-            options: [["family_name_credential"]],
-            required: false,
-          },
-        ],
-      },
+      dcql_query,
       nonce: randomUUID(),
-      request_uri_method: "get",
+      request_uri_method,
       response_mode,
       intended_use_id: "1",
     };
@@ -91,7 +55,10 @@ export default defineEventHandler(async (event) => {
       ignoreHTTPSErrors: true,
     });
 
-    logger.info("Request successful", { verifyId, transactionId: response.transaction_id });
+    logger.info("Request successful", {
+      verifyId,
+      transactionId: response.transaction_id,
+    });
 
     const storage = useStorage("memory");
     await storage.setItem(`verify:${verifyId}`, {
@@ -112,7 +79,8 @@ export default defineEventHandler(async (event) => {
         : undefined;
 
     logger.error("Verifier request failed", {
-      "exception.message": error instanceof Error ? error.message : String(error),
+      "exception.message":
+        error instanceof Error ? error.message : String(error),
       "http.response.status_code": responseStatus,
       "url.full": presentationUrl,
       "response.body": error.data ? JSON.stringify(error.data) : "No data",

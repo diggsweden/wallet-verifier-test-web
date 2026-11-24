@@ -15,8 +15,8 @@ SPDX-License-Identifier: EUPL-1.2
       </thead>
       <tbody>
         <tr v-for="row in rows" :key="row.key" class="odd:bg-gray-50">
-          <th scope="row" class="py-2 px-4 font-medium text-gray-600 whitespace-nowrap">{{ row.label }}</th>
-          <td v-for="(value, i) in row.values" :key="columns[i]" class="py-2 px-4 font-mono text-gray-800 whitespace-nowrap">{{ value }}</td>
+          <th scope="row" class="py-2 px-4 font-medium text-gray-600 whitespace-nowrap align-top">{{ row.label }}</th>
+          <td v-for="(value, i) in row.values" :key="columns[i]" class="py-2 px-4 font-mono text-gray-800 break-words align-top">{{ value }}</td>
         </tr>
       </tbody>
     </table>
