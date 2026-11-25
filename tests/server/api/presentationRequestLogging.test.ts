@@ -20,6 +20,11 @@ const handlerCases = [
     modulePath: "~/server/api/matcentralen-request.post",
     loggerTag: "matcentralen-request",
   },
+  {
+    route: "jobbcentralen",
+    modulePath: "~/server/api/jobbcentralen-request.post",
+    loggerTag: "jobbcentralen-request",
+  },
 ] as const;
 
 describe("presentation request failure logging", () => {
