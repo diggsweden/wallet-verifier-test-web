@@ -10,10 +10,6 @@ describe("verifier-status API endpoint", () => {
     vi.unstubAllGlobals();
     vi.spyOn(console, "log").mockImplementation(() => {});
 
-    delete process.env.VERIFIER_BACKEND_VERSION;
-    delete process.env.VERIFIER_CLIENTIDPREFIX;
-    delete process.env.VERIFIER_JAR_SIGNING_ALGORITHM;
-    delete process.env.VERIFIER_VALIDATION_SDJWTVC_STATUSCHECK_ENABLED;
     delete process.env.WALLET_URL;
     delete process.env.PUBLIC_BASE_URL;
 
@@ -38,19 +34,12 @@ describe("verifier-status API endpoint", () => {
     expect(result.status).toBe("online");
     expect(result.config).toEqual({
       backendVersion: "0.12.0",
-      clientIdScheme: "x509_san_dns",
-      jarSigningAlgorithm: "ES256",
-      statusCheckEnabled: "false",
       walletUrl: "openid4vp://",
       baseUrl: "https://localhost/refimpl-verifier-backend",
     });
   });
 
-  it("returns environment overrides in config even when backend is offline", async () => {
-    process.env.VERIFIER_BACKEND_VERSION = "v0.8.0";
-    process.env.VERIFIER_CLIENTIDPREFIX = "x509_san_dns";
-    process.env.VERIFIER_JAR_SIGNING_ALGORITHM = "ES256";
-    process.env.VERIFIER_VALIDATION_SDJWTVC_STATUSCHECK_ENABLED = "true";
+  it("returns unknown backendVersion and runtime environment values when backend is offline", async () => {
     process.env.WALLET_URL = "eudi-openid4vp://";
     process.env.PUBLIC_BASE_URL = "https://verifier.example.se";
 
@@ -61,10 +50,7 @@ describe("verifier-status API endpoint", () => {
 
     expect(result.status).toBe("offline");
     expect(result.config).toEqual({
-      backendVersion: "v0.8.0",
-      clientIdScheme: "x509_san_dns",
-      jarSigningAlgorithm: "ES256",
-      statusCheckEnabled: "true",
+      backendVersion: "okänd",
       walletUrl: "eudi-openid4vp://",
       baseUrl: "https://verifier.example.se",
     });

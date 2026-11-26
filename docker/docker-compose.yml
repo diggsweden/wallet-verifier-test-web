@@ -63,9 +63,6 @@ services:
       NUXT_PUBLIC_BASE_URL: "${NGROK_URL:-http://localhost:8000}"
       PUBLIC_BASE_URL: "${NGROK_URL:-http://localhost:8000}"
       WALLET_URL: "eudi-openid4vp://"
-      VERIFIER_CLIENTIDPREFIX: "x509_san_dns"
-      VERIFIER_JAR_SIGNING_ALGORITHM: "ES256"
-      VERIFIER_VALIDATION_SDJWTVC_STATUSCHECK_ENABLED: "false"
       LOG_LEVEL: "${LOG_LEVEL:-info}"
     depends_on:
       - eudi-verifier-backend

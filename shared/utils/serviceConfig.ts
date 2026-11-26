@@ -42,9 +42,6 @@ export interface ServiceConfig {
 
 export interface BackendEnvConfig {
   backendVersion: string;
-  clientIdScheme: string;
-  jarSigningAlgorithm: string;
-  statusCheckEnabled: string;
   walletUrl: string;
   baseUrl: string;
 }
@@ -172,9 +169,6 @@ export const configLabels: Record<DisplayConfigKey, string> = {
 
 export const backendConfigLabels: Record<keyof BackendEnvConfig, string> = {
   backendVersion: "Backend-version",
-  clientIdScheme: "Client ID scheme",
-  jarSigningAlgorithm: "JAR signeringsalgoritm",
-  statusCheckEnabled: "Statuskontroll (SD-JWT VC)",
   walletUrl: "Förväntat wallet-URL-schema",
   baseUrl: "Bas-URL (verifierare)",
 };

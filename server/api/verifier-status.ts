@@ -20,15 +20,7 @@ function buildBackendConfig(
     "http://localhost:3002";
 
   return {
-    backendVersion:
-      openApiVersion || process.env.VERIFIER_BACKEND_VERSION || "okänd",
-    clientIdScheme: process.env.VERIFIER_CLIENTIDPREFIX || "x509_san_dns",
-    jarSigningAlgorithm:
-      process.env.VERIFIER_JAR_SIGNING_ALGORITHM ||
-      process.env.VERIFIER_ACCESS_CERTIFICATE_SIGNING_ALGORITHM ||
-      "ES256",
-    statusCheckEnabled:
-      process.env.VERIFIER_VALIDATION_SDJWTVC_STATUSCHECK_ENABLED || "false",
+    backendVersion: openApiVersion || "okänd",
     walletUrl: String(walletUrl),
     baseUrl: String(baseUrl),
   };

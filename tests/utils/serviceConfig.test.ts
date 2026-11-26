@@ -79,9 +79,6 @@ describe("ServiceConfigAccordion and ServiceConfigOverview components", () => {
       props: {
         backendConfig: {
           backendVersion: "0.12.0",
-          clientIdScheme: "x509_san_dns",
-          jarSigningAlgorithm: "ES256",
-          statusCheckEnabled: "false",
           walletUrl: "openid4vp://",
           baseUrl: "https://localhost/demo-verifier",
         },
@@ -96,7 +93,6 @@ describe("ServiceConfigAccordion and ServiceConfigOverview components", () => {
     expect(text).toContain("personal_administrative_number");
     expect(text).toContain("Visa konfiguration för Verifier Backend");
     expect(text).toContain("0.12.0");
-    expect(text).toContain("x509_san_dns");
-    expect(text).toContain("ES256");
+    expect(text).toContain("openid4vp://");
   });
 });
