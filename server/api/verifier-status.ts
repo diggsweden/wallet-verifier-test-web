@@ -9,10 +9,7 @@ function buildBackendConfig(
   runtimeConfig: ReturnType<typeof useRuntimeConfig>,
   openApiVersion?: string,
 ): BackendEnvConfig {
-  const walletUrl =
-    process.env.WALLET_URL ||
-    runtimeConfig?.public?.walletUrl ||
-    "openid4vp://";
+  const walletUrl = runtimeConfig?.public?.walletUrl || "openid4vp://";
   const baseUrl =
     process.env.PUBLIC_BASE_URL ||
     process.env.NUXT_PUBLIC_BASE_URL ||

@@ -10,16 +10,11 @@ describe("verifier-status API endpoint", () => {
     vi.unstubAllGlobals();
     vi.spyOn(console, "log").mockImplementation(() => {});
 
-    delete process.env.WALLET_URL;
     delete process.env.PUBLIC_BASE_URL;
+     delete process.env.NUXT_PUBLIC_WALLET_URL;
 
     vi.stubGlobal("defineEventHandler", (handler: unknown) => handler);
-    vi.stubGlobal("useRuntimeConfig", () => ({
-      public: {
-        hostApi: "https://localhost/refimpl-verifier-backend",
-        walletUrl: "openid4vp://",
-      },
-    }));
+    useRuntimeConfig().public.walletUrl = "openid4vp://";
   });
 
   it("returns online status, openapi metadata, and derived backend config", async () => {
@@ -39,9 +34,9 @@ describe("verifier-status API endpoint", () => {
     });
   });
 
-  it("returns unknown backendVersion and runtime environment values when backend is offline", async () => {
-    process.env.WALLET_URL = "eudi-openid4vp://";
+  it("returns unknown backendVersion and runtimeConfig walletUrl when backend is offline", async () => {
     process.env.PUBLIC_BASE_URL = "https://verifier.example.se";
+    useRuntimeConfig().public.walletUrl = "eudi-openid4vp://";
 
     vi.stubGlobal("$fetch", vi.fn().mockRejectedValue(new Error("Connection refused")));
 
