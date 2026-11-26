@@ -45,6 +45,17 @@ describe("serviceConfig display values", () => {
     expect(values.optional_claims).toBe("–");
   });
 
+  it("extracts learning credential vct and claims for jobbcentralen", () => {
+    const values = getServiceDisplayValues("jobbcentralen");
+
+    expect(values.response_mode).toBe("direct_post");
+    expect(values.vct_values).toBe("urn:eu.europa.ec.eudi:learning:credential:1");
+    expect(values.required_claims).toBe(
+      "family_name, given_name, achievement_title, assessment_grade",
+    );
+    expect(values.optional_claims).toBe("–");
+  });
+
   it("builds labeled rows for a service", () => {
     const rows = getConfigRows("vaccincentralen");
 
@@ -74,7 +85,7 @@ describe("ServiceConfigAccordion and ServiceConfigOverview components", () => {
     expect(text).not.toContain("Verifier Backend");
   });
 
-  it("renders all three services and collapsible Verifier Backend config in ServiceConfigOverview", () => {
+  it("renders all four services and collapsible Verifier Backend config in ServiceConfigOverview", () => {
     const wrapper = mount(ServiceConfigOverview, {
       props: {
         backendConfig: {
@@ -90,7 +101,9 @@ describe("ServiceConfigAccordion and ServiceConfigOverview components", () => {
     expect(text).toContain("Matcentralen");
     expect(text).toContain("Biocentralen");
     expect(text).toContain("Vaccincentralen");
+    expect(text).toContain("Jobbcentralen");
     expect(text).toContain("personal_administrative_number");
+    expect(text).toContain("achievement_title");
     expect(text).toContain("Visa konfiguration för Verifier Backend");
     expect(text).toContain("0.12.0");
     expect(text).toContain("openid4vp://");

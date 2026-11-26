@@ -48,4 +48,11 @@ describe("serviceConfig in presentation requests", () => {
     expect(body.response_mode).toBe("direct_post");
     expect(body.dcql_query).toEqual(serviceConfigs.vaccincentralen.dcql_query);
   });
+
+  it("jobbcentralen sends configured response_mode and dcql_query", async () => {
+    const body = await getSentRequestBody("~/server/api/jobbcentralen-request.post");
+
+    expect(body.response_mode).toBe("direct_post");
+    expect(body.dcql_query).toEqual(serviceConfigs.jobbcentralen.dcql_query);
+  });
 });

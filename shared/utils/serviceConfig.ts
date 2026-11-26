@@ -8,7 +8,11 @@
  */
 export type ResponseMode = "direct_post" | "direct_post.jwt";
 export type RequestUriMethod = "get" | "post";
-export type ServiceName = "matcentralen" | "biocentralen" | "vaccincentralen";
+export type ServiceName =
+  | "matcentralen"
+  | "biocentralen"
+  | "vaccincentralen"
+  | "jobbcentralen";
 
 export interface DcqlClaim {
   path: string[];
@@ -50,6 +54,7 @@ export const serviceTitles: Record<ServiceName, string> = {
   matcentralen: "Matcentralen",
   biocentralen: "Biocentralen",
   vaccincentralen: "Vaccincentralen",
+  jobbcentralen: "Jobbcentralen",
 };
 
 export const serviceConfigs: Record<ServiceName, ServiceConfig> = {
@@ -143,6 +148,27 @@ export const serviceConfigs: Record<ServiceName, ServiceConfig> = {
             { path: ["family_name"] },
             { path: ["given_name"] },
             { path: ["personal_administrative_number"] },
+          ],
+        },
+      ],
+    },
+  },
+  jobbcentralen: {
+    response_mode: "direct_post",
+    request_uri_method: "get",
+    dcql_query: {
+      credentials: [
+        {
+          id: "learning",
+          format: "dc+sd-jwt",
+          meta: {
+            vct_values: ["urn:eu.europa.ec.eudi:learning:credential:1"],
+          },
+          claims: [
+            { path: ["family_name"] },
+            { path: ["given_name"] },
+            { path: ["achievement_title"] },
+            { path: ["assessment_grade"] },
           ],
         },
       ],
