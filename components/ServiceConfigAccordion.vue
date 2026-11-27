@@ -4,7 +4,7 @@ SPDX-License-Identifier: EUPL-1.2
 -->
 
 <template>
-  <AccordionSection title="Information för utvecklare" :button-class="accents[service]" class="mt-6 text-left max-w-md mx-auto">
+  <AccordionSection title="Information för utvecklare" :button-class="accents[service]" class="mt-6 text-left max-w-lg mx-auto">
     <h4 class="text-sm font-medium text-gray-600 mb-2">Konfiguration</h4>
     <ConfigTable
       :caption="`Konfiguration för ${serviceTitles[service]}`"
@@ -12,11 +12,23 @@ SPDX-License-Identifier: EUPL-1.2
       :rows="rows"
       hide-header
     />
+
+    <details class="mt-3 rounded-lg border border-gray-200 bg-white text-sm">
+      <summary class="cursor-pointer py-2 px-4 font-medium text-gray-600 hover:text-gray-800 select-none">
+        Visa rå dcql_query (JSON)
+      </summary>
+      <pre class="p-4 text-xs font-mono text-gray-800 bg-gray-50 overflow-x-auto border-t border-gray-200 rounded-b-lg">{{ formattedDcqlQuery }}</pre>
+    </details>
   </AccordionSection>
 </template>
 
 <script setup lang="ts">
-import { getConfigRows, serviceTitles, type ServiceName } from '~~/shared/utils/serviceConfig'
+import {
+  getConfigRows,
+  serviceConfigs,
+  serviceTitles,
+  type ServiceName,
+} from '~~/shared/utils/serviceConfig'
 
 const props = defineProps<{ service: ServiceName }>()
 
@@ -29,5 +41,9 @@ const accents: Record<ServiceName, string> = {
 
 const rows = computed(() =>
   getConfigRows(props.service).map(({ key, label, value }) => ({ key, label, values: [value] })),
+)
+
+const formattedDcqlQuery = computed(() =>
+  JSON.stringify(serviceConfigs[props.service].dcql_query, null, 2),
 )
 </script>

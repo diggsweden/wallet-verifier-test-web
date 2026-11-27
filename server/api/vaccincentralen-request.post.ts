@@ -6,7 +6,8 @@ import { randomUUID } from "crypto";
 import { createLogger } from "~/server/utils/logger";
 import { serviceConfigs } from "~~/shared/utils/serviceConfig";
 
-const { response_mode } = serviceConfigs.vaccincentralen;
+const { dcql_query, request_uri_method, response_mode } =
+  serviceConfigs.vaccincentralen;
 
 export default defineEventHandler(async (event) => {
   const config = useRuntimeConfig();
@@ -26,32 +27,11 @@ export default defineEventHandler(async (event) => {
 
   try {
     const verifyId = randomUUID();
-    const requestBody = {
+    const requestBody: Record<string, unknown> = {
       type: "vp_token",
-      dcql_query: {
-        credentials: [
-          {
-            id: "query_0",
-            format: "dc+sd-jwt",
-            meta: {
-              vct_values: ["urn:eudi:pid:1"],
-            },
-            claims: [
-              {
-                path: ["family_name"],
-              },
-              {
-                path: ["given_name"],
-              },
-              {
-                path: ["personal_administrative_number"],
-              },
-            ],
-          },
-        ],
-      },
+      dcql_query,
       nonce: randomUUID(),
-      request_uri_method: "get",
+      request_uri_method,
       response_mode,
       intended_use_id: "1",
     };
@@ -60,7 +40,7 @@ export default defineEventHandler(async (event) => {
       requestBody.wallet_response_redirect_uri_template = `${publicBaseUrl}/api/verifier-status/vaccincentralen/${verifyId}?response_code={RESPONSE_CODE}`;
     }
 
-    logger.info("Sending presentation request to verifier backend",  {
+    logger.info("Sending presentation request to verifier backend", {
       verifyId,
       flowType: flow_type,
       "url.full": presentationUrl,
@@ -74,7 +54,10 @@ export default defineEventHandler(async (event) => {
       ignoreHTTPSErrors: true,
     });
 
-    logger.info("Request successful", { verifyId, transactionId: response.transaction_id });
+    logger.info("Request successful", {
+      verifyId,
+      transactionId: response.transaction_id,
+    });
 
     const storage = useStorage("memory");
     await storage.setItem(`verify:${verifyId}`, {
@@ -95,7 +78,8 @@ export default defineEventHandler(async (event) => {
         : undefined;
 
     logger.error("Verifier request failed", {
-      "exception.message": error instanceof Error ? error.message : String(error),
+      "exception.message":
+        error instanceof Error ? error.message : String(error),
       "http.response.status_code": responseStatus,
       "url.full": presentationUrl,
       "response.body": error.data ? JSON.stringify(error.data) : "No data",

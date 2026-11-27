@@ -140,7 +140,7 @@ SPDX-License-Identifier: EUPL-1.2
           </div>
         </div>
 
-      <ServiceConfigOverview class="mt-8" />
+      <ServiceConfigOverview :backend-config="status.config" class="mt-8" />
     </div>
   </div>
 </template>
@@ -149,15 +149,15 @@ SPDX-License-Identifier: EUPL-1.2
 import { createLogger } from '../utils/logger.client';
 
 const logger = createLogger('index-page');
-const status = ref({ online: false, metadata: {} })
+const status = ref({ online: false, metadata: {}, config: null })
 
 onMounted(async () => {
   try {
-    const { status: s, metadata } = await global.$fetch('/api/verifier-status')
-    status.value = { online: s === 'online', metadata }
+    const { status: s, metadata, config } = await global.$fetch('/api/verifier-status')
+    status.value = { online: s === 'online', metadata, config: config ?? null }
   } catch (e) {
     logger.error('Failed to fetch verifier status', e)
-    status.value = { online: false, metadata: { error: 'Kunde inte hämta status' } }
+    status.value = { online: false, metadata: { error: 'Kunde inte hämta status' }, config: null }
   }
 })
 </script>
