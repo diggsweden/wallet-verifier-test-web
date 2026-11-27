@@ -78,7 +78,7 @@ describe("ServiceConfigAccordion and ServiceConfigOverview components", () => {
     });
 
     const text = wrapper.text();
-    expect(text).toContain("Konfiguration för denna tjänst");
+    expect(text).toContain("Information för utvecklare");
     expect(text).toContain("direct_post.jwt");
     expect(text).toContain("address.street_address");
     expect(text).toContain("Visa rå dcql_query (JSON)");

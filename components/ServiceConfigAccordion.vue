@@ -4,8 +4,8 @@ SPDX-License-Identifier: EUPL-1.2
 -->
 
 <template>
-  <AccordionSection title="Konfiguration för denna tjänst" :button-class="accents[service]" class="mt-6 text-left max-w-lg mx-auto">
-    <h4 class="text-sm font-medium text-gray-600 mb-2">Scenariokonfiguration</h4>
+  <AccordionSection title="Information för utvecklare" :button-class="accents[service]" class="mt-6 text-left max-w-lg mx-auto">
+    <h4 class="text-sm font-medium text-gray-600 mb-2">Konfiguration</h4>
     <ConfigTable
       :caption="`Konfiguration för ${serviceTitles[service]}`"
       :columns="[serviceTitles[service]]"
